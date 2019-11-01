@@ -1,0 +1,8 @@
+*.user
+*.aps
+*.pfx
+*.vs
+/ZuseMe/bin
+/ZuseMe/obj
+/ZuseMePlaying/Debug
+/ZuseMePlaying/Release

@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZuseMe", "ZuseMe\ZuseMe.csproj", "{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE} = {0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZuseMePlaying", "ZuseMePlaying\ZuneNowPlaying.vcxproj", "{0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ZuseMe32bit = Debug|ZuseMe32bit
+		Release|ZuseMe32bit = Release|ZuseMe32bit
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Debug|ZuseMe32bit.ActiveCfg = Debug|x86
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Debug|ZuseMe32bit.Build.0 = Debug|x86
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Release|ZuseMe32bit.ActiveCfg = Release|x86
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Release|ZuseMe32bit.Build.0 = Release|x86
+		{0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE}.Debug|ZuseMe32bit.ActiveCfg = Debug|Win32
+		{0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE}.Debug|ZuseMe32bit.Build.0 = Debug|Win32
+		{0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE}.Release|ZuseMe32bit.ActiveCfg = Release|Win32
+		{0BC98083-0C9E-4F8E-9BAE-422F4C6E64FE}.Release|ZuseMe32bit.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		$0.CSharpFormattingPolicy = $3
+		$0.ChangeLogPolicy = $5
+		$0.DotNetNamingPolicy = $1
+		$0.TextStylePolicy = $2
+		$0.VersionControlPolicy = $4
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$2.FileWidth = 120
+		$2.inheritsScope = text/plain
+		$2.inheritsSet = VisualStudio
+		$2.scope = text/x-csharp
+		$3.inheritsScope = text/x-csharp
+		$3.inheritsSet = Mono
+		$3.scope = text/x-csharp
+		$4.inheritsSet = Mono
+		$5.MessageStyle = $6
+		$5.UpdateMode = Nearest
+		$5.inheritsSet = Mono
+		$6.LineAlign = 0
+		Policies = $0
+		StartupItem = src\MusicBrainz\MusicBrainz.csproj
+		name = MusicBrainz
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties.Debug) = preSolution
+		$0.Test = $1
+		$1.Options = $2
+		$1.Path = 
+		$2.EnableFilter = False
+		$2.Exclude = False
+		$2.ctype = NUnitCategoryOptions
+		UnitTestInformation = $0
+	EndGlobalSection
+EndGlobal
