@@ -1,8 +1,10 @@
+bin
+obj
+debug
+release
+packages
+*.suo
 *.user
 *.aps
 *.pfx
 *.vs
-/ZuseMe/bin
-/ZuseMe/obj
-/ZuseMePlaying/Debug
-/ZuseMePlaying/Release
