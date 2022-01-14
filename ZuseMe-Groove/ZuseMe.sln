@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZuseMe", "ZuseMe\ZuseMe.csproj", "{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ZuseMe32bit = Debug|ZuseMe32bit
+		Release|Any CPU = Release|Any CPU
+		Release|ZuseMe32bit = Release|ZuseMe32bit
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Debug|ZuseMe32bit.ActiveCfg = Debug|Any CPU
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DAB9A70-50E8-43DB-9EB4-74F2B161159F}.Release|ZuseMe32bit.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C393C18B-E1D6-440B-80BB-C7D1ECA21716}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		$0.CSharpFormattingPolicy = $3
+		$0.ChangeLogPolicy = $5
+		$0.DotNetNamingPolicy = $1
+		$0.TextStylePolicy = $2
+		$0.VersionControlPolicy = $4
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$2.FileWidth = 120
+		$2.inheritsScope = text/plain
+		$2.inheritsSet = VisualStudio
+		$2.scope = text/x-csharp
+		$3.inheritsScope = text/x-csharp
+		$3.inheritsSet = Mono
+		$3.scope = text/x-csharp
+		$4.inheritsSet = Mono
+		$5.MessageStyle = $6
+		$5.UpdateMode = Nearest
+		$5.inheritsSet = Mono
+		$6.LineAlign = 0
+		Policies = $0
+		StartupItem = src\MusicBrainz\MusicBrainz.csproj
+		name = MusicBrainz
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties.Debug) = preSolution
+		$0.Test = $1
+		$1.Options = $2
+		$1.Path = 
+		$2.EnableFilter = False
+		$2.Exclude = False
+		$2.ctype = NUnitCategoryOptions
+		UnitTestInformation = $0
+	EndGlobalSection
+EndGlobal
