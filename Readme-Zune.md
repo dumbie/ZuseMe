@@ -1,21 +1,28 @@
 ## Application description
-ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music and Media Player (Windows 11)
+Zune Desktop Software scobbling for Last.fm client.
 
 ## Installation Instructions
-1) Install the Last.fm client v2.1.37 and login to your account.
-2) Extract the ZuseMe directory to any directory you want.
-3) Launch ZuseMe.exe (Runs hidden in the background and tray menu)
-4) Have fun scrobbling!
+1) Install the latest Zune Desktop Software.
+2) Install the Last.fm client and login to your account.
+3) Make sure that you installed the requirements found below.
+4) Extract the ZuseMe directory to any directory you want.
+5) Launch ZuseMe.exe (Runs hidden in the background and tray menu)
+6) Have fun scrobbling with the Zune Desktop Software and Last.fm client.
 
 ## Tips and tricks
+- Closing the Zune Desktop Software will send a stop scrobble command to the Last.fm client.
+- If your last.fm client doesn't receive your currently playing song run ZuseMe as administrator.
 - Place a ZuseMe shortcut in your Windows startup folder for easier scrobbling.
+- ZuseMe works with all your devices connected (Zune HD, WP7, etc) and also works with a Zunepass.
+- Play/Pause only works when you turn on the keyboard media keys button setting.
+- Right mouse click on the ZuseMe tray icon to open the settings window.
+- ZuseMe scrobbles the artist name tag, not the album artist name tag.
 
 ## Requirements
 - Last.fm client v2.1.37 - Download: https://github.com/dumbie/ZuseMe/releases
-
-## Tested players
-- Media Player (Windows 11)
-- Groove Music
+- Zune Desktop Software v4.8.2345 - Download: https://github.com/dumbie/ZuseMe/releases
+- .NET Framework 4 - Download: https://www.microsoft.com/en-us/download/details.aspx?id=17718
+- Visual C++ 2010 x86 (Fixes dll errors) - Download: https://www.microsoft.com/en-us/download/details.aspx?id=26999
 
 ## Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.
@@ -23,10 +30,12 @@ When you are walking into any problems or a bug you can go to my help page at ht
 ## Developer donation
 If you appreciate this project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
-## Changelog
-v2.0.0.0 (12-January-2022)
-- Added support for Groove Music and Media Player (Windows 11)
+## Special thanks
+- ZuneNowPlaying - ZenWalker
+- Zuse - Zach Howe (Zmanfx)
+- MusicBrainz.org
 
+## Changelog
 v1.81 (28-october-2012)
 - Added support for Last.fm Scrobbler v2.1.*
 
