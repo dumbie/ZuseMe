@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Windows.Media;
 using Windows.Media.Control;
@@ -63,10 +64,12 @@ namespace ZuseMe
                         }
 
                         //Check media status
+                        string mediaSecondsCurrentString = string.Empty;
                         if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                         {
                             MediaPlayingSeconds++;
                             Console.WriteLine("Media is currently playing for " + MediaPlayingSeconds + " seconds.");
+                            mediaSecondsCurrentString = MediaPlayingSeconds.ToString();
                             LastFMSend.Resume();
                         }
                         else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
@@ -112,19 +115,19 @@ namespace ZuseMe
                         }
 
                         //Load media tracknumber
-                        int mediaTracknumber = mediaProperties.TrackNumber;
+                        string mediaTracknumber = mediaProperties.TrackNumber.ToString();
 
                         //Load media duration
-                        int mediaDurationSecondsInt = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
-                        if (mediaDurationSecondsInt <= 0)
+                        int mediaSecondsTotalInt = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
+                        if (mediaSecondsTotalInt <= 0)
                         {
-                            mediaDurationSecondsInt = int.Parse(ConfigurationManager.AppSettings["TrackLengthDefault"]);
-                            Console.WriteLine("Unknown duration using default: " + mediaDurationSecondsInt);
+                            mediaSecondsTotalInt = Convert.ToInt32(ConfigurationManager.AppSettings["TrackLengthDefault"]);
+                            Console.WriteLine("Unknown duration using default: " + mediaSecondsTotalInt);
                         }
-                        string mediaDurationSeconds = mediaDurationSecondsInt.ToString();
+                        string mediaSecondsTotalString = mediaSecondsTotalInt.ToString();
 
                         //Check if media changed
-                        string mediaCombined = mediaArtist + mediaTitle + mediaAlbum + mediaTracknumber + mediaDurationSeconds + sourceApp;
+                        string mediaCombined = mediaArtist + mediaTitle + mediaAlbum + mediaTracknumber + mediaSecondsTotalString + sourceApp;
                         if (mediaCombined == MediaPrevious)
                         {
                             Console.WriteLine("Media not changed: " + mediaCombined);
@@ -133,15 +136,37 @@ namespace ZuseMe
 
                         //Send media to Last.fm client
                         Console.WriteLine("Media has changed: " + mediaCombined);
-                        LastFMSend.Start(mediaArtist, mediaTitle, mediaAlbum, string.Empty, mediaDurationSeconds, string.Empty);
+                        LastFMSend.Start(mediaArtist, mediaTitle, mediaAlbum, string.Empty, mediaSecondsTotalString, string.Empty);
                         MediaPrevious = mediaCombined;
 
                         //Load media image bitmap
                         BitmapFrame mediaImageBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
+
+                        //Update scrobble window
+                        Application.Current.Dispatcher.Invoke(delegate
+                        {
+                            try
+                            {
+                                AppVariables.WindowMain.textblock_PlayerDebug.Text = sourceApp;
+                                AppVariables.WindowMain.image_TrackCover.Source = mediaImageBitmap;
+
+                                AppVariables.WindowMain.textblock_TrackArtist.Text = mediaArtist;
+                                AppVariables.WindowMain.textblock_TrackTitle.Text = mediaTitle;
+                                AppVariables.WindowMain.textblock_TrackNumber.Text = "(" + mediaTracknumber + ") ";
+                                AppVariables.WindowMain.textblock_TrackAlbum.Text = mediaAlbum;
+
+                                AppVariables.WindowMain.textblock_TrackProgressCurrent.Text = Environment.TickCount.ToString();
+                                AppVariables.WindowMain.textblock_TrackProgressTotal.Text = mediaSecondsTotalString;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("Failed to update media window: " + ex.Message);
+                            }
+                        });
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Failed to update media information: " + ex.Message);
+                        Console.WriteLine("Failed to read media information: " + ex.Message);
                     }
                     finally
                     {

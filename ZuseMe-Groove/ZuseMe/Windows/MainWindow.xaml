@@ -1,0 +1,74 @@
+﻿<Window x:Class="ZuseMe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZuseMe"
+        mc:Ignorable="d"
+        FontSize="{StaticResource TextSizeInterface}"
+        Foreground="{StaticResource ApplicationBlackBrush}"
+        Background="{StaticResource ApplicationWhiteBrush}"
+        Title="ZuseMe"
+        MinHeight="350"
+        MaxHeight="350"
+        MinWidth="400"
+        MaxWidth="400">
+
+    <Grid>
+        <!-- Scrobble -->
+        <Grid Name="stackpanel_Scrobble" Margin="5">
+            <Image Name="image_PlayStatus" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/Assets/Stop.png"/>
+            <StackPanel>
+                <Image Width="200" Height="200" Name="image_TrackCover" Source="/Assets/Thumbnail.png"/>
+                <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Name="textblock_TrackNumber" Text="(0) "/>
+                    <TextBlock Name="textblock_TrackTitle" Text="Title"/>
+                </StackPanel>
+                <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center"/>
+
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ProgressBar Grid.Column="0" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="DarkGray" Margin="0,0,10,0" Height="10"/>
+                    <TextBlock Grid.Column="1" Name="textblock_TrackProgressCurrent" Text="0"/>
+                    <TextBlock Grid.Column="2" Name="textblock_TrackProgressDivider" Text="/"/>
+                    <TextBlock Grid.Column="3" Name="textblock_TrackProgressTotal" Text="0"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+        <!-- Settings -->
+        <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Unknown scrobble track length"/>
+                <TextBox Margin="5,0,5,0" Text="60"/>
+                <TextBlock Text="seconds"/>
+            </StackPanel>
+
+            <TextBlock Margin="0,10,0,0" Name="textblock_LoginName" Text="You are currently not linked to Last.fm."/>
+            <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentWhite}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
+            <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentWhite}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
+
+            <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" IsIndeterminate="True" Foreground="{StaticResource ApplicationAccentLightBrush}" Visibility="Collapsed"/>
+            <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete..." Visibility="Collapsed"/>
+
+            <TextBox Margin="0,10,0,0" Name="textblock_PlayerDebug" Style="{StaticResource TextBoxTransparentBlack}" Foreground="{StaticResource ApplicationGrayBrush}" IsReadOnly="True"/>
+        </StackPanel>
+
+        <!-- Menu -->
+        <StackPanel Name="stackpanel_Menu" Margin="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button Name="button_ShowScrobble" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ShowScrobble_Click"  ToolTip="Show scrobble" Visibility="Collapsed">
+                <Image Width="30" Height="30" Source="/Assets/Scrobble.png"/>
+            </Button>
+            <Button Name="button_ShowSettings" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ShowSettings_Click" ToolTip="Show settings">
+                <Image Width="30" Height="30" Source="/Assets/Settings.png"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
