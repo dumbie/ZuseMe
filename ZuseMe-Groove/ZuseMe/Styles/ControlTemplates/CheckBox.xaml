@@ -1,0 +1,40 @@
+﻿<ResourceDictionary
+    x:Class="ArnoldVinkCode.Styles.CheckBoxAccent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate x:Key="CheckBoxTemplateAccent" TargetType="{x:Type CheckBox}">
+        <StackPanel Orientation="Horizontal">
+            <Border x:Name="checkBoxBorder" Width="50" Height="24" Background="{DynamicResource ApplicationAccentLightBrush}" CornerRadius="12">
+                <Ellipse x:Name="checkBoxEllipse" VerticalAlignment="Center" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Width="20" Height="20" Fill="{DynamicResource ApplicationWhiteBrush}" Margin="3,0,3,0"/>
+            </Border>
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasContent" Value="True">
+                <Setter Property="Padding" Value="5,0,0,0"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.50"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource ApplicationAccentDimBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource ApplicationAccentDarkBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="HorizontalAlignment" TargetName="checkBoxEllipse" Value="Right"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+                <Setter Property="HorizontalAlignment" TargetName="checkBoxEllipse" Value="Left"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplateAccent}"/>
+    </Style>
+</ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
 using ZuseMe.Api;
 
@@ -24,17 +25,44 @@ namespace ZuseMe
                     button_ShowScrobble.Visibility = Visibility.Visible;
                     button_ShowSettings.Visibility = Visibility.Collapsed;
                 }
+
+                //Update Last.fm username
+                UpdateLastFMUsername();
             }
             catch { }
         }
 
-        private void button_StopScrobble_Click(object sender, RoutedEventArgs e)
+        public void UpdateLastFMUsername()
         {
             try
             {
-                LastFMSend.Stop();
+                string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
+                if (lastFMUsername == string.Empty)
+                {
+                    textblock_LoginName.Text = "You are currently not linked to Last.fm.";
+                }
+                else
+                {
+                    textblock_LoginName.Text = "You are currently linked to: " + lastFMUsername;
+                }
             }
             catch { }
+        }
+
+        private void button_OpenProfile_Click(object sender, RoutedEventArgs e)
+        {
+            string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
+            if (lastFMUsername == string.Empty)
+            {
+                stackpanel_Scrobble.Visibility = Visibility.Collapsed;
+                stackpanel_Settings.Visibility = Visibility.Visible;
+                button_ShowScrobble.Visibility = Visibility.Visible;
+                button_ShowSettings.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Process.Start(ApiVariables.UrlProfile + lastFMUsername);
+            }
         }
 
         private async void button_LinkLastFM_Click(object sender, RoutedEventArgs e)

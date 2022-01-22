@@ -12,27 +12,32 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Assets\ZuseMe.ico</ApplicationIcon>
@@ -75,15 +80,6 @@
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs">
       <Link>ArnoldVinkCode\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
       <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
     </Compile>
@@ -93,12 +89,21 @@
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
     </Compile>
+    <Compile Include="Api\ApiFunctions.cs" />
+    <Compile Include="Api\ApiScrobble.cs" />
     <Compile Include="Api\ApiAuth.cs" />
     <Compile Include="Api\ApiVariables.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
+    <Compile Include="Classes\AuthToken.cs" />
+    <Compile Include="Classes\SessionToken.cs" />
+    <Compile Include="MediaScrobble.cs" />
     <Compile Include="StartupCheck.cs" />
     <Page Include="Styles\ControlTemplates\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ControlTemplates\CheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -122,7 +127,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LastFMSend.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="AppTray.cs" />
     <Compile Include="Styles\MainStyles.xaml.cs">
@@ -139,7 +143,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
+    <Resource Include="Assets\Profile.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\ZuseMe.ico" />
@@ -159,6 +163,9 @@
     <Resource Include="Assets\Pause.png" />
     <Resource Include="Assets\Play.png" />
     <Resource Include="Assets\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Unknown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

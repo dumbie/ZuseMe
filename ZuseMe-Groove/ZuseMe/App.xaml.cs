@@ -2,13 +2,14 @@
 using System;
 using System.Configuration;
 using System.Windows;
+using ZuseMe.Api;
 
 namespace ZuseMe
 {
     public partial class App : Application
     {
         //Application Startup
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             try
             {
@@ -18,11 +19,14 @@ namespace ZuseMe
                 //Create tray menu
                 AppTray TrayMenu = new AppTray();
 
-                //Stop current scrobble
-                LastFMSend.Stop();
+                //Remove current scrobble
+                await ApiScrobble.RemoveNowPlaying();
 
-                //Start media monitor task
-                AVActions.TaskStartLoop(MediaInformation.MediaInformationLoop, AppTasks.vTask_MonitorMedia);
+                //Register media session events
+                await MediaInformation.RegisterMediaSessionManager();
+
+                //Start scrobble monitor task
+                AVActions.TaskStartLoop(MediaScrobble.MediaScrobbleLoop, AppTasks.vTask_MonitorScrobble);
 
                 //Check api login
                 if (Convert.ToString(ConfigurationManager.AppSettings["LastFMSessionToken"]) == string.Empty)

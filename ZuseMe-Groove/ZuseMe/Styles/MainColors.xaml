@@ -21,4 +21,10 @@
     <SolidColorBrush x:Key="ApplicationGrayBrush">#787878</SolidColorBrush>
     <Color x:Key="ApplicationDarkGrayColor">#555555</Color>
     <SolidColorBrush x:Key="ApplicationDarkGrayBrush">#555555</SolidColorBrush>
+
+    <!-- Other Color -->
+    <Color x:Key="ValidColor">#1EB955</Color>
+    <SolidColorBrush x:Key="ValidBrush">#1EB955</SolidColorBrush>
+    <Color x:Key="InvalidColor">#CD1928</Color>
+    <SolidColorBrush x:Key="InvalidBrush">#CD1928</SolidColorBrush>
 </ResourceDictionary>

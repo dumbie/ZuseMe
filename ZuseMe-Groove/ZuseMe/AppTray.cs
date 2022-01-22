@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using ZuseMe.Api;
 
 namespace ZuseMe
 {
@@ -54,12 +55,12 @@ namespace ZuseMe
             catch { }
         }
 
-        private void OnExit(object sender, EventArgs e)
+        private async void OnExit(object sender, EventArgs e)
         {
             try
             {
-                //Stop current scrobble
-                LastFMSend.Stop();
+                //Remove current scrobble
+                await ApiScrobble.RemoveNowPlaying();
 
                 //Hide tray icon
                 sysTrayIcon.Visible = false;

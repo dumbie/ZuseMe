@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/ControlTemplates/Button.xaml"/>
+                <ResourceDictionary Source="Styles/ControlTemplates/CheckBox.xaml"/>
                 <ResourceDictionary Source="Styles/ControlTemplates/TextBox.xaml"/>
                 <ResourceDictionary Source="Styles/MainColors.xaml"/>
                 <ResourceDictionary Source="Styles/MainStyles.xaml"/>
