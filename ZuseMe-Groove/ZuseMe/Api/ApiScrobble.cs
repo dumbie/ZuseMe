@@ -10,7 +10,7 @@ namespace ZuseMe.Api
 {
     public class ApiScrobble
     {
-        public static async Task ScrobbleTrack(string artist, string title, string album, string duration)
+        public static async Task ScrobbleTrack(string artist, string title, string album, string duration, string trackNumber)
         {
             try
             {
@@ -27,10 +27,11 @@ namespace ZuseMe.Api
                 requestParameters.Add("api_key", ApiVariables.KeyPublic);
                 requestParameters.Add("sk", sessionToken);
 
-                if (!string.IsNullOrWhiteSpace(artist) && album != "Unknown") { requestParameters.Add("artist", artist); }
-                if (!string.IsNullOrWhiteSpace(title) && album != "Unknown") { requestParameters.Add("track", title); }
+                if (!string.IsNullOrWhiteSpace(artist) && artist != "Unknown") { requestParameters.Add("artist", artist); }
+                if (!string.IsNullOrWhiteSpace(title) && title != "Unknown") { requestParameters.Add("track", title); }
                 if (!string.IsNullOrWhiteSpace(album) && album != "Unknown") { requestParameters.Add("album", album); }
-                requestParameters.Add("duration", duration);
+                if (!string.IsNullOrWhiteSpace(duration) && duration != "0") { requestParameters.Add("duration", duration); }
+                if (!string.IsNullOrWhiteSpace(trackNumber) && trackNumber != "0") { requestParameters.Add("trackNumber", trackNumber); }
                 requestParameters.Add("timestamp", ApiFunctions.UnixTimeFromDateTime(DateTime.Now));
 
                 //Generate api signature
@@ -44,13 +45,13 @@ namespace ZuseMe.Api
 
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
-                string apiResult = await AVDownloader.SendPostRequestAsync(2000, "ZuseMe", null, apiUrl, postContent);
+                string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine(apiResult);
             }
             catch { }
         }
 
-        public static async Task UpdateNowPlaying(string artist, string title, string album, string duration)
+        public static async Task UpdateNowPlaying(string artist, string title, string album, string duration, string trackNumber)
         {
             try
             {
@@ -67,10 +68,11 @@ namespace ZuseMe.Api
                 requestParameters.Add("api_key", ApiVariables.KeyPublic);
                 requestParameters.Add("sk", sessionToken);
 
-                requestParameters.Add("artist", artist);
-                requestParameters.Add("track", title);
-                requestParameters.Add("album", album);
-                requestParameters.Add("duration", duration);
+                if (!string.IsNullOrWhiteSpace(artist) && artist != "Unknown") { requestParameters.Add("artist", artist); }
+                if (!string.IsNullOrWhiteSpace(title) && title != "Unknown") { requestParameters.Add("track", title); }
+                if (!string.IsNullOrWhiteSpace(album) && album != "Unknown") { requestParameters.Add("album", album); }
+                if (!string.IsNullOrWhiteSpace(duration) && duration != "0") { requestParameters.Add("duration", duration); }
+                if (!string.IsNullOrWhiteSpace(trackNumber) && trackNumber != "0") { requestParameters.Add("trackNumber", trackNumber); }
 
                 //Generate api signature
                 string apiSignature = ApiFunctions.GenerateApiSignature(requestParameters);
@@ -83,7 +85,7 @@ namespace ZuseMe.Api
 
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
-                string apiResult = await AVDownloader.SendPostRequestAsync(2000, "ZuseMe", null, apiUrl, postContent);
+                string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine(apiResult);
             }
             catch { }
@@ -117,7 +119,7 @@ namespace ZuseMe.Api
 
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
-                string apiResult = await AVDownloader.SendPostRequestAsync(2000, "ZuseMe", null, apiUrl, postContent);
+                string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine(apiResult);
             }
             catch { }

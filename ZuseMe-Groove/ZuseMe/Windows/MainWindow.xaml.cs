@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using ZuseMe.Api;
 
 namespace ZuseMe
@@ -32,6 +34,16 @@ namespace ZuseMe
             catch { }
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            try
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
+            catch { }
+        }
+
         public void UpdateLastFMUsername()
         {
             try
@@ -39,10 +51,12 @@ namespace ZuseMe
                 string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
                 if (lastFMUsername == string.Empty)
                 {
+                    button_OpenProfile.ToolTip = new ToolTip() { Content = "Link profile" };
                     textblock_LoginName.Text = "You are currently not linked to Last.fm.";
                 }
                 else
                 {
+                    button_OpenProfile.ToolTip = new ToolTip() { Content = "Open profile " + lastFMUsername };
                     textblock_LoginName.Text = "You are currently linked to: " + lastFMUsername;
                 }
             }
@@ -51,25 +65,36 @@ namespace ZuseMe
 
         private void button_OpenProfile_Click(object sender, RoutedEventArgs e)
         {
-            string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
-            if (lastFMUsername == string.Empty)
+            try
             {
-                stackpanel_Scrobble.Visibility = Visibility.Collapsed;
-                stackpanel_Settings.Visibility = Visibility.Visible;
-                button_ShowScrobble.Visibility = Visibility.Visible;
-                button_ShowSettings.Visibility = Visibility.Collapsed;
+                string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
+                if (lastFMUsername == string.Empty)
+                {
+                    stackpanel_Scrobble.Visibility = Visibility.Collapsed;
+                    stackpanel_Settings.Visibility = Visibility.Visible;
+                    button_ShowScrobble.Visibility = Visibility.Visible;
+                    button_ShowSettings.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    Process.Start(ApiVariables.UrlProfile + lastFMUsername);
+                }
             }
-            else
-            {
-                Process.Start(ApiVariables.UrlProfile + lastFMUsername);
-            }
+            catch { }
         }
 
         private async void button_LinkLastFM_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ApiAuth.AuthLinkLogin();
+                if (button_LinkLastFM.Content.ToString() == "Cancel Last.fm link")
+                {
+                    await ApiAuth.AuthCancelLogin();
+                }
+                else
+                {
+                    await ApiAuth.AuthLinkLogin();
+                }
             }
             catch { }
         }

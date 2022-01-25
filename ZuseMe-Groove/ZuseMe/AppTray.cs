@@ -23,7 +23,7 @@ namespace ZuseMe
 
                 //Create tray icon
                 sysTrayIcon = new NotifyIcon();
-                sysTrayIcon.Text = "ZuseMe";
+                sysTrayIcon.Text = "ZuseMe (Last.fm client)";
                 sysTrayIcon.Icon = new Icon(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
 
                 //Add menu to tray icon
@@ -37,6 +37,7 @@ namespace ZuseMe
             }
             catch { }
         }
+
         private void OnShow(object sender, EventArgs e)
         {
             try

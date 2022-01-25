@@ -35,17 +35,39 @@ namespace ZuseMe.Api
                     ConfigurationManager.RefreshSection("appSettings");
                 }
 
+                //Update interface
+                AppVariables.WindowMain.button_LinkLastFM.Content = "Cancel Last.fm link";
+                AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = false;
+                AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Visible;
+                AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Visible;
+
                 //Continue in browser
                 Process.Start(ApiVariables.UrlLogin + "?api_key=" + ApiVariables.KeyPublic + "&token=" + loginToken.token);
 
                 //Start task to check login
                 TaskStartLoop(AuthLoginCheckLoop, AppTasks.vTask_LoginCheck);
+            }
+            catch { }
+        }
+
+        public static async Task AuthCancelLogin()
+        {
+            try
+            {
+                //Reset current auth
+                AuthUnlinkLogin();
 
                 //Update interface
-                AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Visible;
-                AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Visible;
-                AppVariables.WindowMain.button_LinkLastFM.IsEnabled = false;
-                AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = false;
+                AVActions.ActionDispatcherInvoke(delegate
+                {
+                    AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
+                    AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
+                    AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Collapsed;
+                    AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Collapsed;
+                });
+
+                //Stop the task loop
+                await TaskStopLoop(AppTasks.vTask_LoginCheck);
             }
             catch { }
         }
@@ -96,10 +118,10 @@ namespace ZuseMe.Api
                             AVActions.ActionDispatcherInvoke(delegate
                             {
                                 AppVariables.WindowMain.UpdateLastFMUsername();
+                                AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
+                                AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
                                 AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Collapsed;
                                 AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Collapsed;
-                                AppVariables.WindowMain.button_LinkLastFM.IsEnabled = true;
-                                AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
                             });
 
                             //Stop the task loop
@@ -136,7 +158,7 @@ namespace ZuseMe.Api
 
                 //Download token
                 Uri apiUrl = new Uri(ApiVariables.UrlApi + urlParameter);
-                string apiResult = await AVDownloader.DownloadStringAsync(2000, "ZuseMe", null, apiUrl);
+                string apiResult = await AVDownloader.DownloadStringAsync(2500, "ZuseMe", null, apiUrl);
 
                 //Extract token
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
@@ -175,7 +197,7 @@ namespace ZuseMe.Api
 
                 //Download token
                 Uri apiUrl = new Uri(ApiVariables.UrlApi + urlParameter);
-                string apiResult = await AVDownloader.DownloadStringAsync(2000, "ZuseMe", null, apiUrl);
+                string apiResult = await AVDownloader.DownloadStringAsync(2500, "ZuseMe", null, apiUrl);
 
                 //Extract token
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };

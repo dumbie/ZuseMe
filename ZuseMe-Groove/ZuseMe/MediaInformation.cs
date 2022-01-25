@@ -6,257 +6,259 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Windows.Media;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using ZuseMe.Api;
+using static ArnoldVinkCode.AVActions;
 
 namespace ZuseMe
 {
-    public static class MediaInformation
+    public partial class MediaInformation
     {
-        public static async Task RegisterMediaSessionManager()
+        public static async Task MediaInformationLoop()
         {
             try
             {
-                AppVariables.SmtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
-                AppVariables.SmtcSessionManager.SessionsChanged += SmtcSessionManager_SessionsChanged;
-                Debug.WriteLine("Changed smtc session manager.");
-                SmtcSessionManager_SessionsChanged(null, null);
-            }
-            catch { }
-        }
-
-        private static async void SmtcSessionManager_SessionsChanged(GlobalSystemMediaTransportControlsSessionManager sender, SessionsChangedEventArgs args)
-        {
-            try
-            {
-                IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = AppVariables.SmtcSessionManager.GetSessions();
-                AppVariables.SmtcSessionMedia = smtcSessions.OrderBy(x => AppVariables.MediaPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => AppVariables.MediaPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
-                if (AppVariables.SmtcSessionMedia == null)
-                {
-                    Debug.WriteLine("No media session found.");
-                    await ResetMediaVariables(true, true, true);
-                }
-                else
-                {
-                    SmtcSessionMedia_MediaPropertiesChanged(null, null);
-                    SmtcSessionMedia_PlaybackInfoChanged(null, null);
-                    AppVariables.SmtcSessionMedia.MediaPropertiesChanged += SmtcSessionMedia_MediaPropertiesChanged;
-                    AppVariables.SmtcSessionMedia.PlaybackInfoChanged += SmtcSessionMedia_PlaybackInfoChanged;
-                    Debug.WriteLine("Changed smtc session media: " + AppVariables.SmtcSessionMedia.SourceAppUserModelId);
-
-                    //Update scrobble window
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        try
-                        {
-                            AppVariables.WindowMain.textblock_PlayerDebug.Text = AppVariables.SmtcSessionMedia.SourceAppUserModelId;
-                        }
-                        catch { }
-                    });
-                }
-            }
-            catch { }
-        }
-
-        private static async void SmtcSessionMedia_PlaybackInfoChanged(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
-        {
-            try
-            {
-                //Get media properties
-                GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
-                AppVariables.MediaPlaybackStatus = mediaPlayInfo.PlaybackStatus;
-                AppVariables.MediaPlaybackType = mediaPlayInfo.PlaybackType;
-
-                //Check media status
-                if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
-                {
-                    //Update scrobble window
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        try
-                        {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Play.png"));
-                        }
-                        catch { }
-                    });
-
-                    await Task.Delay(1000); //Wait for media info
-                    Debug.WriteLine("Media is currently playing.");
-                    await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString());
-                }
-                else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
-                {
-                    //Update scrobble window
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        try
-                        {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Stop.png"));
-                        }
-                        catch { }
-                    });
-
-                    Debug.WriteLine("Media is currently stopped.");
-                    await ApiScrobble.RemoveNowPlaying();
-                }
-                else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
-                {
-                    //Update scrobble window
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        try
-                        {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Pause.png"));
-                        }
-                        catch { }
-                    });
-
-                    Debug.WriteLine("Media is currently paused.");
-                    await ApiScrobble.RemoveNowPlaying();
-                }
-                else
-                {
-                    //Update scrobble window
-                    AVActions.ActionDispatcherInvoke(delegate
-                    {
-                        try
-                        {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Unknown.png"));
-                        }
-                        catch { }
-                    });
-
-                    Debug.WriteLine("Media is currently: " + mediaPlayInfo.PlaybackStatus);
-                }
-            }
-            catch { }
-        }
-
-        private static async void SmtcSessionMedia_MediaPropertiesChanged(GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs args)
-        {
-            try
-            {
-                //Reset media progress
-                await ResetMediaVariables(false, false, false);
-
-                //Get media properties
-                GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
-                GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = AppVariables.SmtcSessionMedia.GetTimelineProperties();
-
-                //Load media duration
-                int mediaSecondsTotalInt = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
-                if (mediaSecondsTotalInt <= 0)
-                {
-                    mediaSecondsTotalInt = Convert.ToInt32(ConfigurationManager.AppSettings["TrackLengthDefault"]);
-                    Debug.WriteLine("Unknown duration using default: " + mediaSecondsTotalInt);
-                }
-                AppVariables.MediaSecondsTotal = mediaSecondsTotalInt;
-
-                //Load and check media artist
-                AppVariables.MediaArtist = mediaProperties.Artist;
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
-                {
-                    AppVariables.MediaArtist = mediaProperties.Subtitle;
-                }
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
-                {
-                    Debug.WriteLine("Unknown media artist.");
-                    AppVariables.MediaArtist = "Unknown";
-                }
-
-                //Load media title
-                AppVariables.MediaTitle = mediaProperties.Title;
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaTitle))
-                {
-                    Debug.WriteLine("Unknown media title.");
-                    AppVariables.MediaTitle = "Unknown";
-                }
-
-                //Load media album
-                AppVariables.MediaAlbum = mediaProperties.AlbumTitle;
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
-                {
-                    Debug.WriteLine("Unknown media album.");
-                    AppVariables.MediaAlbum = "Unknown";
-                }
-
-                //Load media tracknumber
-                AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
-
-                //Load media image bitmap
-                BitmapFrame MediaImage = await GetMediaThumbnail(mediaProperties.Thumbnail);
-
-                //Update scrobble window
-                AVActions.ActionDispatcherInvoke(delegate
+                while (TaskCheckLoop(AppTasks.vTask_MonitorMedia))
                 {
                     try
                     {
-                        AppVariables.WindowMain.textblock_TrackArtist.Text = AppVariables.MediaArtist;
-                        AppVariables.WindowMain.textblock_TrackTitle.Text = AppVariables.MediaTitle;
-                        AppVariables.WindowMain.textblock_TrackAlbum.Text = AppVariables.MediaAlbum;
-
-                        if (AppVariables.MediaTracknumber > 0)
+                        //Get media manager
+                        GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
+                        if (smtcSessionManager == null)
                         {
-                            AppVariables.WindowMain.textblock_TrackNumber.Text = "(" + AppVariables.MediaTracknumber + ") ";
+                            Debug.WriteLine("No manager session found.");
+                            await MediaResetVariables(true, true, true, false, true);
+                            continue;
+                        }
+
+                        //Get media session
+                        IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = smtcSessionManager.GetSessions();
+                        GlobalSystemMediaTransportControlsSession smtcSessionMedia = smtcSessions.OrderBy(x => AppVariables.MediaPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => AppVariables.MediaPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
+                        if (smtcSessionMedia == null)
+                        {
+                            Debug.WriteLine("No media session found.");
+                            await MediaResetVariables(true, true, true, false, true);
+                            continue;
+                        }
+
+                        //Get media information
+                        GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = smtcSessionMedia.GetTimelineProperties();
+                        GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await smtcSessionMedia.TryGetMediaPropertiesAsync();
+                        GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = smtcSessionMedia.GetPlaybackInfo();
+                        string sourceApp = smtcSessionMedia.SourceAppUserModelId;
+
+                        //Check media type
+                        AppVariables.MediaPlaybackType = mediaPlayInfo.PlaybackType;
+                        if (AppVariables.MediaPlaybackType != MediaPlaybackType.Music)
+                        {
+                            Debug.WriteLine("Other media type playing: " + AppVariables.MediaPlaybackType);
+                            await MediaResetVariables(true, true, true, false, true);
+                            continue;
+                        }
+
+                        //Check media status
+                        AppVariables.MediaPlaybackStatus = mediaPlayInfo.PlaybackStatus;
+                        if (AppVariables.MediaPlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                        {
+                            //Update scrobble window
+                            AVActions.ActionDispatcherInvoke(delegate
+                            {
+                                try
+                                {
+                                    AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Play.png"));
+                                }
+                                catch { }
+                            });
+                        }
+                        else if (AppVariables.MediaPlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
+                        {
+                            //Update scrobble window
+                            AVActions.ActionDispatcherInvoke(delegate
+                            {
+                                try
+                                {
+                                    AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Stop.png"));
+                                }
+                                catch { }
+                            });
+                        }
+                        else if (AppVariables.MediaPlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
+                        {
+                            //Update scrobble window
+                            AVActions.ActionDispatcherInvoke(delegate
+                            {
+                                try
+                                {
+                                    AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Pause.png"));
+                                }
+                                catch { }
+                            });
                         }
                         else
                         {
-                            AppVariables.WindowMain.textblock_TrackNumber.Text = string.Empty;
+                            //Update scrobble window
+                            AVActions.ActionDispatcherInvoke(delegate
+                            {
+                                try
+                                {
+                                    AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Unknown.png"));
+                                }
+                                catch { }
+                            });
                         }
 
-                        if (MediaImage == null)
+                        //Load media artist
+                        AppVariables.MediaArtist = mediaProperties.Artist;
+                        if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
                         {
-                            AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail.png"));
+                            AppVariables.MediaArtist = mediaProperties.Subtitle;
+                        }
+                        if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
+                        {
+                            Debug.WriteLine("Unknown media artist.");
+                            AppVariables.MediaArtist = "Unknown";
+                        }
+
+                        //Load media title
+                        AppVariables.MediaTitle = mediaProperties.Title;
+                        if (string.IsNullOrWhiteSpace(AppVariables.MediaTitle))
+                        {
+                            Debug.WriteLine("Unknown media title.");
+                            AppVariables.MediaTitle = "Unknown";
+                        }
+
+                        //Load media album
+                        AppVariables.MediaAlbum = mediaProperties.AlbumTitle;
+                        if (string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
+                        {
+                            Debug.WriteLine("Unknown media album.");
+                            AppVariables.MediaAlbum = "Unknown";
+                        }
+
+                        //Load media tracknumber
+                        AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
+                        string mediaTracknumberString = mediaProperties.TrackNumber.ToString();
+
+                        //Load media duration
+                        AppVariables.MediaSecondsTotalOriginal = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
+                        if (AppVariables.MediaSecondsTotalOriginal <= 0)
+                        {
+                            AppVariables.MediaSecondsTotalCustom = Convert.ToInt32(ConfigurationManager.AppSettings["TrackLengthCustom"]);
+                            Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotalCustom + " seconds.");
                         }
                         else
                         {
-                            AppVariables.WindowMain.image_TrackCover.Source = MediaImage;
+                            AppVariables.MediaSecondsTotalCustom = AppVariables.MediaSecondsTotalOriginal;
                         }
+                        string mediaSecondsTotalCustomString = AppVariables.MediaSecondsTotalCustom.ToString();
+                        string mediaSecondsTotalOriginalString = AppVariables.MediaSecondsTotalOriginal.ToString();
+
+                        //Check if media changed
+                        string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + mediaTracknumberString + mediaSecondsTotalCustomString + sourceApp;
+                        if (mediaCombined == AppVariables.MediaPrevious)
+                        {
+                            Debug.WriteLine("Media not changed: " + mediaCombined);
+                            await MediaScrobbleCheck();
+                            continue;
+                        }
+
+                        //Update current media
+                        Debug.WriteLine("Media has changed: " + mediaCombined);
+                        AppVariables.MediaPrevious = mediaCombined;
+                        await MediaResetVariables(false, false, false, true, false);
+                        await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, mediaSecondsTotalOriginalString, mediaTracknumberString);
+
+                        //Load media image bitmap
+                        BitmapFrame mediaImageBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
+
+                        //Update scrobble window
+                        Application.Current.Dispatcher.Invoke(delegate
+                        {
+                            try
+                            {
+                                AppVariables.WindowMain.textblock_PlayerDebug.Text = sourceApp;
+                                AppVariables.WindowMain.textblock_TrackArtist.Text = AppVariables.MediaArtist;
+                                AppVariables.WindowMain.textblock_TrackTitle.Text = AppVariables.MediaTitle;
+                                AppVariables.WindowMain.textblock_TrackAlbum.Text = AppVariables.MediaAlbum;
+
+                                if (AppVariables.MediaTracknumber > 0)
+                                {
+                                    AppVariables.WindowMain.textblock_TrackNumber.Text = "(" + AppVariables.MediaTracknumber + ") ";
+                                }
+                                else
+                                {
+                                    AppVariables.WindowMain.textblock_TrackNumber.Text = string.Empty;
+                                }
+
+                                if (mediaImageBitmap == null)
+                                {
+                                    AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail.png"));
+                                }
+                                else
+                                {
+                                    AppVariables.WindowMain.image_TrackCover.Source = mediaImageBitmap;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Failed to update media window: " + ex.Message);
+                            }
+                        });
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine("Failed to update media window: " + ex.Message);
+                        Debug.WriteLine("Failed to update media: " + ex.Message);
                     }
-                });
-
-                //Check media status
-                if (AppVariables.MediaPlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
-                {
-                    Debug.WriteLine("Media is currently playing submitting to last.fm.");
-                    await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString());
+                    finally
+                    {
+                        await TaskDelayLoop(1000, AppTasks.vTask_MonitorMedia);
+                    }
                 }
             }
             catch { }
         }
 
         //Reset media variables
-        private static async Task ResetMediaVariables(bool removeNowPlaying, bool resetInterface, bool resetPlayStatus)
+        private static async Task MediaResetVariables(bool removeNowPlaying, bool resetInterface, bool resetPlayStatus, bool resetScrobble, bool resetMedia)
         {
             try
             {
-                //Reset variables
+                //Reset scrobble
+                if (resetScrobble)
+                {
+                    AppVariables.ScrobbleRemoved = false;
+                    AppVariables.ScrobbleSubmitted = false;
+                    AppVariables.ScrobbleSecondsCurrent = 0;
+                }
+
+                //Reset media
+                if (resetMedia)
+                {
+                    AppVariables.MediaSecondsTotalCustom = 60;
+                    AppVariables.MediaTracknumber = 0;
+                    AppVariables.MediaArtist = string.Empty;
+                    AppVariables.MediaAlbum = string.Empty;
+                    AppVariables.MediaTitle = string.Empty;
+                    AppVariables.MediaPrevious = string.Empty;
+                }
+
+                //Reset play status
                 if (resetPlayStatus)
                 {
                     AppVariables.MediaPlaybackType = null;
                     AppVariables.MediaPlaybackStatus = null;
                 }
 
-                AppVariables.MediaScrobbled = false;
-                AppVariables.MediaSecondsCurrent = 0;
-                AppVariables.MediaSecondsTotal = 60;
-
-                AppVariables.MediaTracknumber = 0;
-                AppVariables.MediaArtist = string.Empty;
-                AppVariables.MediaAlbum = string.Empty;
-                AppVariables.MediaTitle = string.Empty;
-                AppVariables.MediaPrevious = string.Empty;
-
                 //Remove now playing
-                if (removeNowPlaying)
+                if (removeNowPlaying && !AppVariables.ScrobbleRemoved)
                 {
                     await ApiScrobble.RemoveNowPlaying();
+                    AppVariables.ScrobbleRemoved = true;
                 }
 
                 //Update scrobble window
@@ -266,7 +268,19 @@ namespace ZuseMe
                     {
                         try
                         {
-                            AppVariables.WindowMain.textblock_PlayerDebug.Text = String.Empty;
+                            AppVariables.WindowMain.textblock_ProgressCurrent.Text = "0:00";
+                            AppVariables.WindowMain.textblock_ProgressTotal.Text = "0:00";
+                            AppVariables.WindowMain.progress_StatusSong.Value = 0;
+                            AppVariables.WindowMain.progress_StatusScrobble.Value = 0;
+                            AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+
+                            AppVariables.WindowMain.textblock_TrackArtist.Text = "Artist";
+                            AppVariables.WindowMain.textblock_TrackAlbum.Text = "Album";
+                            AppVariables.WindowMain.textblock_TrackTitle.Text = "Title";
+                            AppVariables.WindowMain.textblock_TrackNumber.Text = "(0) ";
+                            AppVariables.WindowMain.textblock_PlayerDebug.Text = string.Empty;
+                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Unknown.png"));
+                            AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail.png"));
                         }
                         catch { }
                     });

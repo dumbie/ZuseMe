@@ -1,70 +1,71 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Windows.Media;
 using Windows.Media.Control;
 using ZuseMe.Api;
-using static ArnoldVinkCode.AVActions;
 
 namespace ZuseMe
 {
-    public class MediaScrobble
+    public partial class MediaInformation
     {
-        public static async Task MediaScrobbleLoop()
+        public static async Task MediaScrobbleCheck()
         {
             try
             {
-                while (TaskCheckLoop(AppTasks.vTask_MonitorScrobble))
+                Debug.WriteLine("Media " + AppVariables.MediaPlaybackStatus + " (" + AppVariables.ScrobbleSecondsCurrent + "/" + AppVariables.MediaSecondsTotalCustom + " seconds)" + " (Scrobbled " + AppVariables.ScrobbleSubmitted + ")");
+
+                //Scrobble song
+                int scrobbleTarget = AppVariables.MediaSecondsTotalCustom / 2;
+                int scrobblePercentage = 100 * AppVariables.ScrobbleSecondsCurrent / scrobbleTarget;
+                int songPercentage = 100 * AppVariables.ScrobbleSecondsCurrent / AppVariables.MediaSecondsTotalCustom;
+                if (!AppVariables.ScrobbleSubmitted && AppVariables.MediaPlaybackType == MediaPlaybackType.Music && AppVariables.ScrobbleSecondsCurrent >= scrobbleTarget)
+                {
+                    AppVariables.ScrobbleSubmitted = true;
+                    await ApiScrobble.ScrobbleTrack(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotalOriginal.ToString(), AppVariables.MediaTracknumber.ToString());
+                }
+
+                //Update scrobble window
+                AVActions.ActionDispatcherInvoke(delegate
                 {
                     try
                     {
-                        //Scrobble song
-                        int scrobbleTarget = AppVariables.MediaSecondsTotal / 2;
-                        int scrobblePercentage = 100 * AppVariables.MediaSecondsCurrent / scrobbleTarget;
-                        if (!AppVariables.MediaScrobbled && AppVariables.MediaPlaybackType == MediaPlaybackType.Music && AppVariables.MediaSecondsCurrent >= scrobbleTarget)
+                        AppVariables.WindowMain.textblock_ProgressCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent);
+                        string progressTotalString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotalCustom);
+                        if (AppVariables.MediaSecondsTotalOriginal != AppVariables.MediaSecondsTotalCustom)
                         {
-                            AppVariables.MediaScrobbled = true;
-                            await ApiScrobble.ScrobbleTrack(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString());
+                            progressTotalString += "?";
                         }
+                        AppVariables.WindowMain.textblock_ProgressTotal.Text = progressTotalString;
 
-                        //Update scrobble window
-                        AVActions.ActionDispatcherInvoke(delegate
+                        AppVariables.WindowMain.progress_StatusSong.Value = songPercentage;
+                        if (AppVariables.ScrobbleSubmitted)
                         {
-                            try
-                            {
-                                if (AppVariables.MediaScrobbled)
-                                {
-                                    AppVariables.WindowMain.progress_PlayStatus.Value = 100;
-                                    AppVariables.WindowMain.progress_PlayStatus.Foreground = new SolidColorBrush((Color)Application.Current.Resources["ValidColor"]);
-                                }
-                                else
-                                {
-                                    AppVariables.WindowMain.progress_PlayStatus.Value = scrobblePercentage;
-                                    AppVariables.WindowMain.progress_PlayStatus.Foreground = new SolidColorBrush((Color)Application.Current.Resources["ApplicationAccentLightColor"]);
-                                }
-                            }
-                            catch { }
-                        });
-
-                        //Update current seconds
-                        if (AppVariables.MediaPlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                            AppVariables.WindowMain.progress_StatusScrobble.Value = 100;
+                            AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ValidBrush"];
+                        }
+                        else
                         {
-                            AppVariables.MediaSecondsCurrent++;
+                            AppVariables.WindowMain.progress_StatusScrobble.Value = scrobblePercentage;
+                            AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Failed to check scrobble media: " + ex.Message);
-                    }
-                    finally
-                    {
-                        await AVActions.TaskDelayLoop(1000, AppTasks.vTask_MonitorScrobble);
-                    }
+                    catch { }
+                });
+
+                //Update current seconds
+                if (AppVariables.MediaPlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                {
+                    AppVariables.ScrobbleSecondsCurrent++;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to update scrobble: " + ex.Message);
+            }
         }
     }
 }
