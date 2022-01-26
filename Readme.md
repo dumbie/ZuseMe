@@ -2,18 +2,14 @@
 ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music and Media Player (Windows 11)
 
 ## Installation Instructions
-1) Install the Last.fm client v2.1.37 and login to your account.
-2) Extract the ZuseMe directory to any directory you want.
-3) Launch ZuseMe.exe (Runs hidden in the background and tray menu)
-4) Have fun scrobbling!
+1) Extract the ZuseMe directory to any directory you want.
+2) Launch ZuseMe.exe (Runs hidden in the background and tray menu)
+3) Have fun scrobbling!
 
 ## Tips and tricks
-- Place a ZuseMe shortcut in your Windows startup folder for easier scrobbling.
+- Allow ZuseMe to run on your Windows startup for easier scrobbling.
 
-## Requirements
-- Last.fm client v2.1.37 - Download: https://github.com/dumbie/ZuseMe/releases
-
-## Tested players
+## Supported players
 - Media Player (Windows 11)
 - Groove Music
 
@@ -24,6 +20,9 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate this project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v3.0.0.0 (25-January-2022)
+- Added scrobbling into ZuseMe so you no longer need the Last.fm client.
+
 v2.0.0.0 (12-January-2022)
 - Added support for Groove Music and Media Player (Windows 11)
 
