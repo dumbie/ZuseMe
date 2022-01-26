@@ -1,6 +1,4 @@
 ﻿using ArnoldVinkCode;
-using System;
-using System.Configuration;
 using System.Windows;
 
 namespace ZuseMe
@@ -8,21 +6,21 @@ namespace ZuseMe
     public partial class App : Application
     {
         //Application Startup
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             try
             {
                 //Application startup checks
                 StartupCheck StartupCheck = new StartupCheck();
 
-                //Create tray menu
-                AppTray TrayMenu = new AppTray();
+                //Register media session events
+                await MediaInformation.RegisterMediaSessionManager();
 
-                //Start monitor media task
-                AVActions.TaskStartLoop(MediaInformation.MediaInformationLoop, AppTasks.vTask_MonitorMedia);
+                //Start monitor scrobble task
+                AVActions.TaskStartLoop(MediaInformation.MediaScrobbleLoop, AppTasks.vTask_MonitorScrobble);
 
                 //Check api login
-                if (Convert.ToString(ConfigurationManager.AppSettings["LastFMSessionToken"]) == string.Empty)
+                if (Settings.Setting_Load(null, "LastFMSessionToken").ToString() == string.Empty)
                 {
                     AppVariables.WindowMain.Show();
                 }

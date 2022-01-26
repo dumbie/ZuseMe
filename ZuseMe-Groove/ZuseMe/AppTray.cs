@@ -8,8 +8,8 @@ namespace ZuseMe
 {
     public partial class AppTray
     {
-        private NotifyIcon sysTrayIcon;
-        private ContextMenu sysTrayMenu;
+        public NotifyIcon sysTrayIcon;
+        public ContextMenu sysTrayMenu;
 
         public AppTray()
         {

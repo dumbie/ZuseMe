@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,9 +29,7 @@ namespace ZuseMe.Api
                 else
                 {
                     //Update settings
-                    AppVariables.ApplicationConfig.AppSettings.Settings["LastFMAuthToken"].Value = loginToken.token;
-                    AppVariables.ApplicationConfig.Save();
-                    ConfigurationManager.RefreshSection("appSettings");
+                    Settings.Setting_Save(null, "LastFMAuthToken", loginToken.token);
                 }
 
                 //Update interface
@@ -76,12 +73,10 @@ namespace ZuseMe.Api
         {
             try
             {
-                //Reset auth settings
-                AppVariables.ApplicationConfig.AppSettings.Settings["LastFMUsername"].Value = string.Empty;
-                AppVariables.ApplicationConfig.AppSettings.Settings["LastFMAuthToken"].Value = string.Empty;
-                AppVariables.ApplicationConfig.AppSettings.Settings["LastFMSessionToken"].Value = string.Empty;
-                AppVariables.ApplicationConfig.Save();
-                ConfigurationManager.RefreshSection("appSettings");
+                //Update settings
+                Settings.Setting_Save(null, "LastFMUsername", string.Empty);
+                Settings.Setting_Save(null, "LastFMAuthToken", string.Empty);
+                Settings.Setting_Save(null, "LastFMSessionToken", string.Empty);
 
                 //Update interface
                 AVActions.ActionDispatcherInvoke(delegate
@@ -109,10 +104,8 @@ namespace ZuseMe.Api
                         else
                         {
                             //Update settings
-                            AppVariables.ApplicationConfig.AppSettings.Settings["LastFMUsername"].Value = sessionToken.name;
-                            AppVariables.ApplicationConfig.AppSettings.Settings["LastFMSessionToken"].Value = sessionToken.key;
-                            AppVariables.ApplicationConfig.Save();
-                            ConfigurationManager.RefreshSection("appSettings");
+                            Settings.Setting_Save(null, "LastFMUsername", sessionToken.name);
+                            Settings.Setting_Save(null, "LastFMSessionToken", sessionToken.key);
 
                             //Update interface
                             AVActions.ActionDispatcherInvoke(delegate
@@ -175,7 +168,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get auth token
-                string authToken = Convert.ToString(ConfigurationManager.AppSettings["LastFMAuthToken"]);
+                string authToken = Settings.Setting_Load(null, "LastFMAuthToken").ToString();
                 if (string.IsNullOrWhiteSpace(authToken))
                 {
                     return null;

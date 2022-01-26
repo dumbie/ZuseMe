@@ -101,6 +101,10 @@
     <Compile Include="Classes\AuthToken.cs" />
     <Compile Include="Classes\SessionToken.cs" />
     <Compile Include="MediaScrobble.cs" />
+    <Compile Include="Settings\SettingsCheck.cs" />
+    <Compile Include="Settings\SettingsFunction.cs" />
+    <Compile Include="Settings\SettingsLoad.cs" />
+    <Compile Include="Settings\SettingsSave.cs" />
     <Compile Include="StartupCheck.cs" />
     <Page Include="Styles\ControlTemplates\Button.xaml">
       <Generator>MSBuild:Compile</Generator>

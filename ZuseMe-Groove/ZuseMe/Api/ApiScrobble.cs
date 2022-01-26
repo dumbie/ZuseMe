@@ -1,7 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,11 +14,8 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = Convert.ToString(ConfigurationManager.AppSettings["LastFMSessionToken"]);
-                if (string.IsNullOrWhiteSpace(sessionToken))
-                {
-                    return;
-                }
+                string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
+                if (string.IsNullOrWhiteSpace(sessionToken)) { return; }
 
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
@@ -27,9 +23,9 @@ namespace ZuseMe.Api
                 requestParameters.Add("api_key", ApiVariables.KeyPublic);
                 requestParameters.Add("sk", sessionToken);
 
-                if (!string.IsNullOrWhiteSpace(artist) && artist != "Unknown") { requestParameters.Add("artist", artist); }
-                if (!string.IsNullOrWhiteSpace(title) && title != "Unknown") { requestParameters.Add("track", title); }
-                if (!string.IsNullOrWhiteSpace(album) && album != "Unknown") { requestParameters.Add("album", album); }
+                if (!string.IsNullOrWhiteSpace(artist)) { requestParameters.Add("artist", artist); }
+                if (!string.IsNullOrWhiteSpace(title)) { requestParameters.Add("track", title); }
+                if (!string.IsNullOrWhiteSpace(album)) { requestParameters.Add("album", album); }
                 if (!string.IsNullOrWhiteSpace(duration) && duration != "0") { requestParameters.Add("duration", duration); }
                 if (!string.IsNullOrWhiteSpace(trackNumber) && trackNumber != "0") { requestParameters.Add("trackNumber", trackNumber); }
                 requestParameters.Add("timestamp", ApiFunctions.UnixTimeFromDateTime(DateTime.Now));
@@ -56,7 +52,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = Convert.ToString(ConfigurationManager.AppSettings["LastFMSessionToken"]);
+                string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return;
@@ -68,9 +64,9 @@ namespace ZuseMe.Api
                 requestParameters.Add("api_key", ApiVariables.KeyPublic);
                 requestParameters.Add("sk", sessionToken);
 
-                if (!string.IsNullOrWhiteSpace(artist) && artist != "Unknown") { requestParameters.Add("artist", artist); }
-                if (!string.IsNullOrWhiteSpace(title) && title != "Unknown") { requestParameters.Add("track", title); }
-                if (!string.IsNullOrWhiteSpace(album) && album != "Unknown") { requestParameters.Add("album", album); }
+                if (!string.IsNullOrWhiteSpace(artist)) { requestParameters.Add("artist", artist); }
+                if (!string.IsNullOrWhiteSpace(title)) { requestParameters.Add("track", title); }
+                if (!string.IsNullOrWhiteSpace(album)) { requestParameters.Add("album", album); }
                 if (!string.IsNullOrWhiteSpace(duration) && duration != "0") { requestParameters.Add("duration", duration); }
                 if (!string.IsNullOrWhiteSpace(trackNumber) && trackNumber != "0") { requestParameters.Add("trackNumber", trackNumber); }
 
@@ -96,7 +92,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = Convert.ToString(ConfigurationManager.AppSettings["LastFMSessionToken"]);
+                string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return;

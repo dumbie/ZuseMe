@@ -1,16 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using ZuseMe.Api;
 
 namespace ZuseMe
 {
-    public partial class MainWindow : Window
+    public partial class WindowMain : Window
     {
-        public MainWindow()
+        public WindowMain()
         {
             InitializeComponent();
         }
@@ -20,7 +20,7 @@ namespace ZuseMe
             try
             {
                 //Check api login
-                if (Convert.ToString(ConfigurationManager.AppSettings["LastFMSessionToken"]) == string.Empty)
+                if (Settings.Setting_Load(null, "LastFMSessionToken").ToString() == string.Empty)
                 {
                     stackpanel_Scrobble.Visibility = Visibility.Collapsed;
                     stackpanel_Settings.Visibility = Visibility.Visible;
@@ -30,6 +30,14 @@ namespace ZuseMe
 
                 //Update Last.fm username
                 UpdateLastFMUsername();
+
+                //Load Save - Application settings
+                Settings_Load();
+                Settings_Save();
+
+                //Set application version
+                string currentVersion = "v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0];
+                textblock_Version.Text = currentVersion + " by Arnold Vink";
             }
             catch { }
         }
@@ -48,7 +56,7 @@ namespace ZuseMe
         {
             try
             {
-                string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
+                string lastFMUsername = Settings.Setting_Load(null, "LastFMUsername").ToString();
                 if (lastFMUsername == string.Empty)
                 {
                     button_OpenProfile.ToolTip = new ToolTip() { Content = "Link profile" };
@@ -67,7 +75,7 @@ namespace ZuseMe
         {
             try
             {
-                string lastFMUsername = Convert.ToString(ConfigurationManager.AppSettings["LastFMUsername"]);
+                string lastFMUsername = Settings.Setting_Load(null, "LastFMUsername").ToString();
                 if (lastFMUsername == string.Empty)
                 {
                     stackpanel_Scrobble.Visibility = Visibility.Collapsed;
