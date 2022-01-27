@@ -30,7 +30,35 @@ namespace ZuseMe
                     catch { }
                 };
 
-                checkbox_WindowsStartup.Click += (sender, e) => { Settings.ManageStartupShortcut(); };
+                combobox_TrackPercentageScrobble.SelectionChanged += (sender, e) =>
+                {
+                    try
+                    {
+                        ComboBox senderElement = sender as ComboBox;
+                        if (senderElement.SelectedIndex == 0)
+                        {
+                            Settings.Setting_Save(null, "TrackPercentageScrobble", "25");
+                        }
+                        else if (senderElement.SelectedIndex == 1)
+                        {
+                            Settings.Setting_Save(null, "TrackPercentageScrobble", "50");
+                        }
+                        else if (senderElement.SelectedIndex == 2)
+                        {
+                            Settings.Setting_Save(null, "TrackPercentageScrobble", "75");
+                        }
+                    }
+                    catch { }
+                };
+
+                checkbox_WindowsStartup.Click += (sender, e) =>
+                {
+                    try
+                    {
+                        Settings.ManageStartupShortcut();
+                    }
+                    catch { }
+                };
             }
             catch { }
         }

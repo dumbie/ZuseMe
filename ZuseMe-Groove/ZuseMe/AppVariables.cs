@@ -10,10 +10,7 @@ namespace ZuseMe
         public static AppTray AppTray = new AppTray();
 
         //Player Variables
-        //MSEdge
-        //foobar2000.exe (foo_mediacontrol)
-        //SpotifyAB.SpotifyMusic_zpdnekdrzrea0 / Spotify.exe
-        public static string[] MediaPlayers = { "Microsoft.ZuneMusic_8wekyb3d8bbwe" };
+        public static string[] MediaPlayers = null;
 
         //Scrobble Variables
         public static bool ScrobbleSubmitted = false;

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Windows.Media;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using ZuseMe.Api;
@@ -78,16 +79,6 @@ namespace ZuseMe
 
                 //Load media duration
                 AppVariables.MediaSecondsCurrent = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
-                AppVariables.MediaSecondsTotalOriginal = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
-                if (AppVariables.MediaSecondsTotalOriginal <= 0)
-                {
-                    AppVariables.MediaSecondsTotalCustom = Convert.ToInt32(Settings.Setting_Load(null, "TrackLengthCustom"));
-                    Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotalCustom + " seconds.");
-                }
-                else
-                {
-                    AppVariables.MediaSecondsTotalCustom = AppVariables.MediaSecondsTotalOriginal;
-                }
             }
             catch { }
         }
@@ -101,10 +92,9 @@ namespace ZuseMe
 
                 //Get media properties
                 GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
-                AppVariables.MediaPlaybackStatus = mediaPlayInfo.PlaybackStatus;
-                AppVariables.MediaPlaybackType = mediaPlayInfo.PlaybackType;
 
-                //Check media status
+                //Load media status
+                AppVariables.MediaPlaybackStatus = mediaPlayInfo.PlaybackStatus;
                 if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                 {
                     //Update scrobble window
@@ -182,6 +172,8 @@ namespace ZuseMe
 
                 //Get media properties
                 GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
+                GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = AppVariables.SmtcSessionMedia.GetTimelineProperties();
+                GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
 
                 //Load media artist
                 AppVariables.MediaArtist = mediaProperties.Artist;
@@ -204,18 +196,42 @@ namespace ZuseMe
                 AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
                 string mediaTracknumberString = mediaProperties.TrackNumber.ToString();
 
+                //Load media duration
+                AppVariables.MediaSecondsCurrent = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
+                AppVariables.MediaSecondsTotalOriginal = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
+                if (AppVariables.MediaSecondsTotalOriginal <= 0)
+                {
+                    AppVariables.MediaSecondsTotalCustom = Convert.ToInt32(Settings.Setting_Load(null, "TrackLengthCustom"));
+                    Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotalCustom + " seconds.");
+                }
+                else
+                {
+                    AppVariables.MediaSecondsTotalCustom = AppVariables.MediaSecondsTotalOriginal;
+                }
+                string mediaDurationString = AppVariables.MediaSecondsTotalOriginal.ToString();
+
+                //Load media type
+                AppVariables.MediaPlaybackType = mediaPlayInfo.PlaybackType;
+
                 //Check if media changed
-                string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + mediaTracknumberString + AppVariables.SmtcSessionMedia.SourceAppUserModelId;
+                string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + mediaTracknumberString + mediaDurationString + AppVariables.SmtcSessionMedia.SourceAppUserModelId;
                 if (mediaCombined == AppVariables.MediaPrevious)
                 {
                     Debug.WriteLine("Media not changed: " + mediaCombined);
                     return;
                 }
 
-                //Update current media
+                //Update now playing
                 Debug.WriteLine("Media has changed: " + mediaCombined);
                 AppVariables.MediaPrevious = mediaCombined;
-                await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, string.Empty, mediaTracknumberString);
+                if (AppVariables.MediaPlaybackType == MediaPlaybackType.Music)
+                {
+                    await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, mediaDurationString, mediaTracknumberString);
+                }
+                else
+                {
+                    await ApiScrobble.RemoveNowPlaying();
+                }
 
                 //Load media image bitmap
                 BitmapFrame mediaImageBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
@@ -242,7 +258,7 @@ namespace ZuseMe
                         string mediaAlbum = "Unknown";
                         if (!string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
                         {
-                            mediaAlbum = AppVariables.MediaTitle;
+                            mediaAlbum = AppVariables.MediaAlbum;
                         }
                         AppVariables.WindowMain.textblock_TrackAlbum.Text = mediaAlbum;
 
@@ -264,7 +280,13 @@ namespace ZuseMe
                             AppVariables.WindowMain.image_TrackCover.Source = mediaImageBitmap;
                         }
 
-                        AppVariables.AppTray.sysTrayIcon.Text = "ZuseMe (" + mediaArtist + " - " + mediaTitle + ")";
+                        //Set tray text
+                        string trayText = "ZuseMe (" + mediaArtist + " - " + mediaTitle + ")";
+                        if (trayText.Length >= 64)
+                        {
+                            trayText = AVFunctions.StringCut(trayText, 59, "...)");
+                        }
+                        AppVariables.AppTray.sysTrayIcon.Text = trayText;
                     }
                     catch (Exception ex)
                     {

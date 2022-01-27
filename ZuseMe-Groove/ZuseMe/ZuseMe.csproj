@@ -114,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\ControlTemplates\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\ControlTemplates\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -156,7 +160,10 @@
     <EmbeddedResource Include="Assets\ZuseMe.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\Packages.config" />
+    <None Include="Packages.config" />
+    <None Include="Players.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup>

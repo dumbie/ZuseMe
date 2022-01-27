@@ -12,6 +12,20 @@ namespace ZuseMe
             {
                 textbox_TrackLengthCustom.Text = Settings.Setting_Load(null, "TrackLengthCustom").ToString();
 
+                string trackPercentageScrobble = Settings.Setting_Load(null, "TrackPercentageScrobble").ToString();
+                if (trackPercentageScrobble == "25")
+                {
+                    combobox_TrackPercentageScrobble.SelectedIndex = 0;
+                }
+                else if (trackPercentageScrobble == "50")
+                {
+                    combobox_TrackPercentageScrobble.SelectedIndex = 1;
+                }
+                else if (trackPercentageScrobble == "75")
+                {
+                    combobox_TrackPercentageScrobble.SelectedIndex = 2;
+                }
+
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
 

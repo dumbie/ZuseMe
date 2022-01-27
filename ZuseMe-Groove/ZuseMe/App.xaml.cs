@@ -1,4 +1,7 @@
 ﻿using ArnoldVinkCode;
+using Newtonsoft.Json;
+using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace ZuseMe
@@ -12,6 +15,10 @@ namespace ZuseMe
             {
                 //Application startup checks
                 StartupCheck StartupCheck = new StartupCheck();
+
+                //Load supported players
+                string jsonFile = File.ReadAllText(@"Players.json");
+                AppVariables.MediaPlayers = JsonConvert.DeserializeObject<string[]>(jsonFile).ToArray();
 
                 //Register media session events
                 await MediaInformation.RegisterMediaSessionManager();

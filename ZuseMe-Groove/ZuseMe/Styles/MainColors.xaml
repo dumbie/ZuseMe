@@ -27,4 +27,6 @@
     <SolidColorBrush x:Key="ValidBrush">#1EB955</SolidColorBrush>
     <Color x:Key="InvalidColor">#CD1928</Color>
     <SolidColorBrush x:Key="InvalidBrush">#CD1928</SolidColorBrush>
+    <Color x:Key="IgnoredColor">#EE8F3F</Color>
+    <SolidColorBrush x:Key="IgnoredBrush">#EE8F3F</SolidColorBrush>
 </ResourceDictionary>

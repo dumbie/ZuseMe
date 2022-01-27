@@ -59,10 +59,18 @@
 
             <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                 <TextBlock Text="Unknown playing song length" VerticalAlignment="Center"/>
-                <TextBox Name="textbox_TrackLengthCustom" Width="40" Margin="5,0,5,0" Text="60" TextAlignment="Center" Style="{StaticResource TextBoxBlack}" InputScope="Digits" MaxLength="3"/>
+                <TextBox Name="textbox_TrackLengthCustom" Width="40" Margin="5,0,5,0" TextAlignment="Center" Style="{StaticResource TextBoxBlack}" InputScope="Digits" MaxLength="3"/>
                 <TextBlock Text="seconds" VerticalAlignment="Center"/>
             </StackPanel>
-            <TextBlock Text="Songs will be scrobbled when played for 50%" Foreground="{StaticResource ApplicationGrayBrush}"/>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationGrayBrush}"/>
+                <ComboBox Name="combobox_TrackPercentageScrobble" Margin="5,0,0,0" Width="65" Style="{StaticResource ComboBoxBlack}">
+                    <ComboBoxItem>25%</ComboBoxItem>
+                    <ComboBoxItem>50%</ComboBoxItem>
+                    <ComboBoxItem>75%</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
 
             <TextBlock Margin="0,10,0,0" Name="textblock_LoginName" Text="You are currently not linked to Last.fm."/>
             <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentWhite}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>

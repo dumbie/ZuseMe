@@ -25,7 +25,7 @@ namespace ZuseMe
                         Debug.WriteLine("Media " + AppVariables.MediaPlaybackStatus + " (" + AppVariables.ScrobbleSecondsCurrent + "/" + AppVariables.MediaSecondsTotalCustom + " seconds)" + " (Scrobbled " + AppVariables.ScrobbleSubmitted + ")");
 
                         //Scrobble song
-                        int scrobbleTarget = AppVariables.MediaSecondsTotalCustom / 2;
+                        int scrobbleTarget = Convert.ToInt32(Settings.Setting_Load(null, "TrackPercentageScrobble")) * AppVariables.MediaSecondsTotalCustom / 100;
                         int scrobblePercentage = 100 * AppVariables.ScrobbleSecondsCurrent / scrobbleTarget;
                         int songPercentage = 0;
                         if (AppVariables.MediaSecondsCurrent != 0)
@@ -65,7 +65,14 @@ namespace ZuseMe
                                 else
                                 {
                                     AppVariables.WindowMain.progress_StatusScrobble.Value = scrobblePercentage;
-                                    AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+                                    if (AppVariables.MediaPlaybackType == MediaPlaybackType.Music)
+                                    {
+                                        AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
+                                    }
+                                    else
+                                    {
+                                        AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["IgnoredBrush"];
+                                    }
                                 }
                             }
                             catch { }
