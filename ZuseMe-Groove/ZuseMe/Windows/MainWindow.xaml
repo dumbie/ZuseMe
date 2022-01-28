@@ -10,14 +10,14 @@
         Foreground="{StaticResource ApplicationBlackBrush}"
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
-        Height="360"
+        Height="375"
         Width="450"
         ResizeMode="NoResize">
 
     <Grid>
         <!-- Scrobble -->
         <StackPanel Name="stackpanel_Scrobble" Margin="5">
-            <Image Width="200" Height="200" Name="image_TrackCover" Source="/Assets/Thumbnail.png"/>
+            <Image Width="215" Height="215" Name="image_TrackCover" Source="/Assets/Thumbnail.png"/>
             <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
@@ -33,7 +33,7 @@
 
                 <StackPanel Grid.Column="0" Margin="0,0,5,0">
                     <Grid>
-                        <ProgressBar Height="20" Name="progress_StatusScrobble" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0"/>
+                        <ProgressBar Name="progress_StatusScrobble" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0"/>
                         <TextBlock Name="textblock_ProgressCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
                         <TextBlock Name="textblock_ProgressTotal" Text="0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
                     </Grid>

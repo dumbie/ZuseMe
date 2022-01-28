@@ -9,13 +9,13 @@ namespace ZuseMe.Api
 {
     public class ApiScrobble
     {
-        public static async Task ScrobbleTrack(string artist, string title, string album, string duration, string trackNumber)
+        public static async Task<bool> ScrobbleTrack(string artist, string title, string album, string duration, string trackNumber)
         {
             try
             {
                 //Get session token
                 string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
-                if (string.IsNullOrWhiteSpace(sessionToken)) { return; }
+                if (string.IsNullOrWhiteSpace(sessionToken)) { return false; }
 
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
@@ -43,8 +43,12 @@ namespace ZuseMe.Api
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
                 string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine(apiResult);
+                return true;
             }
-            catch { }
+            catch
+            {
+                return false;
+            }
         }
 
         public static async Task UpdateNowPlaying(string artist, string title, string album, string duration, string trackNumber)

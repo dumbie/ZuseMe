@@ -1,5 +1,4 @@
-﻿using Windows.Media;
-using Windows.Media.Control;
+﻿using Windows.Media.Control;
 
 namespace ZuseMe
 {
@@ -13,12 +12,12 @@ namespace ZuseMe
         public static string[] MediaPlayers = null;
 
         //Scrobble Variables
+        public static bool ScrobbleReset = false;
         public static bool ScrobbleSubmitted = false;
         public static int ScrobbleSecondsCurrent = 0;
 
         //Playstatus Variables
-        public static MediaPlaybackType? MediaPlaybackType = null;
-        public static GlobalSystemMediaTransportControlsSessionPlaybackStatus? MediaPlaybackStatus = null;
+        public static GlobalSystemMediaTransportControlsSessionPlaybackStatus? MediaPlaybackStatusPrevious = null;
 
         //Media Variables
         public static int MediaSecondsCurrent = 0;
@@ -29,7 +28,6 @@ namespace ZuseMe
         public static string MediaAlbum = string.Empty;
         public static string MediaTitle = string.Empty;
         public static string MediaPrevious = string.Empty;
-        public static long TicksPrevious = 0;
 
         //Smtc Variables
         public static GlobalSystemMediaTransportControlsSessionManager SmtcSessionManager = null;

@@ -21,10 +21,10 @@ namespace ZuseMe
                 AppVariables.MediaPlayers = JsonConvert.DeserializeObject<string[]>(jsonFile).ToArray();
 
                 //Register media session events
-                await MediaInformation.RegisterMediaSessionManager();
+                await Media.RegisterMediaSessionEvents();
 
-                //Start monitor scrobble task
-                AVActions.TaskStartLoop(MediaInformation.MediaScrobbleLoop, AppTasks.vTask_MonitorScrobble);
+                //Start monitor information task
+                AVActions.TaskStartLoop(Media.MediaInformationLoop, AppTasks.vTask_MonitorInformation);
 
                 //Check api login
                 if (Settings.Setting_Load(null, "LastFMSessionToken").ToString() == string.Empty)
