@@ -184,5 +184,12 @@
   <ItemGroup>
     <Resource Include="Assets\Unknown.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\ZuseMeDark.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PauseDark.png" />
+    <Resource Include="Assets\PlayDark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

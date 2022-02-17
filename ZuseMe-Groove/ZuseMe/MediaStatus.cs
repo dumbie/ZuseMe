@@ -30,9 +30,16 @@ namespace ZuseMe
                         catch { }
                     });
 
-                    if (mediaTypeValid && (forceUpdate || mediaStatusChanged))
+                    if (!AppVariables.ScrobblePause && mediaTypeValid && (forceUpdate || mediaStatusChanged))
                     {
-                        await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotalOriginal.ToString(), AppVariables.MediaTracknumber.ToString());
+                        if (AppVariables.MediaSecondsTotalUnknown)
+                        {
+                            await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, string.Empty, AppVariables.MediaTracknumber.ToString());
+                        }
+                        else
+                        {
+                            await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString(), AppVariables.MediaTracknumber.ToString());
+                        }
                         Debug.WriteLine("Media is currently playing.");
                     }
                     else if (!mediaTypeValid && forceUpdate)
@@ -102,6 +109,7 @@ namespace ZuseMe
             }
             finally
             {
+                AppVariables.MediaForceStatusCheck = false;
                 AppVariables.MediaPlaybackStatusPrevious = mediaPlayInfo.PlaybackStatus;
             }
         }

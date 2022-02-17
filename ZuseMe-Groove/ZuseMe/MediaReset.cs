@@ -20,14 +20,16 @@ namespace ZuseMe
                     AppVariables.ScrobbleReset = false;
                     AppVariables.ScrobbleSubmitted = false;
                     AppVariables.ScrobbleSecondsCurrent = 0;
+                    AppVariables.MediaSecondsCurrent = 0;
                 }
 
                 //Reset media
                 if (resetMedia)
                 {
                     AppVariables.MediaSecondsCurrent = 0;
-                    AppVariables.MediaSecondsTotalOriginal = 0;
-                    AppVariables.MediaSecondsTotalCustom = 60;
+                    AppVariables.MediaSecondsCurrentUnknown = false;
+                    AppVariables.MediaSecondsTotal = 60;
+                    AppVariables.MediaSecondsTotalUnknown = false;
                     AppVariables.MediaTracknumber = 0;
                     AppVariables.MediaArtist = string.Empty;
                     AppVariables.MediaAlbum = string.Empty;
@@ -58,7 +60,7 @@ namespace ZuseMe
                             AppVariables.WindowMain.textblock_PlayerDebug.Text = "No media player opened.";
 
                             AppVariables.WindowMain.textblock_ProgressCurrent.Text = "0:00";
-                            AppVariables.WindowMain.textblock_ProgressTotal.Text = "0:00";
+                            AppVariables.WindowMain.textblock_ProgressTotal.Text = "0:00/0:00";
                             AppVariables.WindowMain.progress_StatusSong.Value = 0;
                             AppVariables.WindowMain.progress_StatusScrobble.Value = 0;
                             AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];

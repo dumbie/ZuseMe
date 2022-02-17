@@ -12,6 +12,7 @@ namespace ZuseMe
         public static string[] MediaPlayers = null;
 
         //Scrobble Variables
+        public static bool ScrobblePause = false;
         public static bool ScrobbleReset = false;
         public static bool ScrobbleSubmitted = false;
         public static int ScrobbleSecondsCurrent = 0;
@@ -20,9 +21,11 @@ namespace ZuseMe
         public static GlobalSystemMediaTransportControlsSessionPlaybackStatus? MediaPlaybackStatusPrevious = null;
 
         //Media Variables
+        public static bool MediaForceStatusCheck = false;
         public static int MediaSecondsCurrent = 0;
-        public static int MediaSecondsTotalOriginal = 0;
-        public static int MediaSecondsTotalCustom = 60;
+        public static bool MediaSecondsCurrentUnknown = false;
+        public static int MediaSecondsTotal = 60;
+        public static bool MediaSecondsTotalUnknown = false;
         public static int MediaTracknumber = 0;
         public static string MediaArtist = string.Empty;
         public static string MediaAlbum = string.Empty;

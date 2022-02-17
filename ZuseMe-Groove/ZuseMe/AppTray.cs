@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using ZuseMe.Api;
 
@@ -17,14 +18,15 @@ namespace ZuseMe
             {
                 //Create context menu
                 sysTrayMenu = new ContextMenu();
-                sysTrayMenu.MenuItems.Add("Show", OnShow);
+                sysTrayMenu.MenuItems.Add("Show window", OnShow);
+                sysTrayMenu.MenuItems.Add("Pause/Resume", OnPause);
                 sysTrayMenu.MenuItems.Add("Website", OnWebsite);
                 sysTrayMenu.MenuItems.Add("Exit", OnExit);
 
                 //Create tray icon
                 sysTrayIcon = new NotifyIcon();
                 sysTrayIcon.Text = "ZuseMe (Last.fm client)";
-                sysTrayIcon.Icon = new Icon(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
+                sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
 
                 //Add menu to tray icon
                 sysTrayIcon.ContextMenu = sysTrayMenu;
@@ -33,7 +35,20 @@ namespace ZuseMe
                 sysTrayIcon.Visible = true;
 
                 //Register events
+                sysTrayIcon.MouseClick += TrayIcon_MiddleClick;
                 sysTrayIcon.DoubleClick += OnShow;
+            }
+            catch { }
+        }
+
+        private async void TrayIcon_MiddleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Middle)
+                {
+                    await Media.MediaScrobblePauseToggle();
+                }
             }
             catch { }
         }
@@ -43,6 +58,15 @@ namespace ZuseMe
             try
             {
                 AppVariables.WindowMain.Show();
+            }
+            catch { }
+        }
+
+        private async void OnPause(object sender, EventArgs e)
+        {
+            try
+            {
+                await Media.MediaScrobblePauseToggle();
             }
             catch { }
         }

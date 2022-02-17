@@ -28,16 +28,23 @@ namespace ZuseMe
             {
                 await Task.Delay(500);
                 IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = AppVariables.SmtcSessionManager.GetSessions();
-                //foreach (GlobalSystemMediaTransportControlsSession mediaSession in smtcSessions) { Debug.WriteLine("Player found: " + mediaSession.SourceAppUserModelId); }
+                foreach (GlobalSystemMediaTransportControlsSession mediaSession in smtcSessions)
+                {
+                    Debug.WriteLine("Media session found: " + mediaSession.SourceAppUserModelId);
+                }
                 AppVariables.SmtcSessionMedia = smtcSessions.OrderBy(x => AppVariables.MediaPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => AppVariables.MediaPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
                 if (AppVariables.SmtcSessionMedia == null)
                 {
                     await MediaResetVariables(true, true, true, true, true);
-                    Debug.WriteLine("No media session found.");
+                    Debug.WriteLine("No media session matching profile found.");
                 }
                 else
                 {
-                    AppVariables.SmtcSessionMedia.MediaPropertiesChanged += delegate { AppVariables.ScrobbleReset = true; };
+                    AppVariables.SmtcSessionMedia.MediaPropertiesChanged += delegate
+                    {
+                        Debug.WriteLine("Media properties changed.");
+                        AppVariables.ScrobbleReset = true;
+                    };
                     ActionDispatcherInvoke(delegate
                     {
                         try

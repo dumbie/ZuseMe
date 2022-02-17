@@ -46,31 +46,47 @@ namespace ZuseMe
                         //Load media tracknumber
                         AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
 
-                        //Load media duration
-                        AppVariables.MediaSecondsCurrent = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
-                        AppVariables.MediaSecondsTotalOriginal = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
-                        if (AppVariables.MediaSecondsTotalOriginal <= 0)
+                        //Load media position
+                        int mediaPosition = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
+                        if (mediaPosition <= 0)
                         {
-                            AppVariables.MediaSecondsTotalCustom = Convert.ToInt32(Settings.Setting_Load(null, "TrackLengthCustom"));
-                            Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotalCustom + " seconds.");
+                            AppVariables.MediaSecondsCurrentUnknown = true;
+                            //Debug.WriteLine("Unknown position using custom: " + AppVariables.MediaSecondsCurrent + " seconds.");
                         }
                         else
                         {
-                            AppVariables.MediaSecondsTotalCustom = AppVariables.MediaSecondsTotalOriginal;
+                            AppVariables.MediaSecondsCurrent = mediaPosition;
+                            AppVariables.MediaSecondsCurrentUnknown = false;
+                        }
+
+                        //Load media duration
+                        int mediaDuration = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
+                        if (mediaDuration <= 0)
+                        {
+                            AppVariables.MediaSecondsTotal = Convert.ToInt32(Settings.Setting_Load(null, "TrackLengthCustom"));
+                            AppVariables.MediaSecondsTotalUnknown = true;
+                            //Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotal + " seconds.");
+                        }
+                        else
+                        {
+                            AppVariables.MediaSecondsTotal = mediaDuration;
+                            AppVariables.MediaSecondsTotalUnknown = false;
                         }
 
                         //Check if media changed
-                        string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + AppVariables.MediaTracknumber.ToString() + AppVariables.MediaSecondsTotalOriginal.ToString() + AppVariables.SmtcSessionMedia.SourceAppUserModelId;
+                        string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + AppVariables.MediaTracknumber.ToString() + AppVariables.MediaSecondsTotal.ToString() + AppVariables.SmtcSessionMedia.SourceAppUserModelId;
                         if (mediaCombined == AppVariables.MediaPrevious)
                         {
                             Debug.WriteLine("Media not changed: " + mediaCombined);
+                            await MediaResetVariables(false, false, false, false, AppVariables.ScrobbleReset);
+                            await MediaStatusCheck(mediaPlayInfo, AppVariables.MediaForceStatusCheck);
                             await MediaScrobbleCheck(mediaPlayInfo);
-                            await MediaStatusCheck(mediaPlayInfo, false);
                             continue;
                         }
                         else
                         {
                             Debug.WriteLine("Media has changed: " + mediaCombined);
+                            await MediaResetVariables(false, false, false, false, true);
                             await MediaStatusCheck(mediaPlayInfo, true);
                             AppVariables.MediaPrevious = mediaCombined;
                         }
