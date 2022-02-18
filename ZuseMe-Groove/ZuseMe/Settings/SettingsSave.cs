@@ -47,6 +47,10 @@ namespace ZuseMe
                         {
                             Settings.Setting_Save(null, "TrackPercentageScrobble", "75");
                         }
+                        else if (senderElement.SelectedIndex == 3)
+                        {
+                            Settings.Setting_Save(null, "TrackPercentageScrobble", "90");
+                        }
                     }
                     catch { }
                 };

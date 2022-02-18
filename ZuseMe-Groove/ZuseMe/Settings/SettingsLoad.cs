@@ -25,6 +25,10 @@ namespace ZuseMe
                 {
                     combobox_TrackPercentageScrobble.SelectedIndex = 2;
                 }
+                else if (trackPercentageScrobble == "90")
+                {
+                    combobox_TrackPercentageScrobble.SelectedIndex = 3;
+                }
 
                 //Set the application name to string to check shortcuts
                 string targetName = Assembly.GetEntryAssembly().GetName().Name;
