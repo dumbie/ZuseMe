@@ -72,8 +72,8 @@ namespace ZuseMe
                 {
                     try
                     {
-                        AppVariables.WindowMain.textblock_ProgressCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent);
-                        string progressTotalString = AVFunctions.SecondsToHms(scrobbleTargetSeconds) + "/" + AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal);
+                        AppVariables.WindowMain.textblock_ProgressCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent, false);
+                        string progressTotalString = AVFunctions.SecondsToHms(scrobbleTargetSeconds, false) + "/" + AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false);
                         if (AppVariables.MediaSecondsTotalUnknown)
                         {
                             progressTotalString += "?";

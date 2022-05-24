@@ -64,7 +64,7 @@ namespace ZuseMe.Api
                 });
 
                 //Stop the task loop
-                await TaskStopLoop(AppTasks.vTask_LoginCheck);
+                await TaskStopLoop(AppTasks.vTask_LoginCheck, 5000);
             }
             catch { }
         }
@@ -118,7 +118,7 @@ namespace ZuseMe.Api
                             });
 
                             //Stop the task loop
-                            await TaskStopLoop(AppTasks.vTask_LoginCheck);
+                            await TaskStopLoop(AppTasks.vTask_LoginCheck, 5000);
                         }
                     }
                     catch { }
