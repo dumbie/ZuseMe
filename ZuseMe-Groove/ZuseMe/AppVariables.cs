@@ -1,4 +1,6 @@
-﻿using Windows.Media.Control;
+﻿using System.Windows.Threading;
+using Windows.Media.Control;
+using ZuseMe.Windows;
 
 namespace ZuseMe
 {
@@ -6,6 +8,7 @@ namespace ZuseMe
     {
         //Application Windows
         public static WindowMain WindowMain = new WindowMain();
+        public static WindowOverlay WindowOverlay = new WindowOverlay();
         public static AppTray AppTray = new AppTray();
 
         //Player Variables
@@ -31,6 +34,9 @@ namespace ZuseMe
         public static string MediaAlbum = string.Empty;
         public static string MediaTitle = string.Empty;
         public static string MediaPrevious = string.Empty;
+
+        //Dispatcher Timers
+        public static DispatcherTimer DispatcherTimerOverlay = new DispatcherTimer();
 
         //Smtc Variables
         public static GlobalSystemMediaTransportControlsSessionManager SmtcSessionManager = null;

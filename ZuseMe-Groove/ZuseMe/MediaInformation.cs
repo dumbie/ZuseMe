@@ -94,7 +94,7 @@ namespace ZuseMe
                         //Load media image bitmap
                         BitmapFrame mediaImageBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
 
-                        //Update scrobble window
+                        //Update scrobble and notification window
                         ActionDispatcherInvoke(delegate
                         {
                             try
@@ -105,6 +105,7 @@ namespace ZuseMe
                                     mediaArtist = AppVariables.MediaArtist;
                                 }
                                 AppVariables.WindowMain.textblock_TrackArtist.Text = mediaArtist;
+                                AppVariables.WindowOverlay.textblock_TrackArtist.Text = mediaArtist;
 
                                 string mediaTitle = "Unknown";
                                 if (!string.IsNullOrWhiteSpace(AppVariables.MediaTitle))
@@ -112,6 +113,7 @@ namespace ZuseMe
                                     mediaTitle = AppVariables.MediaTitle;
                                 }
                                 AppVariables.WindowMain.textblock_TrackTitle.Text = mediaTitle;
+                                AppVariables.WindowOverlay.textblock_TrackTitle.Text = mediaTitle;
 
                                 string mediaAlbum = "Unknown";
                                 if (!string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
@@ -119,23 +121,28 @@ namespace ZuseMe
                                     mediaAlbum = AppVariables.MediaAlbum;
                                 }
                                 AppVariables.WindowMain.textblock_TrackAlbum.Text = mediaAlbum;
+                                AppVariables.WindowOverlay.textblock_TrackAlbum.Text = mediaAlbum;
 
                                 if (AppVariables.MediaTracknumber > 0)
                                 {
                                     AppVariables.WindowMain.textblock_TrackNumber.Text = "(" + AppVariables.MediaTracknumber + ") ";
+                                    AppVariables.WindowOverlay.textblock_TrackNumber.Text = "(" + AppVariables.MediaTracknumber + ") ";
                                 }
                                 else
                                 {
                                     AppVariables.WindowMain.textblock_TrackNumber.Text = string.Empty;
+                                    AppVariables.WindowOverlay.textblock_TrackNumber.Text = string.Empty;
                                 }
 
                                 if (mediaImageBitmap == null)
                                 {
                                     AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail.png"));
+                                    AppVariables.WindowOverlay.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail-Light.png"));
                                 }
                                 else
                                 {
                                     AppVariables.WindowMain.image_TrackCover.Source = mediaImageBitmap;
+                                    AppVariables.WindowOverlay.image_TrackCover.Source = mediaImageBitmap;
                                 }
 
                                 //Set tray text
@@ -145,6 +152,9 @@ namespace ZuseMe
                                     trayText = AVFunctions.StringCut(trayText, 59, "...)");
                                 }
                                 AppVariables.AppTray.sysTrayIcon.Text = trayText;
+
+                                //Show media overlay
+                                AppVariables.WindowOverlay.ShowWindowDuration(3000);
                             }
                             catch (Exception ex)
                             {

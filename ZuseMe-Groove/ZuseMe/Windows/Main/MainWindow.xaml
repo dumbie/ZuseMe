@@ -23,8 +23,8 @@
             </Grid>
             <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
-                <TextBlock Name="textblock_TrackTitle" Text="Title"/>
+                <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationBlackBrush}"/>
+                <TextBlock Name="textblock_TrackTitle" Text="Title" Foreground="{StaticResource ApplicationBlackBrush}"/>
             </StackPanel>
             <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
 
