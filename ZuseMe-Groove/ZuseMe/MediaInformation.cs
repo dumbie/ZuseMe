@@ -63,7 +63,7 @@ namespace ZuseMe
                         int mediaDuration = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
                         if (mediaDuration <= 0)
                         {
-                            AppVariables.MediaSecondsTotal = Convert.ToInt32(Settings.Setting_Load(null, "TrackLengthCustom"));
+                            AppVariables.MediaSecondsTotal = AVSettings.Load(null, "TrackLengthCustom", typeof(int));
                             AppVariables.MediaSecondsTotalUnknown = true;
                             //Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotal + " seconds.");
                         }
@@ -154,7 +154,10 @@ namespace ZuseMe
                                 AppVariables.AppTray.sysTrayIcon.Text = trayText;
 
                                 //Show media overlay
-                                AppVariables.WindowOverlay.ShowWindowDuration(3000);
+                                if (AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
+                                {
+                                    AppVariables.WindowOverlay.ShowWindowDuration(3000);
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -168,7 +171,7 @@ namespace ZuseMe
                     }
                     finally
                     {
-                        await TaskDelayLoop(1000, AppTasks.vTask_MonitorInformation);
+                        await TaskDelayLoop(500, AppTasks.vTask_MonitorInformation);
                     }
                 }
             }

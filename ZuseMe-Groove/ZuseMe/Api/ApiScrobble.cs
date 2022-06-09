@@ -14,7 +14,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
+                string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken)) { return false; }
 
                 //Request parameters
@@ -56,7 +56,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
+                string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return;
@@ -96,7 +96,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = Settings.Setting_Load(null, "LastFMSessionToken").ToString();
+                string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return;

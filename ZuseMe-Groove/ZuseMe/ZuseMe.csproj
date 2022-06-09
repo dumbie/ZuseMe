@@ -91,6 +91,9 @@
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVFunctions.cs">
       <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVSettings.cs">
+      <Link>ArnoldVinkCode\Functions\AVSettings.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
       <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
     </Compile>
@@ -110,7 +113,6 @@
     <Compile Include="MediaSession.cs" />
     <Compile Include="MediaScrobble.cs" />
     <Compile Include="Settings\SettingsCheck.cs" />
-    <Compile Include="Settings\SettingsFunction.cs" />
     <Compile Include="Settings\SettingsLoad.cs" />
     <Compile Include="Settings\SettingsSave.cs" />
     <Compile Include="StartupCheck.cs" />

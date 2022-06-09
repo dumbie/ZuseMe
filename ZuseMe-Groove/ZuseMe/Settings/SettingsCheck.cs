@@ -1,4 +1,6 @@
-﻿namespace ZuseMe
+﻿using ArnoldVinkCode;
+
+namespace ZuseMe
 {
     public partial class Settings
     {
@@ -7,11 +9,12 @@
         {
             try
             {
-                if (Setting_Load(null, "LastFMUsername") == null) { Setting_Save(null, "LastFMUsername", string.Empty); }
-                if (Setting_Load(null, "LastFMAuthToken") == null) { Setting_Save(null, "LastFMAuthToken", string.Empty); }
-                if (Setting_Load(null, "LastFMSessionToken") == null) { Setting_Save(null, "LastFMSessionToken", string.Empty); }
-                if (Setting_Load(null, "TrackLengthCustom") == null) { Setting_Save(null, "TrackLengthCustom", "60"); }
-                if (Setting_Load(null, "TrackPercentageScrobble") == null) { Setting_Save(null, "TrackPercentageScrobble", "50"); }
+                if (!AVSettings.Check(null, "LastFMUsername")) { AVSettings.Save(null, "LastFMUsername", string.Empty); }
+                if (!AVSettings.Check(null, "LastFMAuthToken")) { AVSettings.Save(null, "LastFMAuthToken", string.Empty); }
+                if (!AVSettings.Check(null, "LastFMSessionToken")) { AVSettings.Save(null, "LastFMSessionToken", string.Empty); }
+                if (!AVSettings.Check(null, "TrackLengthCustom")) { AVSettings.Save(null, "TrackLengthCustom", "60"); }
+                if (!AVSettings.Check(null, "TrackPercentageScrobble")) { AVSettings.Save(null, "TrackPercentageScrobble", "50"); }
+                if (!AVSettings.Check(null, "TrackShowOverlay")) { AVSettings.Save(null, "TrackShowOverlay", "True"); }
             }
             catch { }
         }

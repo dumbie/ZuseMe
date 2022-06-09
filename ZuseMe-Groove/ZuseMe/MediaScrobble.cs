@@ -49,7 +49,7 @@ namespace ZuseMe
                 Debug.WriteLine("Media " + mediaPlayInfo.PlaybackStatus + " (S" + AppVariables.ScrobbleSecondsCurrent + "/M" + AppVariables.MediaSecondsCurrent + "/T" + AppVariables.MediaSecondsTotal + " seconds)" + " (Scrobbled " + AppVariables.ScrobbleSubmitted + ")");
 
                 //Get media progress
-                int scrobbleTargetSeconds = Convert.ToInt32(Settings.Setting_Load(null, "TrackPercentageScrobble")) * AppVariables.MediaSecondsTotal / 100;
+                int scrobbleTargetSeconds = AVSettings.Load(null, "TrackPercentageScrobble", typeof(int)) * AppVariables.MediaSecondsTotal / 100;
                 int scrobblePercentage = 100 * AppVariables.ScrobbleSecondsCurrent / scrobbleTargetSeconds;
                 int mediaPercentage = 100 * AppVariables.MediaSecondsCurrent / AppVariables.MediaSecondsTotal;
                 bool mediaTypeValid = mediaPlayInfo.PlaybackType == MediaPlaybackType.Music;

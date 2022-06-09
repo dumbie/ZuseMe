@@ -29,7 +29,7 @@ namespace ZuseMe.Api
                 else
                 {
                     //Update settings
-                    Settings.Setting_Save(null, "LastFMAuthToken", loginToken.token);
+                    AVSettings.Save(null, "LastFMAuthToken", loginToken.token);
                 }
 
                 //Update interface
@@ -74,9 +74,9 @@ namespace ZuseMe.Api
             try
             {
                 //Update settings
-                Settings.Setting_Save(null, "LastFMUsername", string.Empty);
-                Settings.Setting_Save(null, "LastFMAuthToken", string.Empty);
-                Settings.Setting_Save(null, "LastFMSessionToken", string.Empty);
+                AVSettings.Save(null, "LastFMUsername", string.Empty);
+                AVSettings.Save(null, "LastFMAuthToken", string.Empty);
+                AVSettings.Save(null, "LastFMSessionToken", string.Empty);
 
                 //Update interface
                 AVActions.ActionDispatcherInvoke(delegate
@@ -104,8 +104,8 @@ namespace ZuseMe.Api
                         else
                         {
                             //Update settings
-                            Settings.Setting_Save(null, "LastFMUsername", sessionToken.name);
-                            Settings.Setting_Save(null, "LastFMSessionToken", sessionToken.key);
+                            AVSettings.Save(null, "LastFMUsername", sessionToken.name);
+                            AVSettings.Save(null, "LastFMSessionToken", sessionToken.key);
 
                             //Update interface
                             AVActions.ActionDispatcherInvoke(delegate
@@ -168,7 +168,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get auth token
-                string authToken = Settings.Setting_Load(null, "LastFMAuthToken").ToString();
+                string authToken = AVSettings.Load(null, "LastFMAuthToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(authToken))
                 {
                     return null;

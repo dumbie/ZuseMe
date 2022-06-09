@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -10,9 +11,10 @@ namespace ZuseMe
         {
             try
             {
-                textbox_TrackLengthCustom.Text = Settings.Setting_Load(null, "TrackLengthCustom").ToString();
+                textbox_TrackLengthCustom.Text = AVSettings.Load(null, "TrackLengthCustom", typeof(string));
+                checkbox_TrackShowOverlay.IsChecked = AVSettings.Load(null, "TrackShowOverlay", typeof(bool));
 
-                string trackPercentageScrobble = Settings.Setting_Load(null, "TrackPercentageScrobble").ToString();
+                string trackPercentageScrobble = AVSettings.Load(null, "TrackPercentageScrobble", typeof(string));
                 if (trackPercentageScrobble == "25")
                 {
                     combobox_TrackPercentageScrobble.SelectedIndex = 0;

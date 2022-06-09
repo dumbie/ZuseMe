@@ -27,7 +27,7 @@ namespace ZuseMe
                 AVActions.TaskStartLoop(Media.MediaInformationLoop, AppTasks.vTask_MonitorInformation);
 
                 //Check api login and show window
-                if (Settings.Setting_Load(null, "LastFMSessionToken").ToString() == string.Empty)
+                if (string.IsNullOrWhiteSpace(AVSettings.Load(null, "LastFMSessionToken", typeof(string))))
                 {
                     AppVariables.WindowMain.Show();
                 }

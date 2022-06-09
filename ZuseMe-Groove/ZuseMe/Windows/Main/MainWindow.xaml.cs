@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -20,7 +21,7 @@ namespace ZuseMe
             try
             {
                 //Check api login
-                if (Settings.Setting_Load(null, "LastFMSessionToken").ToString() == string.Empty)
+                if (string.IsNullOrWhiteSpace(AVSettings.Load(null, "LastFMSessionToken", typeof(string))))
                 {
                     stackpanel_Scrobble.Visibility = Visibility.Collapsed;
                     stackpanel_Settings.Visibility = Visibility.Visible;
@@ -56,8 +57,8 @@ namespace ZuseMe
         {
             try
             {
-                string lastFMUsername = Settings.Setting_Load(null, "LastFMUsername").ToString();
-                if (lastFMUsername == string.Empty)
+                string lastFMUsername = AVSettings.Load(null, "LastFMUsername", typeof(string));
+                if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
                     button_OpenProfile.ToolTip = new ToolTip() { Content = "Link profile" };
                     textblock_LoginName.Text = "You are currently not linked to Last.fm.";
@@ -75,8 +76,8 @@ namespace ZuseMe
         {
             try
             {
-                string lastFMUsername = Settings.Setting_Load(null, "LastFMUsername").ToString();
-                if (lastFMUsername == string.Empty)
+                string lastFMUsername = AVSettings.Load(null, "LastFMUsername", typeof(string));
+                if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
                     stackpanel_Scrobble.Visibility = Visibility.Collapsed;
                     stackpanel_Settings.Visibility = Visibility.Visible;
