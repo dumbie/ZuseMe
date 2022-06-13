@@ -10,25 +10,32 @@
         Foreground="{StaticResource ApplicationBlackBrush}"
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
-        Height="375"
+        Height="450"
         Width="450"
         ResizeMode="NoResize">
 
     <Grid>
         <!-- Scrobble -->
-        <StackPanel Name="stackpanel_Scrobble" Margin="5">
-            <Grid>
-                <Image Name="image_TrackCover" Width="215" Height="215" Source="/Assets/Thumbnail.png"/>
-                <Image Name="image_ScrobblePause" Width="100" Height="100" Source="/Assets/Pause.png" Visibility="Collapsed"/>
-            </Grid>
-            <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationBlackBrush}"/>
-                <TextBlock Name="textblock_TrackTitle" Text="Title" Foreground="{StaticResource ApplicationBlackBrush}"/>
-            </StackPanel>
-            <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
+        <Grid Name="stackpanel_Scrobble" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <Grid Margin="0,10,0,0">
+            <StackPanel Grid.Row="0">
+                <Grid>
+                    <Image Name="image_TrackCover" Width="215" Height="215" Source="/Assets/Thumbnail.png"/>
+                    <Image Name="image_ScrobblePause" Width="100" Height="100" Source="/Assets/Pause.png" Visibility="Collapsed"/>
+                </Grid>
+                <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationBlackBrush}"/>
+                    <TextBlock Name="textblock_TrackTitle" Text="Title" Foreground="{StaticResource ApplicationBlackBrush}"/>
+                </StackPanel>
+                <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -54,14 +61,14 @@
                 </StackPanel>
                 <Image Grid.Column="1" VerticalAlignment="Center" Name="image_PlayStatus" Width="30" Height="30" Source="/Assets/Unknown.png"/>
             </Grid>
-        </StackPanel>
+        </Grid>
 
         <!-- Settings -->
         <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">
             <CheckBox Name="checkbox_WindowsStartup" Style="{StaticResource CheckBoxBlack}" Content="Launch ZuseMe on Windows startup"/>
             <CheckBox Name="checkbox_TrackShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when track has changed"/>
 
-            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+            <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
                 <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationGrayBrush}"/>
                 <ComboBox Name="combobox_TrackPercentageScrobble" Margin="5,0,0,0" Width="70" Style="{StaticResource ComboBoxBlack}">
                     <ComboBoxItem>25%</ComboBoxItem>
@@ -78,8 +85,8 @@
             </StackPanel>
 
             <TextBlock Margin="0,5,0,0" Name="textblock_LoginName" Text="You are currently not linked to Last.fm."/>
-            <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentWhite}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
-            <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentWhite}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
+            <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
+            <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
 
             <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" Height="5" IsIndeterminate="True" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0" Visibility="Collapsed"/>
             <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete in browser..." Visibility="Collapsed"/>
