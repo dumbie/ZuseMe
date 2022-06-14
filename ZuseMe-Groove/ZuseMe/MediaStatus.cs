@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -17,6 +18,25 @@ namespace ZuseMe
             {
                 bool mediaTypeValid = mediaPlayInfo.PlaybackType == MediaPlaybackType.Music;
                 bool mediaStatusChanged = AppVariables.MediaPlaybackStatusPrevious != mediaPlayInfo.PlaybackStatus;
+
+                //Show media overlay
+                if (mediaStatusChanged)
+                {
+                    if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
+                    {
+                        ActionDispatcherInvoke(delegate
+                        {
+                            try
+                            {
+                                if (AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
+                                {
+                                    AppVariables.WindowOverlay.ShowWindowDuration(3000);
+                                }
+                            }
+                            catch { }
+                        });
+                    }
+                }
 
                 if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                 {
