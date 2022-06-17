@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Interop;
+using static ArnoldVinkCode.AVInteropDll;
 
 namespace ZuseMe.Windows
 {
@@ -14,7 +15,7 @@ namespace ZuseMe.Windows
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
 
         //Window Initialized
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -25,6 +26,14 @@ namespace ZuseMe.Windows
                 HwndSource hwndSource = HwndSource.FromHwnd(vInteropWindowHandle);
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
+
+                //Set the window style
+                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
+                await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
+
+                //Set the window style ex
+                IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
+                await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
             }
             catch { }
         }

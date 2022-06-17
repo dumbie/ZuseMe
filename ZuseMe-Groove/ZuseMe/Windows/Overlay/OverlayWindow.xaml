@@ -14,8 +14,7 @@
         AllowsTransparency="True"
         ShowInTaskbar="False"
         ResizeMode="NoResize"
-        Background="Transparent"
-        IsHitTestVisible="True">
+        Background="Transparent">
 
     <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Margin="0,0,0,120" Background="{StaticResource ApplicationBlackBrush}" MouseLeftButtonUp="Border_MouseLeftButtonUp">
         <Grid>
