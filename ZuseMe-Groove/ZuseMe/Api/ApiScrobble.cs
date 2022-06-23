@@ -23,12 +23,18 @@ namespace ZuseMe.Api
                 requestParameters.Add("api_key", ApiVariables.KeyPublic);
                 requestParameters.Add("sk", sessionToken);
 
+                int durationInt = 0;
                 if (!string.IsNullOrWhiteSpace(artist)) { requestParameters.Add("artist", artist); }
                 if (!string.IsNullOrWhiteSpace(title)) { requestParameters.Add("track", title); }
                 if (!string.IsNullOrWhiteSpace(album)) { requestParameters.Add("album", album); }
-                if (!string.IsNullOrWhiteSpace(duration) && duration != "0") { requestParameters.Add("duration", duration); }
+                if (!string.IsNullOrWhiteSpace(duration) && duration != "0")
+                {
+                    requestParameters.Add("duration", duration);
+                    durationInt = Convert.ToInt32(duration);
+                }
                 if (!string.IsNullOrWhiteSpace(trackNumber) && trackNumber != "0") { requestParameters.Add("trackNumber", trackNumber); }
-                requestParameters.Add("timestamp", ApiFunctions.UnixTimeFromDateTime(DateTime.Now));
+                DateTime scrobbleTime = DateTime.Now.AddSeconds(-(durationInt - 10));
+                requestParameters.Add("timestamp", ApiFunctions.UnixTimeFromDateTime(scrobbleTime));
 
                 //Generate api signature
                 string apiSignature = ApiFunctions.GenerateApiSignature(requestParameters);
