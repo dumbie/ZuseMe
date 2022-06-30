@@ -1,5 +1,6 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
@@ -45,6 +46,16 @@ namespace ZuseMe.Windows
         {
             try
             {
+                //Check media information
+                if (textblock_TrackArtist.Text == "Unknown" && textblock_TrackTitle.Text == "Unknown" && textblock_TrackAlbum.Text == "Unknown")
+                {
+                    Debug.WriteLine("Unknown song hiding the overlay.");
+
+                    //Hide the overlay
+                    this.Hide();
+                    return;
+                }
+
                 //Show the overlay
                 this.Show();
 
