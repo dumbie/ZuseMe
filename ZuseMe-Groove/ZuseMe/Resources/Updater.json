@@ -1,0 +1,19 @@
+{
+  "UserName": "Dumbie",
+  "RepoName": "ZuseMe",
+  "FileName": "ZuseMe-Groove.zip",
+  "ExtractName": "ZuseMe",
+  "ProcessLaunch": [
+    "Launcher"
+  ],
+  "ProcessClose": [
+    "ZuseMe",
+    "Launcher"
+  ],
+  "FilesIgnore": [
+    ".exe.config",
+    ".csettings",
+    "Players.json"
+  ],
+  "FilesDelete": []
+}
