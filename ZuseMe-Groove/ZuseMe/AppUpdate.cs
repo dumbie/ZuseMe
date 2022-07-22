@@ -41,7 +41,7 @@ namespace ZuseMe
             {
                 Debug.WriteLine("Checking for application update.");
                 string onlineVersion = (await ApiGitHub_GetLatestVersion("dumbie", "ZuseMe")).ToLower();
-                string currentVersion = "vv" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0];
+                string currentVersion = "v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0];
                 if (!string.IsNullOrWhiteSpace(onlineVersion) && onlineVersion != currentVersion)
                 {
                     List<string> MsgBoxAnswers = new List<string>();
