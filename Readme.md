@@ -1,10 +1,14 @@
+## Media Player (Windows 11)
+Media Player (Windows 11) currently has an issue that prevents ZuseMe from detecting the currently playing song when using the next button, if you have the Windows feedback app installed you can help me make Microsoft aware of this issue so they can fix it by voting on the issue here: https://aka.ms/AAhb3hc
+
 ## Application description
 ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music and Media Player (Windows 11)
 
 ## Installation Instructions
-1) Extract the ZuseMe folder to any directory you want.
-2) Launch ZuseMe.exe (Runs hidden in the background and tray menu)
-3) Have fun scrobbling!
+1) Extract the ZuseMe folder to any directory you want on your device.
+2) Run the Launcher executable file to launch the application.
+3) The application runs hidden in the background and tray menu.
+4) Setup your Last.fm account and have fun scrobbling!
 
 ## Tips and tricks
 - Allow ZuseMe to run on your Windows startup for easier scrobbling.
