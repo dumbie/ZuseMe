@@ -171,7 +171,7 @@ namespace ZuseMe
                     }
                     finally
                     {
-                        await TaskDelayLoop(500, AppTasks.vTask_MonitorInformation);
+                        await TaskDelayLoop(1000, AppTasks.vTask_MonitorInformation);
                     }
                 }
             }
