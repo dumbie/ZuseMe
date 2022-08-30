@@ -11,104 +11,137 @@
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
         Height="450"
-        Width="450"
+        Width="550"
         ResizeMode="NoResize">
 
     <Grid>
-        <!-- Scrobble -->
-        <Grid Name="stackpanel_Scrobble" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="0">
-                <Grid>
-                    <Image Name="image_TrackCover" Width="215" Height="215" Source="/Assets/Thumbnail.png"/>
-                    <Image Name="image_ScrobblePause" Width="100" Height="100" Source="/Assets/Pause.png" Visibility="Collapsed"/>
-                </Grid>
-                <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationBlackBrush}"/>
-                    <TextBlock Name="textblock_TrackTitle" Text="Title" Foreground="{StaticResource ApplicationBlackBrush}"/>
+        <!-- Grid Menu -->
+        <Grid Name="grid_Menu" Grid.Column="0" Width="105" Background="{DynamicResource ApplicationBlackBrush}">
+            <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxVertical}">
+                <StackPanel Name="menuButtonStatus" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Resume or pause scrobbling">
+                    <Image Name="menuButtonStatusImage" Source="/Assets/PauseLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Name="menuButtonStatusText" Text="Pause" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
-            </StackPanel>
-
-            <Grid Grid.Row="1" VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0">
-                    <Grid>
-                        <ProgressBar Name="progress_StatusScrobble" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0"/>
-                        <TextBlock Name="textblock_ProgressCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
-                        <TextBlock Name="textblock_ProgressTotal" Text="0:00/0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
-                    </Grid>
-                    <ProgressBar Height="6" Margin="0,-1,0,0" Name="progress_StatusSong" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0">
-                        <ProgressBar.Foreground>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <LinearGradientBrush.RelativeTransform>
-                                    <RotateTransform CenterY="0.5" CenterX="0.5" Angle="90"/>
-                                </LinearGradientBrush.RelativeTransform>
-                                <GradientStop Color="#E64E8D" Offset="1"/>
-                                <GradientStop Color="#EE9038" Offset="0"/>
-                            </LinearGradientBrush>
-                        </ProgressBar.Foreground>
-                    </ProgressBar>
+                <StackPanel Name="menuButtonScrobble" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Show playing media">
+                    <Image Source="/Assets/ThumbnailLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Scrobble" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <Image Grid.Column="1" VerticalAlignment="Center" Name="image_PlayStatus" Width="30" Height="30" Source="/Assets/Unknown.png"/>
-            </Grid>
+                <StackPanel Name="menuButtonProfile" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Open Last.fm profile">
+                    <Image Source="/Assets/ProfileLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Profile" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Name="menuButtonPlayers" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage scrobble players">
+                    <Image Source="/Assets/PlayersLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Players" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage scrobble settings">
+                    <Image Source="/Assets/SettingsLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Name="menuButtonClose" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Close the window">
+                    <Image Source="/Assets/CloseLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Close" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Name="menuButtonExit" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Exit application">
+                    <Image Source="/Assets/ShutdownLight.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Exit" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </ListBox>
         </Grid>
 
-        <!-- Settings -->
-        <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">
-            <CheckBox Name="checkbox_WindowsStartup" Style="{StaticResource CheckBoxBlack}" Content="Launch ZuseMe on Windows startup"/>
-            <CheckBox Name="checkbox_TrackShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when track has changed"/>
+        <!-- Grid Main -->
+        <Grid Name="grid_Main" Grid.Column="1">
+            <!-- Scrobble -->
+            <Grid Name="stackpanel_Scrobble" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
-                <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationGrayBrush}"/>
-                <ComboBox Name="combobox_TrackPercentageScrobble" Margin="5,0,0,0" Width="70" Style="{StaticResource ComboBoxBlack}">
-                    <ComboBoxItem>25%</ComboBoxItem>
-                    <ComboBoxItem>50%</ComboBoxItem>
-                    <ComboBoxItem>75%</ComboBoxItem>
-                    <ComboBoxItem>90%</ComboBoxItem>
-                </ComboBox>
+                <StackPanel Grid.Row="0">
+                    <Grid>
+                        <Image Name="image_TrackCover" Width="215" Height="215" Source="/Assets/ThumbnailDark.png"/>
+                        <Image Name="image_ScrobblePause" Width="100" Height="100" Source="/Assets/PauseAccent.png" Visibility="Collapsed"/>
+                    </Grid>
+                    <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Name="textblock_TrackNumber" Text="(0) " Foreground="{StaticResource ApplicationBlackBrush}"/>
+                        <TextBlock Name="textblock_TrackTitle" Text="Title" Foreground="{StaticResource ApplicationBlackBrush}"/>
+                    </StackPanel>
+                    <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0">
+                        <Grid>
+                            <ProgressBar Name="progress_StatusScrobble" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0"/>
+                            <TextBlock Name="textblock_ProgressCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                            <TextBlock Name="textblock_ProgressTotal" Text="0:00/0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                        </Grid>
+                        <ProgressBar Height="6" Margin="0,-1,0,0" Name="progress_StatusSong" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0">
+                            <ProgressBar.Foreground>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <RotateTransform CenterY="0.5" CenterX="0.5" Angle="90"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#E64E8D" Offset="1"/>
+                                    <GradientStop Color="#EE9038" Offset="0"/>
+                                </LinearGradientBrush>
+                            </ProgressBar.Foreground>
+                        </ProgressBar>
+                    </StackPanel>
+                    <Image Grid.Column="1" VerticalAlignment="Center" Name="image_PlayStatus" Width="30" Height="30" Source="/Assets/UnknownAccent.png"/>
+                </Grid>
+            </Grid>
+
+            <!-- Players -->
+            <StackPanel Name="stackpanel_Players" Visibility="Collapsed" Margin="5">
+                <TextBlock Text="* You may need to restart the player before it is detected." Foreground="{StaticResource ApplicationGrayBrush}"/>
+
+                <ListBox Name="listbox_SupportedPlayers" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoneBlack}" ItemTemplate="{StaticResource ListBoxSupportedPlayers}" Style="{StaticResource ListBoxVertical}"/>
             </StackPanel>
 
-            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                <TextBlock Text="Unknown playing song length" VerticalAlignment="Center"/>
-                <TextBox Name="textbox_TrackLengthCustom" Width="40" Margin="5,0,5,0" TextAlignment="Center" Style="{StaticResource TextBoxBlack}" InputScope="Digits" MaxLength="3"/>
-                <TextBlock Text="seconds" VerticalAlignment="Center"/>
+            <!-- Settings -->
+            <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">
+                <CheckBox Name="checkbox_WindowsStartup" Style="{StaticResource CheckBoxBlack}" Content="Launch ZuseMe on Windows startup"/>
+                <CheckBox Name="checkbox_TrackShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when track has changed"/>
+
+                <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                    <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationGrayBrush}"/>
+                    <ComboBox Name="combobox_TrackPercentageScrobble" Margin="5,0,0,0" Width="70" Style="{StaticResource ComboBoxBlack}">
+                        <ComboBoxItem>25%</ComboBoxItem>
+                        <ComboBoxItem>50%</ComboBoxItem>
+                        <ComboBoxItem>75%</ComboBoxItem>
+                        <ComboBoxItem>90%</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                    <TextBlock Text="Unknown playing song length" VerticalAlignment="Center"/>
+                    <TextBox Name="textbox_TrackLengthCustom" Width="40" Margin="5,0,5,0" TextAlignment="Center" Style="{StaticResource TextBoxBlack}" InputScope="Digits" MaxLength="3"/>
+                    <TextBlock Text="seconds" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Margin="0,5,0,0" Name="textblock_LoginName" Text="You are currently not linked to Last.fm."/>
+                <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
+                <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
+
+                <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" Height="5" IsIndeterminate="True" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0" Visibility="Collapsed"/>
+                <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete in browser..." Visibility="Collapsed"/>
+
+                <TextBox Margin="0,5,0,0" Name="textblock_PlayerDebug" Style="{StaticResource TextBoxTransparentBlack}" Foreground="{StaticResource ApplicationGrayBrush}" IsReadOnly="True" Text="No media player opened."/>
+                <TextBlock Margin="0,5,0,0" Name="textblock_Version" Style="{StaticResource TextBlockGray}" Text="Version"/>
             </StackPanel>
-
-            <TextBlock Margin="0,5,0,0" Name="textblock_LoginName" Text="You are currently not linked to Last.fm."/>
-            <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
-            <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
-
-            <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" Height="5" IsIndeterminate="True" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0" Visibility="Collapsed"/>
-            <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete in browser..." Visibility="Collapsed"/>
-
-            <TextBox Margin="0,5,0,0" Name="textblock_PlayerDebug" Style="{StaticResource TextBoxTransparentBlack}" Foreground="{StaticResource ApplicationGrayBrush}" IsReadOnly="True" Text="No media player opened."/>
-            <TextBlock Margin="0,5,0,0" Name="textblock_Version" Style="{StaticResource TextBlockGray}" Text="Version"/>
-        </StackPanel>
-
-        <!-- Menu -->
-        <StackPanel Name="stackpanel_Menu" Margin="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button Name="button_PauseResume" Margin="0,0,3,0" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_PauseResume_Click" ToolTip="Pause scrobbling">
-                <Image Name="image_PauseResume" Width="30" Height="30" Source="/Assets/PauseDark.png"/>
-            </Button>
-            <Button Name="button_OpenProfile" Margin="0,0,3,0" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_OpenProfile_Click" ToolTip="Link profile">
-                <Image Width="30" Height="30" Source="/Assets/Profile.png"/>
-            </Button>
-            <Button Name="button_ShowScrobble" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ShowScrobble_Click" ToolTip="Show scrobble" Visibility="Collapsed">
-                <Image Width="30" Height="30" Source="/Assets/Scrobble.png"/>
-            </Button>
-            <Button Name="button_ShowSettings" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ShowSettings_Click" ToolTip="Show settings">
-                <Image Width="30" Height="30" Source="/Assets/Settings.png"/>
-            </Button>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Window>

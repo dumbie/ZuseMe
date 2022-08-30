@@ -20,14 +20,9 @@ namespace ZuseMe
         {
             try
             {
-                //Check api login
-                if (string.IsNullOrWhiteSpace(AVSettings.Load(null, "LastFMSessionToken", typeof(string))))
-                {
-                    stackpanel_Scrobble.Visibility = Visibility.Collapsed;
-                    stackpanel_Settings.Visibility = Visibility.Visible;
-                    button_ShowScrobble.Visibility = Visibility.Visible;
-                    button_ShowSettings.Visibility = Visibility.Collapsed;
-                }
+                //Main menu functions
+                lb_Menu.PreviewKeyUp += lb_Menu_KeyPressUp;
+                lb_Menu.PreviewMouseUp += lb_Menu_MousePressUp;
 
                 //Update Last.fm username
                 UpdateLastFMUsername();
@@ -60,29 +55,26 @@ namespace ZuseMe
                 string lastFMUsername = AVSettings.Load(null, "LastFMUsername", typeof(string));
                 if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
-                    button_OpenProfile.ToolTip = new ToolTip() { Content = "Link profile" };
+                    menuButtonProfile.ToolTip = new ToolTip() { Content = "Link Last.fm profile" };
                     textblock_LoginName.Text = "You are currently not linked to Last.fm.";
                 }
                 else
                 {
-                    button_OpenProfile.ToolTip = new ToolTip() { Content = "Open profile " + lastFMUsername };
+                    menuButtonProfile.ToolTip = new ToolTip() { Content = "Open profile " + lastFMUsername };
                     textblock_LoginName.Text = "You are currently linked to: " + lastFMUsername;
                 }
             }
             catch { }
         }
 
-        private void button_OpenProfile_Click(object sender, RoutedEventArgs e)
+        private void OpenLastFMProfile()
         {
             try
             {
                 string lastFMUsername = AVSettings.Load(null, "LastFMUsername", typeof(string));
                 if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
-                    stackpanel_Scrobble.Visibility = Visibility.Collapsed;
-                    stackpanel_Settings.Visibility = Visibility.Visible;
-                    button_ShowScrobble.Visibility = Visibility.Visible;
-                    button_ShowSettings.Visibility = Visibility.Collapsed;
+                    ShowGridPage(stackpanel_Settings);
                 }
                 else
                 {
@@ -113,39 +105,6 @@ namespace ZuseMe
             try
             {
                 ApiAuth.AuthUnlinkLogin();
-            }
-            catch { }
-        }
-
-        private void button_ShowScrobble_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                stackpanel_Scrobble.Visibility = Visibility.Visible;
-                stackpanel_Settings.Visibility = Visibility.Collapsed;
-                button_ShowScrobble.Visibility = Visibility.Collapsed;
-                button_ShowSettings.Visibility = Visibility.Visible;
-            }
-            catch { }
-        }
-
-        private void button_ShowSettings_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                stackpanel_Scrobble.Visibility = Visibility.Collapsed;
-                stackpanel_Settings.Visibility = Visibility.Visible;
-                button_ShowScrobble.Visibility = Visibility.Visible;
-                button_ShowSettings.Visibility = Visibility.Collapsed;
-            }
-            catch { }
-        }
-
-        private async void button_PauseResume_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await Media.MediaScrobblePauseToggle();
             }
             catch { }
         }
