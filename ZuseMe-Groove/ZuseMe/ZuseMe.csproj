@@ -171,7 +171,13 @@
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="Classes\AuthToken.cs" />
+    <Compile Include="Classes\PlayersJson.cs" />
     <Compile Include="Classes\SessionToken.cs" />
+    <Compile Include="Styles\DataTemplates\ListBoxSupportedPlayers.xaml.cs">
+      <DependentUpon>ListBoxSupportedPlayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SupportedPlayers.cs" />
+    <Compile Include="Windows\Main\InterfaceMenu.cs" />
     <Compile Include="MediaReset.cs" />
     <Compile Include="MediaStatus.cs" />
     <Compile Include="MediaSession.cs" />
@@ -232,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\DataTemplates\ListBoxSupportedPlayers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Main\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -257,36 +267,40 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Profile.png" />
+    <Resource Include="Assets\ProfileLight.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\ZuseMe.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages.config" />
-    <None Include="Players.json">
+    <None Include="SupportedPlayers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\App.config" />
     <None Include="Properties\App.manifest" />
+    <Resource Include="Assets\PlayersLight.png" />
+    <Resource Include="Assets\PauseLight.png" />
+    <Resource Include="Assets\PlayLight.png" />
+    <Resource Include="Assets\CloseLight.png" />
+    <Resource Include="Assets\ShutdownLight.png" />
     <Content Include="Resources\Updater.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Scrobble.png" />
-    <Resource Include="Assets\Settings.png" />
+    <Resource Include="Assets\SettingsLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Thumbnail.png" />
+    <Resource Include="Assets\ThumbnailDark.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Pause.png" />
-    <Resource Include="Assets\Play.png" />
-    <Resource Include="Assets\Stop.png" />
+    <Resource Include="Assets\PauseAccent.png" />
+    <Resource Include="Assets\PlayAccent.png" />
+    <Resource Include="Assets\StopAccent.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Unknown.png" />
+    <Resource Include="Assets\UnknownAccent.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\ZuseMeDark.ico" />
@@ -296,7 +310,7 @@
     <Resource Include="Assets\PlayDark.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Thumbnail-Light.png" />
+    <Resource Include="Assets\ThumbnailLight.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">

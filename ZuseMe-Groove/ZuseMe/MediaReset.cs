@@ -59,8 +59,10 @@ namespace ZuseMe
                             AppVariables.AppTray.sysTrayIcon.Text = "ZuseMe (Last.fm client)";
                             AppVariables.WindowMain.textblock_PlayerDebug.Text = "No media player opened.";
 
-                            AppVariables.WindowMain.textblock_ProgressCurrent.Text = "0:00";
-                            AppVariables.WindowMain.textblock_ProgressTotal.Text = "0:00/0:00";
+                            AppVariables.WindowMain.textblock_ProgressScrobbleCurrent.Text = "0:00";
+                            AppVariables.WindowMain.textblock_ProgressScrobbleTotal.Text = "0:00";
+                            AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = "0:00";
+                            AppVariables.WindowMain.textblock_ProgressMediaTotal.Text = "0:00";
                             AppVariables.WindowMain.progress_StatusSong.Value = 0;
                             AppVariables.WindowMain.progress_StatusScrobble.Value = 0;
                             AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
@@ -69,8 +71,8 @@ namespace ZuseMe
                             AppVariables.WindowMain.textblock_TrackAlbum.Text = "Album";
                             AppVariables.WindowMain.textblock_TrackTitle.Text = "Title";
                             AppVariables.WindowMain.textblock_TrackNumber.Text = "(0) ";
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Unknown.png"));
-                            AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail.png"));
+                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/UnknownAccent.png"));
+                            AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailDark.png"));
                         }
                         catch { }
                     });

@@ -136,8 +136,8 @@ namespace ZuseMe
 
                                 if (mediaImageBitmap == null)
                                 {
-                                    AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail.png"));
-                                    AppVariables.WindowOverlay.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Thumbnail-Light.png"));
+                                    AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailDark.png"));
+                                    AppVariables.WindowOverlay.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailLight.png"));
                                 }
                                 else
                                 {

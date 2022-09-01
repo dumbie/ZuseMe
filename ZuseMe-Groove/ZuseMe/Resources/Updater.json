@@ -12,8 +12,9 @@
   ],
   "FilesIgnore": [
     ".exe.config",
-    ".csettings",
-    "Players.json"
+    ".csettings"
   ],
-  "FilesDelete": []
+  "FilesDelete": [
+    "Players.json"
+  ]
 }

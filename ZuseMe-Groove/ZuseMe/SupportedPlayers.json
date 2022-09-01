@@ -1,0 +1,52 @@
+[
+  {
+    "Identifier": "Windows Media Player and Groove Music",
+    "ProcessName": "Microsoft.ZuneMusic_8wekyb3d8bbwe",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "Spotify (Windows Store)",
+    "ProcessName": "SpotifyAB.SpotifyMusic_zpdnekdrzrea0",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "Spotify (Desktop)",
+    "ProcessName": "Spotify.exe",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "MediaMonkey",
+    "ProcessName": "MediaMonkey.exe",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "Foobar2000",
+    "ProcessName": "foobar2000.exe",
+    "Note": "Requires foo_mediacontrol plugin.",
+    "Link": "https://github.com/Hual/foo_mediacontrol/releases"
+  },
+  {
+    "Identifier": "MusicBee",
+    "ProcessName": "MusicBee.exe",
+    "Note": "Requires mb_mediacontrol plugin.",
+    "Link": "https://github.com/ameer1234567890/mb_MediaControl/releases"
+  },
+  {
+    "Identifier": "AIMP",
+    "ProcessName": "AIMP.exe",
+    "Note": "Requires aimp_win10_mediacontrol plugin.",
+    "Link": "https://www.aimp.ru/?do=catalog&rec_id=1097"
+  },
+  {
+    "Identifier": "Winamp",
+    "ProcessName": "winamp.exe",
+    "Note": "Requires gen_smtc plugin.",
+    "Link": "https://github.com/NanMetal/gen_smtc/releases"
+  },
+  {
+    "Identifier": "iTunes",
+    "ProcessName": "iTunes.SMTC.exe",
+    "Note": "Requires iTunes SMTC tool.",
+    "Link": "https://github.com/thewizrd/iTunes-SMTC/releases"
+  }
+]

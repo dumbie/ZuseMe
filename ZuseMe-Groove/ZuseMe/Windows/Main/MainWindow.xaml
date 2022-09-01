@@ -84,32 +84,40 @@
 
                     <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0">
                         <Grid>
-                            <ProgressBar Name="progress_StatusScrobble" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0"/>
-                            <TextBlock Name="textblock_ProgressCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
-                            <TextBlock Name="textblock_ProgressTotal" Text="0:00/0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                            <ProgressBar Name="progress_StatusScrobble" Height="25" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0"/>
+                            <TextBlock Name="textblock_ProgressScrobbleCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                            <TextBlock Name="textblock_ProgressScrobbleTotal" Text="0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
                         </Grid>
-                        <ProgressBar Height="6" Margin="0,-1,0,0" Name="progress_StatusSong" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0">
-                            <ProgressBar.Foreground>
-                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <LinearGradientBrush.RelativeTransform>
-                                        <RotateTransform CenterY="0.5" CenterX="0.5" Angle="90"/>
-                                    </LinearGradientBrush.RelativeTransform>
-                                    <GradientStop Color="#E64E8D" Offset="1"/>
-                                    <GradientStop Color="#EE9038" Offset="0"/>
-                                </LinearGradientBrush>
-                            </ProgressBar.Foreground>
-                        </ProgressBar>
+                        <Grid>
+                            <ProgressBar Name="progress_StatusSong" Height="25" Background="{StaticResource ApplicationGrayBrush}" BorderThickness="0">
+                                <ProgressBar.Foreground>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <LinearGradientBrush.RelativeTransform>
+                                            <RotateTransform CenterY="0.5" CenterX="0.5" Angle="90"/>
+                                        </LinearGradientBrush.RelativeTransform>
+                                        <GradientStop Color="#E64E8D" Offset="1"/>
+                                        <GradientStop Color="#EE9038" Offset="0"/>
+                                    </LinearGradientBrush>
+                                </ProgressBar.Foreground>
+                            </ProgressBar>
+                            <TextBlock Name="textblock_ProgressMediaCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                            <TextBlock Name="textblock_ProgressMediaTotal" Text="0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                        </Grid>
                     </StackPanel>
-                    <Image Grid.Column="1" VerticalAlignment="Center" Name="image_PlayStatus" Width="30" Height="30" Source="/Assets/UnknownAccent.png"/>
+                    <Image Grid.Column="1" VerticalAlignment="Center" Name="image_PlayStatus" Width="50" Height="50" Source="/Assets/UnknownAccent.png"/>
                 </Grid>
             </Grid>
 
             <!-- Players -->
-            <StackPanel Name="stackpanel_Players" Visibility="Collapsed" Margin="5">
-                <TextBlock Text="* You may need to restart the player before it is detected." Foreground="{StaticResource ApplicationGrayBrush}"/>
+            <Grid Name="stackpanel_Players" Visibility="Collapsed" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <ListBox Name="listbox_SupportedPlayers" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoneBlack}" ItemTemplate="{StaticResource ListBoxSupportedPlayers}" Style="{StaticResource ListBoxVertical}"/>
-            </StackPanel>
+                <TextBlock Grid.Row="0" Text="Select the players you want to use to scrobble:" Foreground="{StaticResource ApplicationBlackBrush}"/>
+                <ListBox Grid.Row="1" Name="listbox_SupportedPlayers" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemNoneBlack}" ItemTemplate="{StaticResource ListBoxSupportedPlayers}" Style="{StaticResource ListBoxVertical}"/>
+            </Grid>
 
             <!-- Settings -->
             <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">

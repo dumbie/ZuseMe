@@ -16,7 +16,10 @@
         ResizeMode="NoResize"
         Background="Transparent">
 
-    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Margin="0,0,0,120" Background="{StaticResource ApplicationBlackBrush}" MouseLeftButtonUp="Border_MouseLeftButtonUp">
+    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Margin="0,0,0,120" MouseLeftButtonUp="Border_MouseLeftButtonUp">
+        <Border.Background>
+            <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+        </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

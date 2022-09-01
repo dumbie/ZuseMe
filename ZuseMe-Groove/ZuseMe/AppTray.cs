@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using ZuseMe.Api;
 
 namespace ZuseMe
 {
@@ -84,14 +83,7 @@ namespace ZuseMe
         {
             try
             {
-                //Remove current scrobble
-                await ApiScrobble.RemoveNowPlaying();
-
-                //Hide tray icon
-                sysTrayIcon.Visible = false;
-
-                //Exit application
-                Environment.Exit(1);
+                await AppStartup.Exit();
             }
             catch { }
         }

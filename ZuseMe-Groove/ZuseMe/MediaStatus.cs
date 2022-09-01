@@ -45,7 +45,7 @@ namespace ZuseMe
                     {
                         try
                         {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Play.png"));
+                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayAccent.png"));
                         }
                         catch { }
                     });
@@ -75,7 +75,7 @@ namespace ZuseMe
                     {
                         try
                         {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Stop.png"));
+                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/StopAccent.png"));
                         }
                         catch { }
                     });
@@ -93,7 +93,7 @@ namespace ZuseMe
                     {
                         try
                         {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Pause.png"));
+                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PauseAccent.png"));
                         }
                         catch { }
                     });
@@ -111,7 +111,7 @@ namespace ZuseMe
                     {
                         try
                         {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/Unknown.png"));
+                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/UnknownAccent.png"));
                         }
                         catch { }
                     });

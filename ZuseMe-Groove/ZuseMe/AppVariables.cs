@@ -1,5 +1,6 @@
 ﻿using System.Windows.Threading;
 using Windows.Media.Control;
+using ZuseMe.Classes;
 using ZuseMe.Windows;
 
 namespace ZuseMe
@@ -12,7 +13,7 @@ namespace ZuseMe
         public static AppTray AppTray = new AppTray();
 
         //Player Variables
-        public static string[] MediaPlayers = null;
+        public static PlayersJson[] MediaPlayers = null;
 
         //Scrobble Variables
         public static bool ScrobblePause = false;

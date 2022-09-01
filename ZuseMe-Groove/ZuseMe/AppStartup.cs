@@ -1,11 +1,9 @@
 ﻿using ArnoldVinkCode;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ZuseMe.Api;
 using static ArnoldVinkCode.AVFirewall;
 
 namespace ZuseMe
@@ -31,12 +29,11 @@ namespace ZuseMe
                 //Check - Application Settings
                 Settings.Settings_Check();
 
+                //Load supported players
+                SupportedPlayers.LoadSupportedPlayers();
+
                 //Close the Last.fm scrobbler
                 Launcher.CloseLastFM();
-
-                //Load supported players
-                string jsonFile = File.ReadAllText(@"Players.json");
-                AppVariables.MediaPlayers = JsonConvert.DeserializeObject<string[]>(jsonFile).ToArray();
 
                 //Register media session events
                 await Media.RegisterMediaSessionEvents();
@@ -49,6 +46,24 @@ namespace ZuseMe
                 {
                     AppVariables.WindowMain.Show();
                 }
+            }
+            catch { }
+        }
+
+        public static async Task Exit()
+        {
+            try
+            {
+                Debug.WriteLine("Exiting ZuseMe.");
+
+                //Remove current scrobble
+                await ApiScrobble.RemoveNowPlaying();
+
+                //Hide tray icon
+                AppVariables.AppTray.sysTrayIcon.Visible = false;
+
+                //Exit application
+                Environment.Exit(1);
             }
             catch { }
         }

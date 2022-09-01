@@ -23,18 +23,22 @@ namespace ZuseMe
                 if (AppVariables.ScrobblePause)
                 {
                     AppVariables.ScrobblePause = false;
+                    AppVariables.WindowMain.image_TrackCover.Opacity = 1.00;
                     AppVariables.WindowMain.image_ScrobblePause.Visibility = Visibility.Collapsed;
-                    AppVariables.WindowMain.button_PauseResume.ToolTip = new ToolTip() { Content = "Pause scrobbling" };
-                    AppVariables.WindowMain.image_PauseResume.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PauseDark.png"));
+                    AppVariables.WindowMain.menuButtonStatus.ToolTip = new ToolTip() { Content = "Pause scrobbling" };
+                    AppVariables.WindowMain.menuButtonStatusImage.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PauseLight.png"));
+                    AppVariables.WindowMain.menuButtonStatusText.Text = "Pause";
                     AppVariables.AppTray.sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
                     AppVariables.MediaForceStatusCheck = true;
                 }
                 else
                 {
                     AppVariables.ScrobblePause = true;
+                    AppVariables.WindowMain.image_TrackCover.Opacity = 0.50;
                     AppVariables.WindowMain.image_ScrobblePause.Visibility = Visibility.Visible;
-                    AppVariables.WindowMain.button_PauseResume.ToolTip = new ToolTip() { Content = "Resume scrobbling" };
-                    AppVariables.WindowMain.image_PauseResume.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayDark.png"));
+                    AppVariables.WindowMain.menuButtonStatus.ToolTip = new ToolTip() { Content = "Resume scrobbling" };
+                    AppVariables.WindowMain.menuButtonStatusImage.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayLight.png"));
+                    AppVariables.WindowMain.menuButtonStatusText.Text = "Resume";
                     AppVariables.AppTray.sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMeDark.ico"));
                     await ApiScrobble.RemoveNowPlaying();
                 }
@@ -72,13 +76,23 @@ namespace ZuseMe
                 {
                     try
                     {
-                        AppVariables.WindowMain.textblock_ProgressCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent, false);
-                        string progressTotalString = AVFunctions.SecondsToHms(scrobbleTargetSeconds, false) + "/" + AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false);
+                        AppVariables.WindowMain.textblock_ProgressScrobbleCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent, false);
+                        AppVariables.WindowMain.textblock_ProgressScrobbleTotal.Text = AVFunctions.SecondsToHms(scrobbleTargetSeconds, false);
+
+                        string progressTotalString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false);
                         if (AppVariables.MediaSecondsTotalUnknown)
                         {
                             progressTotalString += "?";
                         }
-                        AppVariables.WindowMain.textblock_ProgressTotal.Text = progressTotalString;
+
+                        string progressCurrentString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsCurrent, false);
+                        if (AppVariables.MediaSecondsCurrentUnknown)
+                        {
+                            progressCurrentString += "?";
+                        }
+
+                        AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = progressCurrentString;
+                        AppVariables.WindowMain.textblock_ProgressMediaTotal.Text = progressTotalString;
 
                         AppVariables.WindowMain.progress_StatusSong.Value = mediaPercentage;
                         if (AppVariables.ScrobbleSubmitted)
