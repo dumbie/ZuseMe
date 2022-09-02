@@ -32,12 +32,6 @@
     "Link": "https://github.com/ameer1234567890/mb_MediaControl/releases"
   },
   {
-    "Identifier": "AIMP",
-    "ProcessName": "AIMP.exe",
-    "Note": "Requires aimp_win10_mediacontrol plugin.",
-    "Link": "https://www.aimp.ru/?do=catalog&rec_id=1097"
-  },
-  {
     "Identifier": "Winamp",
     "ProcessName": "winamp.exe",
     "Note": "Requires gen_smtc plugin.",
@@ -48,5 +42,11 @@
     "ProcessName": "iTunes.SMTC.exe",
     "Note": "Requires iTunes SMTC tool.",
     "Link": "https://github.com/thewizrd/iTunes-SMTC/releases"
+  },
+  {
+    "Identifier": "AIMP",
+    "ProcessName": "AIMP.exe",
+    "Note": "Requires aimp_win10_mediacontrol plugin.",
+    "Link": "https://www.aimp.ru/?do=catalog&rec_id=1097"
   }
 ]

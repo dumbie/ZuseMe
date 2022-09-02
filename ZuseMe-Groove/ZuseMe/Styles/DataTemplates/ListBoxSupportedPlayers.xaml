@@ -7,8 +7,9 @@
     <DataTemplate x:Key="ListBoxSupportedPlayers">
         <StackPanel Orientation="Horizontal" Margin="0,3,0,3" Height="50">
             <CheckBox IsChecked="{Binding Enabled}" Margin="0,0,10,0" Style="{StaticResource CheckBoxBlack}" Click="Checkbox_SupportedPlayer_Click"/>
+            <Button Visibility="{Binding Link, TargetNullValue=Collapsed}" Margin="0,0,10,0" Content="DL" Height="30" Padding="3,0,3,0" Style="{StaticResource ButtonAccentBlack}" ToolTip="Download player requirement." Click="Button_SupportedPlayer_Click"/>
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding Identifier}"  ToolTip="{Binding ProcessName}" Style="{StaticResource TextBlockBlack}"/>
+                <TextBlock Text="{Binding Identifier}" ToolTip="{Binding ProcessName}" Style="{StaticResource TextBlockBlack}"/>
                 <TextBlock Text="{Binding Note}" Style="{StaticResource TextBlockGray}"/>
             </StackPanel>
         </StackPanel>

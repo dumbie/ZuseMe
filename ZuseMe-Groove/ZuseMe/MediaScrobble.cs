@@ -5,9 +5,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Windows.Media;
 using Windows.Media.Control;
 using ZuseMe.Api;
@@ -25,9 +23,7 @@ namespace ZuseMe
                     AppVariables.ScrobblePause = false;
                     AppVariables.WindowMain.image_TrackCover.Opacity = 1.00;
                     AppVariables.WindowMain.image_ScrobblePause.Visibility = Visibility.Collapsed;
-                    AppVariables.WindowMain.menuButtonStatus.ToolTip = new ToolTip() { Content = "Pause scrobbling" };
-                    AppVariables.WindowMain.menuButtonStatusImage.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PauseLight.png"));
-                    AppVariables.WindowMain.menuButtonStatusText.Text = "Pause";
+                    AppVariables.WindowMain.button_ScrobbleStatus.Content = "Pause scrobbling";
                     AppVariables.AppTray.sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
                     AppVariables.MediaForceStatusCheck = true;
                 }
@@ -36,9 +32,7 @@ namespace ZuseMe
                     AppVariables.ScrobblePause = true;
                     AppVariables.WindowMain.image_TrackCover.Opacity = 0.50;
                     AppVariables.WindowMain.image_ScrobblePause.Visibility = Visibility.Visible;
-                    AppVariables.WindowMain.menuButtonStatus.ToolTip = new ToolTip() { Content = "Resume scrobbling" };
-                    AppVariables.WindowMain.menuButtonStatusImage.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayLight.png"));
-                    AppVariables.WindowMain.menuButtonStatusText.Text = "Resume";
+                    AppVariables.WindowMain.button_ScrobbleStatus.Content = "Resume scrobbling";
                     AppVariables.AppTray.sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMeDark.ico"));
                     await ApiScrobble.RemoveNowPlaying();
                 }
@@ -76,16 +70,16 @@ namespace ZuseMe
                 {
                     try
                     {
-                        AppVariables.WindowMain.textblock_ProgressScrobbleCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent, false);
-                        AppVariables.WindowMain.textblock_ProgressScrobbleTotal.Text = AVFunctions.SecondsToHms(scrobbleTargetSeconds, false);
+                        AppVariables.WindowMain.textblock_ProgressScrobbleCurrent.Text = AVFunctions.SecondsToHms(AppVariables.ScrobbleSecondsCurrent, false, true);
+                        AppVariables.WindowMain.textblock_ProgressScrobbleTotal.Text = AVFunctions.SecondsToHms(scrobbleTargetSeconds, false, true);
 
-                        string progressTotalString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false);
+                        string progressTotalString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false, true);
                         if (AppVariables.MediaSecondsTotalUnknown)
                         {
                             progressTotalString += "?";
                         }
 
-                        string progressCurrentString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsCurrent, false);
+                        string progressCurrentString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsCurrent, false, true);
                         if (AppVariables.MediaSecondsCurrentUnknown)
                         {
                             progressCurrentString += "?";

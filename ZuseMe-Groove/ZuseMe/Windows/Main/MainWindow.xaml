@@ -10,7 +10,7 @@
         Foreground="{StaticResource ApplicationBlackBrush}"
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
-        Height="450"
+        Height="480"
         Width="550"
         ResizeMode="NoResize">
 
@@ -23,10 +23,6 @@
         <!-- Grid Menu -->
         <Grid Name="grid_Menu" Grid.Column="0" Width="105" Background="{DynamicResource ApplicationBlackBrush}">
             <ListBox Name="lb_Menu" SelectionMode="Single" ItemContainerStyle="{StaticResource ListBoxItemWhite}" Style="{StaticResource ListBoxVertical}">
-                <StackPanel Name="menuButtonStatus" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Resume or pause scrobbling">
-                    <Image Name="menuButtonStatusImage" Source="/Assets/PauseLight.png" Width="55" HorizontalAlignment="Center"/>
-                    <TextBlock Name="menuButtonStatusText" Text="Pause" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
-                </StackPanel>
                 <StackPanel Name="menuButtonScrobble" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Show playing media">
                     <Image Source="/Assets/ThumbnailLight.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Scrobble" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
@@ -61,6 +57,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
@@ -76,7 +73,9 @@
                     <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
                 </StackPanel>
 
-                <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                <Button Grid.Row="1" Name="button_ScrobbleStatus" Content="Pause scrobbling" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ButtonAccentBlack}" Click="button_ScrobbleStatus_Click"/>
+
+                <Grid Grid.Row="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>

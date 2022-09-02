@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using ZuseMe;
@@ -8,7 +9,7 @@ namespace ArnoldVinkCode.Styles
 {
     public partial class ListBoxSupportedPlayers : ResourceDictionary
     {
-        void Checkbox_SupportedPlayer_Click(object sender, EventArgs e)
+        private void Checkbox_SupportedPlayer_Click(object sender, EventArgs e)
         {
             try
             {
@@ -20,6 +21,17 @@ namespace ArnoldVinkCode.Styles
 
                 //Update media sessions
                 Media.SmtcSessionManager_SessionsChanged(null, null);
+            }
+            catch { }
+        }
+
+        private void Button_SupportedPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Button senderButton = sender as Button;
+                PlayersJson selectedPlayer = senderButton.DataContext as PlayersJson;
+                Process.Start(selectedPlayer.Link);
             }
             catch { }
         }

@@ -108,5 +108,14 @@ namespace ZuseMe
             }
             catch { }
         }
+
+        private async void button_ScrobbleStatus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Media.MediaScrobblePauseToggle();
+            }
+            catch { }
+        }
     }
 }

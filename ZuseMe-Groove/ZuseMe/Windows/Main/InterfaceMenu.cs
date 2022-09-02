@@ -40,8 +40,7 @@ namespace ZuseMe
                 if (lb_Menu.SelectedIndex >= 0)
                 {
                     StackPanel SelStackPanel = (StackPanel)lb_Menu.SelectedItem;
-                    if (SelStackPanel.Name == "menuButtonStatus") { await Media.MediaScrobblePauseToggle(); }
-                    else if (SelStackPanel.Name == "menuButtonScrobble") { ShowGridPage(stackpanel_Scrobble); }
+                    if (SelStackPanel.Name == "menuButtonScrobble") { ShowGridPage(stackpanel_Scrobble); }
                     else if (SelStackPanel.Name == "menuButtonProfile") { OpenLastFMProfile(); }
                     else if (SelStackPanel.Name == "menuButtonPlayers") { ShowGridPage(stackpanel_Players); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(stackpanel_Settings); }
