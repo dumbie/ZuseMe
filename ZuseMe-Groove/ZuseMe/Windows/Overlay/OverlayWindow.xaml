@@ -18,14 +18,17 @@
 
     <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Margin="0,0,0,120" MouseLeftButtonUp="Border_MouseLeftButtonUp">
         <Border.Background>
-            <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.95"/>
+            <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
         </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Name="image_TrackCover" Margin="10" Width="100" Height="100"/>
+            <Grid Grid.Column="0" Margin="10">
+                <Image Name="image_TrackCover" Width="100" Height="100" Source="/Assets/ThumbnailLight.png"/>
+                <Image Name="image_ScrobblePause" Width="50" Height="50" Source="/Assets/PauseAccent.png" Visibility="Collapsed"/>
+            </Grid>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0">
                 <TextBlock Name="textblock_TrackArtist" Text="Artist" FontSize="{StaticResource TextSizeSmall}" Foreground="{StaticResource ApplicationAccentLightBrush}"/>
                 <StackPanel Orientation="Horizontal">

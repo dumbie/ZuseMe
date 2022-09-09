@@ -62,8 +62,8 @@
 
                 <StackPanel Grid.Row="0">
                     <Grid>
-                        <Image Name="image_TrackCover" Width="215" Height="215" Source="/Assets/ThumbnailDark.png"/>
-                        <Image Name="image_ScrobblePause" Width="100" Height="100" Source="/Assets/PauseAccent.png" Visibility="Collapsed"/>
+                        <Image Name="image_TrackCover" Width="250" Height="250" Source="/Assets/ThumbnailDark.png"/>
+                        <Image Name="image_ScrobblePause" Width="125" Height="125" Source="/Assets/PauseAccent.png" Visibility="Collapsed"/>
                     </Grid>
                     <TextBlock Margin="0,10,0,0" Name="textblock_TrackArtist" Text="Artist" Foreground="{StaticResource ApplicationAccentLightBrush}" HorizontalAlignment="Center"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
