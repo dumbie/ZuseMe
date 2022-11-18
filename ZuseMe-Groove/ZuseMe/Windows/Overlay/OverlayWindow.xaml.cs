@@ -1,9 +1,12 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessClasses;
+using static ArnoldVinkCode.ProcessFunctions;
 
 namespace ZuseMe.Windows
 {
@@ -46,6 +49,15 @@ namespace ZuseMe.Windows
         {
             try
             {
+                //Check if media player window is active
+                ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
+                bool skipOverlay = AppVariables.MediaPlayers.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
+                if (skipOverlay)
+                {
+                    Debug.WriteLine("Media player window is active, skipping overlay.");
+                    return;
+                }
+
                 //Check media information
                 if (textblock_TrackArtist.Text == "Unknown" && textblock_TrackTitle.Text == "Unknown" && textblock_TrackAlbum.Text == "Unknown")
                 {

@@ -60,7 +60,7 @@ namespace ZuseMe
                 }
                 else
                 {
-                    menuButtonProfile.ToolTip = new ToolTip() { Content = "Open profile " + lastFMUsername };
+                    menuButtonProfile.ToolTip = new ToolTip() { Content = "Open profile " + lastFMUsername + " in browser" };
                     textblock_LoginName.Text = "You are currently linked to: " + lastFMUsername;
                 }
             }
