@@ -122,6 +122,7 @@
             <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">
                 <CheckBox Name="checkbox_WindowsStartup" Style="{StaticResource CheckBoxBlack}" Content="Launch ZuseMe on Windows startup"/>
                 <CheckBox Name="checkbox_TrackShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when track has changed *"/>
+                <CheckBox Name="checkbox_VolumeShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when volume has changed *"/>
 
                 <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
                     <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationGrayBrush}"/>

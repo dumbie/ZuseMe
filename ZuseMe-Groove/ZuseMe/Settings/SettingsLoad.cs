@@ -13,6 +13,7 @@ namespace ZuseMe
             {
                 textbox_TrackLengthCustom.Text = AVSettings.Load(null, "TrackLengthCustom", typeof(string));
                 checkbox_TrackShowOverlay.IsChecked = AVSettings.Load(null, "TrackShowOverlay", typeof(bool));
+                checkbox_VolumeShowOverlay.IsChecked = AVSettings.Load(null, "VolumeShowOverlay", typeof(bool));
 
                 string trackPercentageScrobble = AVSettings.Load(null, "TrackPercentageScrobble", typeof(string));
                 if (trackPercentageScrobble == "25")

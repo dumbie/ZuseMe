@@ -125,7 +125,7 @@ namespace ZuseMe
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Failed to check status: " + ex.Message);
+                Debug.WriteLine("Failed to check media status: " + ex.Message);
             }
             finally
             {

@@ -134,6 +134,21 @@
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
       <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceVolume.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceVolume.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs">
+      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs</Link>
+    </Compile>
     <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
       <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
     </Compile>
@@ -168,12 +183,14 @@
     <Compile Include="Api\ApiAuth.cs" />
     <Compile Include="Api\ApiVariables.cs" />
     <Compile Include="AppStartup.cs" />
+    <Compile Include="AppTasksFunctions.cs" />
     <Compile Include="AppUpdate.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="Classes\AuthToken.cs" />
     <Compile Include="Classes\PlayersJson.cs" />
     <Compile Include="Classes\SessionToken.cs" />
+    <Compile Include="VolumeStatus.cs" />
     <Compile Include="Styles\DataTemplates\ListBoxSupportedPlayers.xaml.cs">
       <DependentUpon>ListBoxSupportedPlayers.xaml</DependentUpon>
     </Compile>

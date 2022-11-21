@@ -24,6 +24,10 @@ namespace ZuseMe
         //Playstatus Variables
         public static GlobalSystemMediaTransportControlsSessionPlaybackStatus? MediaPlaybackStatusPrevious = null;
 
+        //Volume variables
+        public static int VolumeLevelPrevious = -1;
+        public static bool VolumeMutePrevious = false;
+
         //Media Variables
         public static bool MediaForceStatusCheck = false;
         public static int MediaSecondsCurrent = 0;

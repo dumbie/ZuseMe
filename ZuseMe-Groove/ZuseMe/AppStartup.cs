@@ -39,7 +39,10 @@ namespace ZuseMe
                 await Media.RegisterMediaSessionEvents();
 
                 //Start monitor information task
-                AVActions.TaskStartLoop(Media.MediaInformationLoop, AppTasks.vTask_MonitorInformation);
+                AVActions.TaskStartLoop(AppTasks.vTaskLoop_MonitorMedia, AppTasks.vTask_MonitorMedia);
+
+                //Start monitor volume task
+                AVActions.TaskStartLoop(AppTasks.vTaskLoop_MonitorVolume, AppTasks.vTask_MonitorVolume);
 
                 //Check api login and show window
                 if (string.IsNullOrWhiteSpace(AVSettings.Load(null, "LastFMSessionToken", typeof(string))))

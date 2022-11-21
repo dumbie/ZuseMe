@@ -74,6 +74,16 @@ namespace ZuseMe
                     }
                     catch { }
                 };
+
+                checkbox_VolumeShowOverlay.Click += (sender, e) =>
+                {
+                    try
+                    {
+                        CheckBox senderElement = sender as CheckBox;
+                        AVSettings.Save(null, "VolumeShowOverlay", senderElement.IsChecked);
+                    }
+                    catch { }
+                };
             }
             catch { }
         }

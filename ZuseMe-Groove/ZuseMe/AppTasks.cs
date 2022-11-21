@@ -2,10 +2,11 @@
 
 namespace ZuseMe
 {
-    public class AppTasks
+    public partial class AppTasks
     {
         //Application Tasks
-        public static AVTaskDetails vTask_MonitorInformation = new AVTaskDetails();
+        public static AVTaskDetails vTask_MonitorVolume = new AVTaskDetails();
+        public static AVTaskDetails vTask_MonitorMedia = new AVTaskDetails();
         public static AVTaskDetails vTask_LoginCheck = new AVTaskDetails();
     }
 }
