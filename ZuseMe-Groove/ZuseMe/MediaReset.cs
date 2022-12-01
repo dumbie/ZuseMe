@@ -19,6 +19,8 @@ namespace ZuseMe
                 {
                     AppVariables.ScrobbleReset = false;
                     AppVariables.ScrobbleSubmitted = false;
+                    AppVariables.ScrobbleStatusAccepted = false;
+                    AppVariables.ScrobbleStatusMessage = string.Empty;
                     AppVariables.ScrobbleSecondsCurrent = 0;
                     AppVariables.MediaSecondsCurrent = 0;
                 }
@@ -67,6 +69,7 @@ namespace ZuseMe
                             AppVariables.WindowMain.progress_StatusScrobble.Value = 0;
                             AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
 
+                            AppVariables.WindowMain.textblock_ScrobbleStatus.Text = "Waiting for song to scrobble.";
                             AppVariables.WindowMain.textblock_TrackArtist.Text = "Artist";
                             AppVariables.WindowMain.textblock_TrackAlbum.Text = "Album";
                             AppVariables.WindowMain.textblock_TrackTitle.Text = "Title";

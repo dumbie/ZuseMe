@@ -35,10 +35,10 @@ namespace ZuseMe
                 //Close the Last.fm scrobbler
                 Launcher.CloseLastFM();
 
-                //Register media session events
-                await Media.RegisterMediaSessionEvents();
+                //Start monitor player task
+                AVActions.TaskStartLoop(AppTasks.vTaskLoop_MonitorPlayer, AppTasks.vTask_MonitorPlayer);
 
-                //Start monitor information task
+                //Start monitor media task
                 AVActions.TaskStartLoop(AppTasks.vTaskLoop_MonitorMedia, AppTasks.vTask_MonitorMedia);
 
                 //Start monitor volume task
@@ -59,7 +59,7 @@ namespace ZuseMe
             {
                 Debug.WriteLine("Exiting ZuseMe.");
 
-                //Remove current scrobble
+                //Remove now playing
                 await ApiScrobble.RemoveNowPlaying();
 
                 //Hide tray icon

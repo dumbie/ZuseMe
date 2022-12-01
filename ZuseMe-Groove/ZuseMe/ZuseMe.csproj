@@ -187,9 +187,9 @@
     <Compile Include="AppUpdate.cs" />
     <Compile Include="AppTasks.cs" />
     <Compile Include="AppVariables.cs" />
-    <Compile Include="Classes\AuthToken.cs" />
-    <Compile Include="Classes\PlayersJson.cs" />
-    <Compile Include="Classes\SessionToken.cs" />
+    <Compile Include="Api\Classes\AuthToken.cs" />
+    <Compile Include="Api\Classes\PlayersJson.cs" />
+    <Compile Include="Api\Classes\SessionToken.cs" />
     <Compile Include="VolumeStatus.cs" />
     <Compile Include="Styles\DataTemplates\ListBoxSupportedPlayers.xaml.cs">
       <DependentUpon>ListBoxSupportedPlayers.xaml</DependentUpon>
@@ -302,6 +302,8 @@
     <Resource Include="Assets\PlayLight.png" />
     <Resource Include="Assets\CloseLight.png" />
     <Resource Include="Assets\ShutdownLight.png" />
+    <Resource Include="Assets\PlayGreen.png" />
+    <Resource Include="Assets\PlayOrange.png" />
     <Content Include="Resources\Updater.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

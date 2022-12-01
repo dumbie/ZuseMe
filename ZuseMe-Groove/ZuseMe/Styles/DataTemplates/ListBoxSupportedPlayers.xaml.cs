@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using ZuseMe;
 using ZuseMe.Classes;
 
 namespace ArnoldVinkCode.Styles
@@ -18,9 +17,6 @@ namespace ArnoldVinkCode.Styles
 
                 //Update player setting
                 AVSettings.Save(null, "Player" + selectedPlayer.ProcessName, senderButton.IsChecked);
-
-                //Update media sessions
-                Media.SmtcSessionManager_SessionsChanged(null, null);
             }
             catch { }
         }

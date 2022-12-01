@@ -48,16 +48,40 @@ namespace ZuseMe.Api
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
                 string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
-                Debug.WriteLine(apiResult);
+                Debug.WriteLine("Scrobble result: " + apiResult);
+
+                //Check the result
+                if (apiResult != null)
+                {
+                    if (apiResult.Contains("\"accepted\":1"))
+                    {
+                        AppVariables.ScrobbleStatusMessage = "Song has been scrobbled successfully.";
+                        AppVariables.ScrobbleStatusAccepted = true;
+                    }
+                    else
+                    {
+                        AppVariables.ScrobbleStatusMessage = "Song scrobble has not been accepted, check names.";
+                        AppVariables.ScrobbleStatusAccepted = false;
+                    }
+                }
+                else
+                {
+                    AppVariables.ScrobbleStatusMessage = "Song has not been scrobbled, check connection.";
+                    AppVariables.ScrobbleStatusAccepted = false;
+                }
+
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                //Update the scrobble status
+                AppVariables.ScrobbleStatusMessage = "Scrobble exception: " + ex.Message;
+                AppVariables.ScrobbleStatusAccepted = false;
                 return false;
             }
         }
 
-        public static async Task UpdateNowPlaying(string artist, string title, string album, string duration, string trackNumber)
+        public static async Task<bool> UpdateNowPlaying(string artist, string title, string album, string duration, string trackNumber)
         {
             try
             {
@@ -65,7 +89,7 @@ namespace ZuseMe.Api
                 string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
-                    return;
+                    return false;
                 }
 
                 //Request parameters
@@ -92,9 +116,22 @@ namespace ZuseMe.Api
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
                 string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
-                Debug.WriteLine(apiResult);
+                Debug.WriteLine("Now playing result:" + apiResult);
+
+                //Check the result
+                if (apiResult.Contains("\"message\":") && apiResult.Contains("\"error\":"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
-            catch { }
+            catch
+            {
+                return false;
+            }
         }
 
         public static async Task RemoveNowPlaying()
@@ -126,7 +163,7 @@ namespace ZuseMe.Api
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
                 string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
-                Debug.WriteLine(apiResult);
+                Debug.WriteLine("Remove playing result: " + apiResult);
             }
             catch { }
         }

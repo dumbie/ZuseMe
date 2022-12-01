@@ -7,6 +7,7 @@ namespace ZuseMe
         //Application Tasks
         public static AVTaskDetails vTask_MonitorVolume = new AVTaskDetails();
         public static AVTaskDetails vTask_MonitorMedia = new AVTaskDetails();
+        public static AVTaskDetails vTask_MonitorPlayer = new AVTaskDetails();
         public static AVTaskDetails vTask_LoginCheck = new AVTaskDetails();
     }
 }

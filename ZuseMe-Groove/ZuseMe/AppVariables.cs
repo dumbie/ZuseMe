@@ -19,6 +19,8 @@ namespace ZuseMe
         public static bool ScrobblePause = false;
         public static bool ScrobbleReset = false;
         public static bool ScrobbleSubmitted = false;
+        public static bool ScrobbleStatusAccepted = false;
+        public static string ScrobbleStatusMessage = string.Empty;
         public static int ScrobbleSecondsCurrent = 0;
 
         //Playstatus Variables
@@ -43,8 +45,8 @@ namespace ZuseMe
         //Dispatcher Timers
         public static DispatcherTimer DispatcherTimerOverlay = new DispatcherTimer();
 
-        //Smtc Variables
-        public static GlobalSystemMediaTransportControlsSessionManager SmtcSessionManager = null;
+        //Player Variables
         public static GlobalSystemMediaTransportControlsSession SmtcSessionMedia = null;
+        public static string SmtcSessionMediaPrevious = string.Empty;
     }
 }

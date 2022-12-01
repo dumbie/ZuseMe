@@ -10,7 +10,7 @@
         Foreground="{StaticResource ApplicationBlackBrush}"
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
-        Height="480"
+        Height="550"
         Width="550"
         ResizeMode="NoResize">
 
@@ -73,7 +73,10 @@
                     <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
                 </StackPanel>
 
-                <Button Grid.Row="1" Name="button_ScrobbleStatus" Content="Pause scrobbling" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource ButtonAccentBlack}" Click="button_ScrobbleStatus_Click"/>
+                <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                    <Button Name="button_ScrobbleStatus" Content="Pause scrobbling" Margin="0,0,0,5" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentBlack}" Click="button_ScrobbleStatus_Click"/>
+                    <TextBlock Name="textblock_ScrobbleStatus" Text="Waiting for song to scrobble." Margin="0,0,0,10" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
+                </StackPanel>
 
                 <Grid Grid.Row="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>

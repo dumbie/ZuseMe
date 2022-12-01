@@ -95,11 +95,28 @@ namespace ZuseMe
                         AppVariables.WindowMain.progress_StatusSong.Value = mediaPercentage;
                         if (AppVariables.ScrobbleSubmitted)
                         {
+                            AppVariables.WindowMain.textblock_ScrobbleStatus.Text = AppVariables.ScrobbleStatusMessage;
                             AppVariables.WindowMain.progress_StatusScrobble.Value = 100;
-                            AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ValidBrush"];
+                            if (AppVariables.ScrobbleStatusAccepted)
+                            {
+                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ValidBrush"];
+                            }
+                            else
+                            {
+                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["IgnoredBrush"];
+                            }
                         }
                         else
                         {
+                            string lastFMUsername = AVSettings.Load(null, "LastFMUsername", typeof(string));
+                            if (string.IsNullOrWhiteSpace(lastFMUsername))
+                            {
+                                AppVariables.WindowMain.textblock_ScrobbleStatus.Text = "You are currently not linked to Last.fm.";
+                            }
+                            else
+                            {
+                                AppVariables.WindowMain.textblock_ScrobbleStatus.Text = "Waiting for song to have played " + scrobbleTargetSeconds + " seconds.";
+                            }
                             AppVariables.WindowMain.progress_StatusScrobble.Value = scrobblePercentage;
                             if (mediaPlayInfo.PlaybackType == MediaPlaybackType.Music)
                             {

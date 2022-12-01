@@ -40,26 +40,36 @@ namespace ZuseMe
 
                 if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                 {
-                    //Update scrobble window
-                    ActionDispatcherInvoke(delegate
-                    {
-                        try
-                        {
-                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayAccent.png"));
-                        }
-                        catch { }
-                    });
-
                     if (!AppVariables.ScrobblePause && mediaTypeValid && (forceUpdate || mediaStatusChanged))
                     {
+                        //Update Last.fm now playing
+                        bool updatedNowPlaying = false;
                         if (AppVariables.MediaSecondsTotalUnknown)
                         {
-                            await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, string.Empty, AppVariables.MediaTracknumber.ToString());
+                            updatedNowPlaying = await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, string.Empty, AppVariables.MediaTracknumber.ToString());
                         }
                         else
                         {
-                            await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString(), AppVariables.MediaTracknumber.ToString());
+                            updatedNowPlaying = await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString(), AppVariables.MediaTracknumber.ToString());
                         }
+
+                        //Update scrobble window
+                        ActionDispatcherInvoke(delegate
+                        {
+                            try
+                            {
+                                if (updatedNowPlaying)
+                                {
+                                    AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayGreen.png"));
+                                }
+                                else
+                                {
+                                    AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayOrange.png"));
+                                }
+                            }
+                            catch { }
+                        });
+
                         Debug.WriteLine("Media is currently playing.");
                     }
                     else if (!mediaTypeValid && forceUpdate)

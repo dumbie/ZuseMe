@@ -6,6 +6,21 @@ namespace ZuseMe
 {
     public partial class AppTasks
     {
+        public static async Task vTaskLoop_MonitorPlayer()
+        {
+            try
+            {
+                while (TaskCheckLoop(vTask_MonitorPlayer))
+                {
+                    await UpdateMediaPlayerSession();
+
+                    //Delay the loop task
+                    await TaskDelayLoop(1000, vTask_MonitorPlayer);
+                }
+            }
+            catch { }
+        }
+
         public static async Task vTaskLoop_MonitorMedia()
         {
             try
