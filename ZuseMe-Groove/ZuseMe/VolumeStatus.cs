@@ -31,7 +31,7 @@ namespace ZuseMe
                         {
                             if (AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
                             {
-                                AppVariables.WindowOverlay.ShowWindowDuration(2000);
+                                AppVariables.WindowOverlay.ShowWindowDuration(2500);
                             }
                         }
                         catch { }

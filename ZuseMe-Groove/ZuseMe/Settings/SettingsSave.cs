@@ -84,6 +84,26 @@ namespace ZuseMe
                     }
                     catch { }
                 };
+
+                checkbox_ControlOverlay.Click += (sender, e) =>
+                {
+                    try
+                    {
+                        CheckBox senderElement = sender as CheckBox;
+                        AVSettings.Save(null, "ControlOverlay", senderElement.IsChecked);
+                    }
+                    catch { }
+                };
+
+                checkbox_LastFMUpdateNowPlaying.Click += (sender, e) =>
+                {
+                    try
+                    {
+                        CheckBox senderElement = sender as CheckBox;
+                        AVSettings.Save(null, "LastFMUpdateNowPlaying", senderElement.IsChecked);
+                    }
+                    catch { }
+                };
             }
             catch { }
         }

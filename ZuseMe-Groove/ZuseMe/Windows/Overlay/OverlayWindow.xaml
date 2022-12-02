@@ -16,20 +16,32 @@
         ResizeMode="NoResize"
         Background="Transparent">
 
-    <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Margin="0,0,0,120" MouseLeftButtonUp="Border_MouseLeftButtonUp">
+    <Border Name="border_Overlay" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Margin="0,0,0,120" MouseLeftButtonUp="border_Overlay_MouseLeftButtonUp">
         <Border.Background>
             <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
         </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Margin="10">
+            <StackPanel Grid.Column="0" Name="stackpanel_OverlayControl" VerticalAlignment="Center" Margin="10,10,0,10">
+                <Button Name="button_ControlPlayPause" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ControlPlayPause_Click" Focusable="False">
+                    <Image Width="30" Height="30" Source="/Assets/PlayPauseLight.png"/>
+                </Button>
+                <Button Name="button_ControlNext" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ControlNext_Click" Focusable="False">
+                    <Image Margin="0,3,0,3" Width="30" Height="30" Source="/Assets/NextLight.png"/>
+                </Button>
+                <Button Name="button_ControlPrevious" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ControlPrevious_Click" Focusable="False">
+                    <Image Width="30" Height="30" Source="/Assets/PreviousLight.png"/>
+                </Button>
+            </StackPanel>
+            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="10">
                 <Image Name="image_TrackCover" Width="100" Height="100" Source="/Assets/ThumbnailLight.png"/>
                 <Image Name="image_ScrobblePause" Width="50" Height="50" Source="/Assets/PauseAccent.png" Visibility="Collapsed"/>
             </Grid>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0">
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,10,10,10">
                 <TextBlock Name="textblock_TrackArtist" Text="Artist" FontSize="{StaticResource TextSizeSmall}" Foreground="{StaticResource ApplicationAccentLightBrush}"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Name="textblock_TrackNumber" Text="(0) " FontSize="{StaticResource TextSizeSmall}" Foreground="{StaticResource ApplicationWhiteBrush}"/>

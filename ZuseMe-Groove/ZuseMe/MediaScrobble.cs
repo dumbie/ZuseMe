@@ -108,8 +108,10 @@ namespace ZuseMe
                         }
                         else
                         {
-                            string lastFMUsername = AVSettings.Load(null, "LastFMUsername", typeof(string));
-                            if (string.IsNullOrWhiteSpace(lastFMUsername))
+                            //Get session token
+                            string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
+                            bool sessionTokenSet = !string.IsNullOrWhiteSpace(sessionToken);
+                            if (!sessionTokenSet)
                             {
                                 AppVariables.WindowMain.textblock_ScrobbleStatus.Text = "You are currently not linked to Last.fm.";
                             }
@@ -117,8 +119,9 @@ namespace ZuseMe
                             {
                                 AppVariables.WindowMain.textblock_ScrobbleStatus.Text = "Waiting for song to have played " + scrobbleTargetSeconds + " seconds.";
                             }
+
                             AppVariables.WindowMain.progress_StatusScrobble.Value = scrobblePercentage;
-                            if (mediaPlayInfo.PlaybackType == MediaPlaybackType.Music)
+                            if (sessionTokenSet && mediaPlayInfo.PlaybackType == MediaPlaybackType.Music)
                             {
                                 AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                             }

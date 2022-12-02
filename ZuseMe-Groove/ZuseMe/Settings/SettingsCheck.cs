@@ -16,6 +16,8 @@ namespace ZuseMe
                 if (!AVSettings.Check(null, "TrackPercentageScrobble")) { AVSettings.Save(null, "TrackPercentageScrobble", "50"); }
                 if (!AVSettings.Check(null, "TrackShowOverlay")) { AVSettings.Save(null, "TrackShowOverlay", "True"); }
                 if (!AVSettings.Check(null, "VolumeShowOverlay")) { AVSettings.Save(null, "VolumeShowOverlay", "True"); }
+                if (!AVSettings.Check(null, "ControlOverlay")) { AVSettings.Save(null, "ControlOverlay", "True"); }
+                if (!AVSettings.Check(null, "LastFMUpdateNowPlaying")) { AVSettings.Save(null, "LastFMUpdateNowPlaying", "True"); }
             }
             catch { }
         }

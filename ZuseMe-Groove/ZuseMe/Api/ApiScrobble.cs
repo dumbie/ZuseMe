@@ -15,7 +15,10 @@ namespace ZuseMe.Api
             {
                 //Get session token
                 string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
-                if (string.IsNullOrWhiteSpace(sessionToken)) { return false; }
+                if (string.IsNullOrWhiteSpace(sessionToken))
+                {
+                    return false;
+                }
 
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
@@ -134,7 +137,7 @@ namespace ZuseMe.Api
             }
         }
 
-        public static async Task RemoveNowPlaying()
+        public static async Task<bool> RemoveNowPlaying()
         {
             try
             {
@@ -142,7 +145,7 @@ namespace ZuseMe.Api
                 string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
-                    return;
+                    return false;
                 }
 
                 //Request parameters
@@ -164,8 +167,13 @@ namespace ZuseMe.Api
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
                 string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine("Remove playing result: " + apiResult);
+
+                return true;
             }
-            catch { }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

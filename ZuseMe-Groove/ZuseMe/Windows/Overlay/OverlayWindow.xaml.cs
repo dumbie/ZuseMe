@@ -58,8 +58,19 @@ namespace ZuseMe.Windows
                     return;
                 }
 
+                //Show or hide controls
+                bool showControls = AVSettings.Load(null, "ControlOverlay", typeof(bool));
+                if (showControls)
+                {
+                    stackpanel_OverlayControl.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    stackpanel_OverlayControl.Visibility = Visibility.Collapsed;
+                }
+
                 //Check media information
-                if (textblock_TrackArtist.Text == "Unknown" && textblock_TrackTitle.Text == "Unknown" && textblock_TrackAlbum.Text == "Unknown")
+                if (!showControls && textblock_TrackArtist.Text == "Unknown" && textblock_TrackTitle.Text == "Unknown" && textblock_TrackAlbum.Text == "Unknown")
                 {
                     Debug.WriteLine("Unknown song hiding the overlay.");
 
@@ -71,17 +82,21 @@ namespace ZuseMe.Windows
                 //Show the overlay
                 this.Show();
 
-                //Start overlay timer
+                //Start overlay hide timer
                 AppVariables.DispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(showSeconds);
                 AppVariables.DispatcherTimerOverlay.Tick += delegate
                 {
                     try
                     {
-                        //Hide the overlay
-                        this.Hide();
+                        //Check if mouse is over
+                        if (!border_Overlay.IsMouseOver)
+                        {
+                            //Hide the overlay
+                            this.Hide();
 
-                        //Renew the timer
-                        AVFunctions.TimerRenew(ref AppVariables.DispatcherTimerOverlay);
+                            //Renew the timer
+                            AVFunctions.TimerRenew(ref AppVariables.DispatcherTimerOverlay);
+                        }
                     }
                     catch { }
                 };
@@ -90,12 +105,39 @@ namespace ZuseMe.Windows
             catch { }
         }
 
-        private void Border_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void border_Overlay_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
             {
                 //Hide the overlay
                 this.Hide();
+            }
+            catch { }
+        }
+
+        private async void button_ControlPlayPause_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await AppVariables.SmtcSessionMedia.TryTogglePlayPauseAsync();
+            }
+            catch { }
+        }
+
+        private async void button_ControlNext_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await AppVariables.SmtcSessionMedia.TrySkipNextAsync();
+            }
+            catch { }
+        }
+
+        private async void button_ControlPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await AppVariables.SmtcSessionMedia.TrySkipPreviousAsync();
             }
             catch { }
         }

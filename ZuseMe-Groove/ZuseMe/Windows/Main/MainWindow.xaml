@@ -124,10 +124,12 @@
             <!-- Settings -->
             <StackPanel Name="stackpanel_Settings" Visibility="Collapsed" Margin="5">
                 <CheckBox Name="checkbox_WindowsStartup" Style="{StaticResource CheckBoxBlack}" Content="Launch ZuseMe on Windows startup"/>
+                <CheckBox Name="checkbox_LastFMUpdateNowPlaying" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show now playing song on my Last.fm profile"/>
                 <CheckBox Name="checkbox_TrackShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when track has changed *"/>
                 <CheckBox Name="checkbox_VolumeShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when volume has changed *"/>
+                <CheckBox Name="checkbox_ControlOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media control buttons on the overlay"/>
 
-                <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
                     <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationGrayBrush}"/>
                     <ComboBox Name="combobox_TrackPercentageScrobble" Margin="5,0,0,0" Width="70" Style="{StaticResource ComboBoxBlack}">
                         <ComboBoxItem>25%</ComboBoxItem>
@@ -143,7 +145,11 @@
                     <TextBlock Text="seconds" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <TextBlock Margin="0,5,0,0" Name="textblock_LoginName" Text="You are currently not linked to Last.fm."/>
+                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                    <TextBlock Name="textblock_LoginUserStatus" Text="You are currently not linked to Last.fm." Style="{StaticResource TextBlockBlack}"/>
+                    <TextBlock Name="textblock_LoginUserName" Text="Username" Style="{StaticResource TextBlockAccent}"/>
+                </StackPanel>
+
                 <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
                 <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
 

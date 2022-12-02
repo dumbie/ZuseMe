@@ -56,12 +56,14 @@ namespace ZuseMe
                 if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
                     menuButtonProfile.ToolTip = new ToolTip() { Content = "Link Last.fm profile" };
-                    textblock_LoginName.Text = "You are currently not linked to Last.fm.";
+                    textblock_LoginUserStatus.Text = "You are currently not linked to Last.fm.";
+                    textblock_LoginUserName.Text = string.Empty;
                 }
                 else
                 {
                     menuButtonProfile.ToolTip = new ToolTip() { Content = "Open profile " + lastFMUsername + " in browser" };
-                    textblock_LoginName.Text = "You are currently linked to: " + lastFMUsername;
+                    textblock_LoginUserStatus.Text = "You are currently linked to profile: ";
+                    textblock_LoginUserName.Text = lastFMUsername;
                 }
             }
             catch { }
