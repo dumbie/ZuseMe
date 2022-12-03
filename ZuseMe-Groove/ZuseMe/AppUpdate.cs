@@ -51,7 +51,7 @@ namespace ZuseMe
                     string MsgBoxResult = await new AVMessageBox().Popup(null, "A newer version has been found: " + onlineVersion, "Would you like to update the application to the newest version available?", MsgBoxAnswers);
                     if (MsgBoxResult == "Update")
                     {
-                        await ProcessLauncherWin32Async("Updater.exe", "", "", false, false);
+                        await ProcessLauncherWin32Async("Updater.exe", "", "-ProcessLaunch", false, false);
                         Environment.Exit(0);
                     }
                 }
