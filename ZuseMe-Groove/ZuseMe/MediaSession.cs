@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Media.Control;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessFunctions;
+using static ArnoldVinkCode.ProcessUwpFunctions;
 
 namespace ZuseMe
 {
@@ -18,6 +22,7 @@ namespace ZuseMe
                 //Get active media player session
                 GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
                 IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = smtcSessionManager.GetSessions();
+                //Debug.WriteLine("Media sessions found: " + smtcSessions.Count);
                 //foreach (GlobalSystemMediaTransportControlsSession mediaSession in smtcSessions)
                 //{
                 //    Debug.WriteLine("Media session found: " + mediaSession.SourceAppUserModelId);
@@ -31,24 +36,27 @@ namespace ZuseMe
 
                 //Check if player has changed
                 string currentPlayer = AppVariables.SmtcSessionMedia == null ? string.Empty : AppVariables.SmtcSessionMedia.SourceAppUserModelId;
-                if (currentPlayer != AppVariables.SmtcSessionMediaPrevious)
+                if (currentPlayer != AppVariables.SmtcSessionMediaProcess)
                 {
                     if (AppVariables.SmtcSessionMedia == null)
                     {
                         await MediaResetVariables(true, true, true, true, true);
                         Debug.WriteLine("No matching media player session profile found.");
 
-                        //Update previous player
-                        AppVariables.SmtcSessionMediaPrevious = string.Empty;
+                        //Update smtc player process
+                        AppVariables.SmtcSessionMediaProcess = string.Empty;
                     }
                     else
                     {
                         UpdateMediaPlayerInterface();
+
+                        //AppVariables.SmtcSessionMedia.TimelinePropertiesChanged += SmtcSessionMedia_TimelinePropertiesChanged;
+                        //AppVariables.SmtcSessionMedia.PlaybackInfoChanged += SmtcSessionMedia_PlaybackInfoChanged;
                         //AppVariables.SmtcSessionMedia.MediaPropertiesChanged += SmtcSessionMedia_MediaPropertiesChanged;
                         Debug.WriteLine("Changed media player session to: " + AppVariables.SmtcSessionMedia.SourceAppUserModelId);
 
-                        //Update previous player
-                        AppVariables.SmtcSessionMediaPrevious = AppVariables.SmtcSessionMedia.SourceAppUserModelId;
+                        //Update smtc player process
+                        AppVariables.SmtcSessionMediaProcess = AppVariables.SmtcSessionMedia.SourceAppUserModelId;
                     }
                 }
             }
@@ -58,13 +66,33 @@ namespace ZuseMe
             }
         }
 
+        private static void SmtcSessionMedia_TimelinePropertiesChanged(GlobalSystemMediaTransportControlsSession sender, TimelinePropertiesChangedEventArgs args)
+        {
+            try
+            {
+                Debug.WriteLine("Timeline properties changed.");
+                //AppVariables.ScrobbleReset = true;
+            }
+            catch { }
+        }
+
+        private static void SmtcSessionMedia_PlaybackInfoChanged(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
+        {
+            try
+            {
+                Debug.WriteLine("Playback info changed.");
+                //AppVariables.ScrobbleReset = true;
+            }
+            catch { }
+        }
+
         //Reset on media properties change
         private static void SmtcSessionMedia_MediaPropertiesChanged(GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs args)
         {
             try
             {
                 Debug.WriteLine("Media properties changed.");
-                AppVariables.ScrobbleReset = true;
+                //AppVariables.ScrobbleReset = true;
             }
             catch { }
         }
@@ -84,6 +112,47 @@ namespace ZuseMe
                 });
             }
             catch { }
+        }
+
+        //Focus on media player window
+        public static async Task FocusMediaPlayer()
+        {
+            try
+            {
+                Debug.WriteLine("Focusing on player window: " + AppVariables.SmtcSessionMediaProcess);
+
+                //Check application type
+                Process processPlayer = null;
+                IntPtr processWindowHandle = IntPtr.Zero;
+                if (AppVariables.SmtcSessionMediaProcess.ToLower().EndsWith(".exe"))
+                {
+                    string processName = Path.GetFileNameWithoutExtension(AppVariables.SmtcSessionMediaProcess);
+                    processPlayer = GetProcessByNameOrTitle(processName, false, true);
+                    processWindowHandle = processPlayer.MainWindowHandle;
+                }
+                else
+                {
+                    processPlayer = GetUwpProcessByAppUserModelId(AppVariables.SmtcSessionMediaProcess);
+                    processWindowHandle = processPlayer.MainWindowHandle;
+                    if (processWindowHandle == IntPtr.Zero)
+                    {
+                        processWindowHandle = GetUwpWindowFromAppUserModelId(AppVariables.SmtcSessionMediaProcess);
+                    }
+                }
+
+                if (processPlayer != null)
+                {
+                    await FocusProcessWindow(AppVariables.SmtcSessionMediaProcess, processPlayer.Id, processWindowHandle, WindowShowCommand.None, false, false);
+                }
+                else
+                {
+                    Debug.WriteLine("No player window found to focus on.");
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("Failed focusing on player window.");
+            }
         }
     }
 }

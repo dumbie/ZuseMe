@@ -15,7 +15,7 @@ namespace ZuseMe
                     await UpdateMediaPlayerSession();
 
                     //Delay the loop task
-                    await TaskDelayLoop(1000, vTask_MonitorPlayer);
+                    await TaskDelayLoop(2000, vTask_MonitorPlayer);
                 }
             }
             catch { }
