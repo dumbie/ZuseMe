@@ -17,6 +17,7 @@ ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music an
 - Media Player (Windows 11)
 - Groove Music (Windows 10)
 - iTunes
+- Deezer
 - Spotify
 - Foobar2000
 - MediaMonkey
