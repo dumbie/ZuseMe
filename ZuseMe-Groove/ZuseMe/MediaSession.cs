@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Media.Control;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 using static ArnoldVinkCode.ProcessUwpFunctions;
 
@@ -122,27 +123,21 @@ namespace ZuseMe
                 Debug.WriteLine("Focusing on player window: " + AppVariables.SmtcSessionMediaProcess);
 
                 //Check application type
-                Process processPlayer = null;
-                IntPtr processWindowHandle = IntPtr.Zero;
+                ProcessMulti processMultiPlayer = null;
                 if (AppVariables.SmtcSessionMediaProcess.ToLower().EndsWith(".exe"))
                 {
                     string processName = Path.GetFileNameWithoutExtension(AppVariables.SmtcSessionMediaProcess);
-                    processPlayer = GetProcessByNameOrTitle(processName, false, true);
-                    processWindowHandle = processPlayer.MainWindowHandle;
+                    Process processPlayer = GetProcessByNameOrTitle(processName, false, true);
+                    processMultiPlayer = ConvertProcessToProcessMulti(processPlayer, null, null);
                 }
                 else
                 {
-                    processPlayer = GetUwpProcessByAppUserModelId(AppVariables.SmtcSessionMediaProcess);
-                    processWindowHandle = processPlayer.MainWindowHandle;
-                    if (processWindowHandle == IntPtr.Zero)
-                    {
-                        processWindowHandle = GetUwpWindowFromAppUserModelId(AppVariables.SmtcSessionMediaProcess);
-                    }
+                    processMultiPlayer = GetUwpProcessMultiByAppUserModelId(AppVariables.SmtcSessionMediaProcess);
                 }
 
-                if (processPlayer != null)
+                if (processMultiPlayer != null)
                 {
-                    await FocusProcessWindow(AppVariables.SmtcSessionMediaProcess, processPlayer.Id, processWindowHandle, WindowShowCommand.None, false, false);
+                    await FocusProcessWindow(processMultiPlayer.Name, processMultiPlayer.Identifier, processMultiPlayer.WindowHandle, WindowShowCommand.None, false, false);
                 }
                 else
                 {
