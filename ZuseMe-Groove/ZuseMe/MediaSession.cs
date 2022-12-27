@@ -15,14 +15,48 @@ namespace ZuseMe
 {
     public partial class Media
     {
+        //Request media player access
+        public static async Task RequestMediaPlayerAccess()
+        {
+            try
+            {
+                Debug.WriteLine("Requesting SMTC access.");
+
+                //Might cause Windows Explorer issue when looping.
+                var smtcSessionManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
+                AppVariables.SmtcSessionManager = await TaskStartReturnTimeout(smtcSessionManagerTask, 2000);
+                if (AppVariables.SmtcSessionManager == null)
+                {
+                    await UpdateMediaPlayer(null);
+                    return;
+                }
+            }
+            catch { }
+        }
+
         //Update media player session
         public static async Task UpdateMediaPlayerSession()
         {
             try
             {
-                //Get active media player session
-                GlobalSystemMediaTransportControlsSessionManager smtcSessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
-                IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = smtcSessionManager.GetSessions();
+                //Get active media player sessions
+                IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = null;
+                try
+                {
+                    smtcSessions = AppVariables.SmtcSessionManager.GetSessions();
+                    if (smtcSessions == null || smtcSessions.Count == 0)
+                    {
+                        await UpdateMediaPlayer(null);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Failed getting SMTC sessions: " + ex.Message);
+                    await RequestMediaPlayerAccess();
+                    return;
+                }
+
                 //Debug.WriteLine("Media sessions found: " + smtcSessions.Count);
                 //foreach (GlobalSystemMediaTransportControlsSession mediaSession in smtcSessions)
                 //{
@@ -33,38 +67,49 @@ namespace ZuseMe
                 IEnumerable<string> enabledPlayers = AppVariables.MediaPlayers.Where(x => x.Enabled).Select(x => x.ProcessName);
 
                 //Check enabled players
-                AppVariables.SmtcSessionMedia = smtcSessions.OrderBy(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
+                GlobalSystemMediaTransportControlsSession currentPlayer = smtcSessions.OrderBy(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
 
                 //Check if player has changed
-                string currentPlayer = AppVariables.SmtcSessionMedia == null ? string.Empty : AppVariables.SmtcSessionMedia.SourceAppUserModelId;
-                if (currentPlayer != AppVariables.SmtcSessionMediaProcess)
-                {
-                    if (AppVariables.SmtcSessionMedia == null)
-                    {
-                        await MediaResetVariables(true, true, true, true, true);
-                        Debug.WriteLine("No matching media player session profile found.");
-
-                        //Update smtc player process
-                        AppVariables.SmtcSessionMediaProcess = string.Empty;
-                    }
-                    else
-                    {
-                        UpdateMediaPlayerInterface();
-
-                        //AppVariables.SmtcSessionMedia.TimelinePropertiesChanged += SmtcSessionMedia_TimelinePropertiesChanged;
-                        //AppVariables.SmtcSessionMedia.PlaybackInfoChanged += SmtcSessionMedia_PlaybackInfoChanged;
-                        //AppVariables.SmtcSessionMedia.MediaPropertiesChanged += SmtcSessionMedia_MediaPropertiesChanged;
-                        Debug.WriteLine("Changed media player session to: " + AppVariables.SmtcSessionMedia.SourceAppUserModelId);
-
-                        //Update smtc player process
-                        AppVariables.SmtcSessionMediaProcess = AppVariables.SmtcSessionMedia.SourceAppUserModelId;
-                    }
-                }
+                await UpdateMediaPlayer(currentPlayer);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to update media player session: " + ex.Message);
             }
+        }
+
+        private static async Task UpdateMediaPlayer(GlobalSystemMediaTransportControlsSession currentPlayer)
+        {
+            try
+            {
+                string currentPlayerString = currentPlayer == null ? string.Empty : currentPlayer.SourceAppUserModelId;
+                if (currentPlayerString != AppVariables.SmtcSessionMediaProcess)
+                {
+                    if (string.IsNullOrWhiteSpace(currentPlayerString))
+                    {
+                        //Update smtc player variables
+                        AppVariables.SmtcSessionMedia = null;
+                        AppVariables.SmtcSessionMediaProcess = string.Empty;
+
+                        await MediaResetVariables(true, true, true, true, true);
+                        Debug.WriteLine("No matching media player session profile found.");
+                    }
+                    else
+                    {
+                        //Update smtc player variables
+                        AppVariables.SmtcSessionMedia = currentPlayer;
+                        AppVariables.SmtcSessionMediaProcess = currentPlayerString;
+
+                        //AppVariables.SmtcSessionMedia.TimelinePropertiesChanged += SmtcSessionMedia_TimelinePropertiesChanged;
+                        //AppVariables.SmtcSessionMedia.PlaybackInfoChanged += SmtcSessionMedia_PlaybackInfoChanged;
+                        //AppVariables.SmtcSessionMedia.MediaPropertiesChanged += SmtcSessionMedia_MediaPropertiesChanged;
+
+                        UpdateMediaPlayerInterface();
+                        Debug.WriteLine("Changed media player session to: " + currentPlayerString);
+                    }
+                }
+            }
+            catch { }
         }
 
         private static void SmtcSessionMedia_TimelinePropertiesChanged(GlobalSystemMediaTransportControlsSession sender, TimelinePropertiesChangedEventArgs args)
