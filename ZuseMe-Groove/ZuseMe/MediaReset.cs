@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ZuseMe.Api;
+using ZuseMe.Windows;
 using static ArnoldVinkCode.AVActions;
 
 namespace ZuseMe
@@ -58,9 +59,11 @@ namespace ZuseMe
                     {
                         try
                         {
+                            //Reset tray
                             AppVariables.AppTray.sysTrayIcon.Text = "ZuseMe (Last.fm client)";
-                            AppVariables.WindowMain.textblock_PlayerDebug.Text = "No media player opened.";
 
+                            //Reset main
+                            AppVariables.WindowMain.textblock_PlayerDebug.Text = "No media player opened.";
                             AppVariables.WindowMain.textblock_ProgressScrobbleCurrent.Text = "0:00";
                             AppVariables.WindowMain.textblock_ProgressScrobbleTotal.Text = "0:00";
                             AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = "0:00";
@@ -76,6 +79,13 @@ namespace ZuseMe
                             AppVariables.WindowMain.textblock_TrackNumber.Text = "(0) ";
                             AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/UnknownAccent.png"));
                             AppVariables.WindowMain.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailDark.png"));
+
+                            //Reset overlay
+                            AppVariables.WindowOverlay.textblock_TrackArtist.Text = "Artist";
+                            AppVariables.WindowOverlay.textblock_TrackAlbum.Text = "Album";
+                            AppVariables.WindowOverlay.textblock_TrackTitle.Text = "Title";
+                            AppVariables.WindowOverlay.textblock_TrackNumber.Text = "(0) ";
+                            AppVariables.WindowOverlay.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailDark.png"));
                         }
                         catch { }
                     });

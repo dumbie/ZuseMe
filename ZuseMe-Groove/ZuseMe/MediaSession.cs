@@ -28,7 +28,6 @@ namespace ZuseMe
                 if (AppVariables.SmtcSessionManager == null)
                 {
                     await UpdateMediaPlayer(null);
-                    return;
                 }
             }
             catch { }

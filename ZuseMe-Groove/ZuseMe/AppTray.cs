@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
@@ -34,18 +35,24 @@ namespace ZuseMe
                 sysTrayIcon.Visible = true;
 
                 //Register events
-                sysTrayIcon.MouseClick += TrayIcon_MiddleClick;
+                sysTrayIcon.MouseClick += TrayIcon_MouseClick;
                 sysTrayIcon.DoubleClick += OnShow;
             }
             catch { }
         }
 
-        private async void TrayIcon_MiddleClick(object sender, MouseEventArgs e)
+        private async void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             try
             {
-                if (e.Button == MouseButtons.Middle)
+                if (e.Button == MouseButtons.Left)
                 {
+                    //Show media overlay
+                    AppVariables.WindowOverlay.ShowWindowDuration(3000);
+                }
+                else if (e.Button == MouseButtons.Middle)
+                {
+                    //Pause or resume scrobbling
                     await Media.MediaScrobblePauseToggle();
                 }
             }

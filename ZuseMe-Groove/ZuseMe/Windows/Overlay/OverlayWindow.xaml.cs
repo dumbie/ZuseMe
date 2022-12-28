@@ -49,12 +49,35 @@ namespace ZuseMe.Windows
         {
             try
             {
+                //Check overlay setting
+                if (!AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
+                {
+                    Debug.WriteLine("Overlay setting is disabled, skipping overlay.");
+
+                    //Hide the overlay
+                    this.Hide();
+                    return;
+                }
+
+                //Check media information
+                if (textblock_TrackArtist.Text == "Artist" && textblock_TrackTitle.Text == "Title" && textblock_TrackAlbum.Text == "Album")
+                {
+                    Debug.WriteLine("Unknown song hiding the overlay.");
+
+                    //Hide the overlay
+                    this.Hide();
+                    return;
+                }
+
                 //Check if media player window is active
                 ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
                 bool skipOverlay = AppVariables.MediaPlayers.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
                 if (skipOverlay)
                 {
                     Debug.WriteLine("Media player window is active, skipping overlay.");
+
+                    //Hide the overlay
+                    this.Hide();
                     return;
                 }
 
@@ -67,16 +90,6 @@ namespace ZuseMe.Windows
                 else
                 {
                     stackpanel_OverlayControl.Visibility = Visibility.Collapsed;
-                }
-
-                //Check media information
-                if (!showControls && textblock_TrackArtist.Text == "Unknown" && textblock_TrackTitle.Text == "Unknown" && textblock_TrackAlbum.Text == "Unknown")
-                {
-                    Debug.WriteLine("Unknown song hiding the overlay.");
-
-                    //Hide the overlay
-                    this.Hide();
-                    return;
                 }
 
                 //Show the overlay

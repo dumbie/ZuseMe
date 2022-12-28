@@ -28,10 +28,7 @@ namespace ZuseMe
                         {
                             try
                             {
-                                if (AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
-                                {
-                                    AppVariables.WindowOverlay.ShowWindowDuration(3000);
-                                }
+                                AppVariables.WindowOverlay.ShowWindowDuration(3000);
                             }
                             catch { }
                         });

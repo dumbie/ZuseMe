@@ -146,10 +146,7 @@ namespace ZuseMe
                         AppVariables.AppTray.sysTrayIcon.Text = AVFunctions.StringCut(trayText, 59, "...)");
 
                         //Show media overlay
-                        if (AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
-                        {
-                            AppVariables.WindowOverlay.ShowWindowDuration(3000);
-                        }
+                        AppVariables.WindowOverlay.ShowWindowDuration(3000);
                     }
                     catch (Exception ex)
                     {
