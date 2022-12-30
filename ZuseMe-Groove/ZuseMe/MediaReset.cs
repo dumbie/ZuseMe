@@ -85,7 +85,7 @@ namespace ZuseMe
                             AppVariables.WindowOverlay.textblock_TrackAlbum.Text = "Album";
                             AppVariables.WindowOverlay.textblock_TrackTitle.Text = "Title";
                             AppVariables.WindowOverlay.textblock_TrackNumber.Text = "(0) ";
-                            AppVariables.WindowOverlay.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailDark.png"));
+                            AppVariables.WindowOverlay.image_TrackCover.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/ThumbnailLight.png"));
                         }
                         catch { }
                     });
