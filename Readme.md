@@ -26,6 +26,7 @@ ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music an
 - AIMP
 
 ## Known issues
+- When a player is hidden in the system tray it may not show when clicking the album cover.
 - Some players do not support scrobbling when listening to the same track multiple times.
 
 ## Support and bug reporting
