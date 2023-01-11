@@ -24,10 +24,15 @@ namespace ZuseMe
 
                 //Might cause Windows Explorer issue when looping.
                 var smtcSessionManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
-                AppVariables.SmtcSessionManager = await TaskStartReturnTimeout(smtcSessionManagerTask, 2000);
+                AppVariables.SmtcSessionManager = await TaskStartReturnTimeout(smtcSessionManagerTask, 3000);
                 if (AppVariables.SmtcSessionManager == null)
                 {
                     await UpdateMediaPlayer(null);
+                    Debug.WriteLine("Failed to get SMTC access.");
+                }
+                else
+                {
+                    Debug.WriteLine("Received SMTC access.");
                 }
             }
             catch { }
@@ -38,6 +43,8 @@ namespace ZuseMe
         {
             try
             {
+                //Debug.WriteLine("Getting SMTC sessions.");
+
                 //Get active media player sessions
                 IReadOnlyList<GlobalSystemMediaTransportControlsSession> smtcSessions = null;
                 try
@@ -45,8 +52,13 @@ namespace ZuseMe
                     smtcSessions = AppVariables.SmtcSessionManager.GetSessions();
                     if (smtcSessions == null || smtcSessions.Count == 0)
                     {
+                        Debug.WriteLine("No SMTC sessions.");
                         await UpdateMediaPlayer(null);
                         return;
+                    }
+                    else
+                    {
+                        //Debug.WriteLine("Received SMTC sessions.");
                     }
                 }
                 catch (Exception ex)

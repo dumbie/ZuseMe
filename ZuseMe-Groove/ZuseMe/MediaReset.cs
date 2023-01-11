@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ZuseMe.Api;
-using ZuseMe.Windows;
 using static ArnoldVinkCode.AVActions;
 
 namespace ZuseMe

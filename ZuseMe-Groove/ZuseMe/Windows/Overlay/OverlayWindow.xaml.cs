@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
 
@@ -31,16 +32,8 @@ namespace ZuseMe.Windows
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
-                //Set the window style
-                IntPtr updatedStyle = new IntPtr((uint)WindowStyles.WS_VISIBLE);
-                await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_STYLE, updatedStyle);
-
-                //Set the window style ex
-                IntPtr updatedExStyle = new IntPtr((uint)(WindowStylesEx.WS_EX_TOPMOST | WindowStylesEx.WS_EX_NOACTIVATE));
-                await SetWindowLongAuto(vInteropWindowHandle, (int)WindowLongFlags.GWL_EXSTYLE, updatedExStyle);
-
-                //Set the window as top most
-                SetWindowPos(vInteropWindowHandle, (IntPtr)WindowPosition.TopMost, 0, 0, 0, 0, (int)(WindowSWP.NOMOVE | WindowSWP.NOSIZE));
+                //Update the window style
+                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
             }
             catch { }
         }
@@ -49,10 +42,10 @@ namespace ZuseMe.Windows
         {
             try
             {
-                //Check overlay setting
-                if (!AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
+                //Check overlay settings
+                if (!AVSettings.Load(null, "TrackShowOverlay", typeof(bool)) && !AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
                 {
-                    Debug.WriteLine("Overlay setting is disabled, skipping overlay.");
+                    Debug.WriteLine("Overlay settings are disabled, skipping overlay.");
 
                     //Hide the overlay
                     this.Hide();
@@ -71,14 +64,18 @@ namespace ZuseMe.Windows
 
                 //Check if media player window is active
                 ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
-                bool skipOverlay = AppVariables.MediaPlayers.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
-                if (skipOverlay)
+                if (foregroundProcess != null)
                 {
-                    Debug.WriteLine("Media player window is active, skipping overlay.");
+                    bool skipOverlayPath = AppVariables.MediaPlayers.Any(x => foregroundProcess.Path.ToLower().StartsWith(x.ProcessName.ToLower()));
+                    bool skipOverlayExecutable = AppVariables.MediaPlayers.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
+                    if (skipOverlayPath || skipOverlayExecutable)
+                    {
+                        Debug.WriteLine("Media player window is active, skipping overlay.");
 
-                    //Hide the overlay
-                    this.Hide();
-                    return;
+                        //Hide the overlay
+                        this.Hide();
+                        return;
+                    }
                 }
 
                 //Show or hide controls
@@ -115,7 +112,10 @@ namespace ZuseMe.Windows
                 };
                 AVFunctions.TimerReset(AppVariables.DispatcherTimerOverlay);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed showing overlay: " + ex.Message);
+            }
         }
 
         private void border_Overlay_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

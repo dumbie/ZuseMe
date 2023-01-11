@@ -21,18 +21,18 @@ namespace ZuseMe
                 //Compare volume variable
                 if (AppVariables.VolumeLevelPrevious != -1 && (currentVolume != AppVariables.VolumeLevelPrevious || currentMute != AppVariables.VolumeMutePrevious))
                 {
-                    //Check if media is set
-                    if (string.IsNullOrEmpty(AppVariables.MediaArtist) && string.IsNullOrEmpty(AppVariables.MediaArtist) && string.IsNullOrEmpty(AppVariables.MediaAlbum)) { return; }
-
-                    //Show media overlay
-                    ActionDispatcherInvoke(delegate
+                    if (AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
                     {
-                        try
+                        ActionDispatcherInvoke(delegate
                         {
-                            AppVariables.WindowOverlay.ShowWindowDuration(2500);
-                        }
-                        catch { }
-                    });
+                            try
+                            {
+                                //Show media overlay
+                                AppVariables.WindowOverlay.ShowWindowDuration(2500);
+                            }
+                            catch { }
+                        });
+                    }
                 }
 
                 //Update volume variable
