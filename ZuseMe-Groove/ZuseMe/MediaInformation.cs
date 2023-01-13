@@ -18,9 +18,21 @@ namespace ZuseMe
             {
                 //Get media properties
                 if (AppVariables.SmtcSessionMedia == null) { return; }
-                GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
-                GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = AppVariables.SmtcSessionMedia.GetTimelineProperties();
-                GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
+                GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties;
+                GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline;
+                GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo;
+                try
+                {
+                    mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
+                    mediaTimeline = AppVariables.SmtcSessionMedia.GetTimelineProperties();
+                    mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Failed to get media properties: " + ex.Message);
+                    await ResetMediaPlayerAccess();
+                    return;
+                }
 
                 //Load media artist
                 AppVariables.MediaArtist = mediaProperties.Artist;

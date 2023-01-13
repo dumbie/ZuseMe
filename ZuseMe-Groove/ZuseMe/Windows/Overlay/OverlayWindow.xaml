@@ -44,7 +44,7 @@
                 </Grid>
             </Button>
             <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,10,10,10">
-                <TextBlock Name="textblock_TrackArtist" Text="Artist" FontSize="{StaticResource TextSizeSmall}" Foreground="{StaticResource ApplicationAccentLightBrush}"/>
+                <TextBlock Name="textblock_TrackArtist" Text="Artist" FontSize="{StaticResource TextSizeSmall}" Foreground="{DynamicResource ApplicationAccentLightBrush}"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Name="textblock_TrackNumber" Text="(0) " FontSize="{StaticResource TextSizeSmall}" Foreground="{StaticResource ApplicationWhiteBrush}"/>
                     <TextBlock Name="textblock_TrackTitle" Text="Title" FontSize="{StaticResource TextSizeSmall}" Foreground="{StaticResource ApplicationWhiteBrush}"/>

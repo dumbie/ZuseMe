@@ -38,6 +38,20 @@ namespace ZuseMe
             catch { }
         }
 
+        //Reset media player access
+        public static async Task ResetMediaPlayerAccess()
+        {
+            try
+            {
+                AppVariables.SmtcSessionManager = null;
+                AppVariables.SmtcSessionMedia = null;
+                await UpdateMediaPlayer(null);
+
+                Debug.WriteLine("Reset SMTC access.");
+            }
+            catch { }
+        }
+
         //Update media player session
         public static async Task UpdateMediaPlayerSession()
         {
@@ -75,7 +89,7 @@ namespace ZuseMe
                 //}
 
                 //Load enabled players
-                IEnumerable<string> enabledPlayers = AppVariables.MediaPlayers.Where(x => x.Enabled).Select(x => x.ProcessName);
+                IEnumerable<string> enabledPlayers = AppVariables.MediaPlayersSupported.Where(x => x.Enabled).Select(x => x.ProcessName);
 
                 //Check enabled players
                 GlobalSystemMediaTransportControlsSession currentPlayer = smtcSessions.OrderBy(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();

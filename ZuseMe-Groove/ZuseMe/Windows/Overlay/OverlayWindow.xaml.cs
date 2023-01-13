@@ -20,7 +20,7 @@ namespace ZuseMe.Windows
         private IntPtr vInteropWindowHandle = IntPtr.Zero;
 
         //Window Initialized
-        protected override async void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace ZuseMe.Windows
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
                 //Update the window style
-                await WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
             }
             catch { }
         }
@@ -66,8 +66,8 @@ namespace ZuseMe.Windows
                 ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
                 if (foregroundProcess != null)
                 {
-                    bool skipOverlayPath = AppVariables.MediaPlayers.Any(x => foregroundProcess.Path.ToLower().StartsWith(x.ProcessName.ToLower()));
-                    bool skipOverlayExecutable = AppVariables.MediaPlayers.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
+                    bool skipOverlayPath = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.Path.ToLower().StartsWith(x.ProcessName.ToLower()));
+                    bool skipOverlayExecutable = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
                     if (skipOverlayPath || skipOverlayExecutable)
                     {
                         Debug.WriteLine("Media player window is active, skipping overlay.");

@@ -80,128 +80,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Api\GitHub\Classes.cs">
-      <Link>ArnoldVinkCode\Api\GitHub\Classes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Api\GitHub\GitHub_Paths.cs">
-      <Link>ArnoldVinkCode\Api\GitHub\GitHub_Paths.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Api\GitHub\GitHub_Version.cs">
-      <Link>ArnoldVinkCode\Api\GitHub\GitHub_Version.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\AVActions.cs">
-      <Link>ArnoldVinkCode\ArnoldVinkActions\AVActions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkActions\Classes\AVTaskDetails.cs">
-      <Link>ArnoldVinkCode\ArnoldVinkActions\Classes\AVTaskDetails.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputClass.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputClass.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputHotKey.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputHotKey.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputInterop.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputInterop.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputKeyboard.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkInputOutput\InputOutputMouse.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessClasses.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessClasses.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessNtQueryInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessUwpFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32Functions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\ArnoldVinkProcesses\ProcessWin32StoreFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceSwitch.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\AVAudioDeviceVolume.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\AVAudioDeviceVolume.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\Classes\AudioDeviceSummary.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\IMMDevice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs">
-      <Link>ArnoldVinkCode\Functions\AVAudioDevice\IMMDevice\PolicyConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorDisplayConfig.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorDisplayConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorEnumDisplay.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorEnumDisplay.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\AVDisplayMonitorSwitch.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Classes\DisplayMonitor.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Classes\DisplayMonitor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Interop\InteropDisplayConfig.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Interop\InteropDisplayConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDisplayMonitor\Interop\InteropEnumDisplay.cs">
-      <Link>ArnoldVinkCode\Functions\AVDisplayMonitor\Interop\InteropEnumDisplay.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVDownloader.cs">
-      <Link>ArnoldVinkCode\Functions\AVDownloader.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVFiles.cs">
-      <Link>ArnoldVinkCode\Functions\AVFiles.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVFirewall.cs">
-      <Link>ArnoldVinkCode\Functions\AVFirewall.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\AVFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVSettings.cs">
-      <Link>ArnoldVinkCode\Functions\AVSettings.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\AVUwpAppx.cs">
-      <Link>ArnoldVinkCode\Functions\AVUwpAppx\AVUwpAppx.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\ClassAppxDetails.cs">
-      <Link>ArnoldVinkCode\Functions\AVUwpAppx\ClassAppxDetails.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVUwpAppx\ClassAppxManifest.cs">
-      <Link>ArnoldVinkCode\Functions\AVUwpAppx\ClassAppxManifest.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Functions\AVWindowFunctions.cs">
-      <Link>ArnoldVinkCode\Functions\AVWindowFunctions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Interop\AVInteropCom.cs">
-      <Link>ArnoldVinkCode\Interop\AVInteropCom.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Interop\AVInteropDll.cs">
-      <Link>ArnoldVinkCode\Interop\AVInteropDll.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ArnoldVinkMessageBox\MessageBox.xaml.cs">
-      <Link>ArnoldVinkCode\Styles\ArnoldVinkMessageBox\MessageBox.xaml.cs</Link>
-      <DependentUpon>MessageBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml.cs">
-      <Link>ArnoldVinkCode\Styles\MainStyles.xaml.cs</Link>
-      <DependentUpon>MainStyles.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Api\ApiFunctions.cs" />
     <Compile Include="Api\ApiScrobble.cs" />
     <Compile Include="Api\ApiAuth.cs" />
@@ -231,55 +109,6 @@
     <Compile Include="Windows\Overlay\OverlayWindow.xaml.cs">
       <DependentUpon>OverlayWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ArnoldVinkMessageBox\MessageBox.xaml">
-      <Link>ArnoldVinkCode\Styles\ArnoldVinkMessageBox\MessageBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Button.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\Button.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\CheckBox.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\CheckBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\ComboBox.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\ComboBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\ListBox.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\ListBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Scrollbar.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\Scrollbar.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\Slider.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\Slider.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\ControlTemplates\TextBox.xaml">
-      <Link>ArnoldVinkCode\Styles\ControlTemplates\TextBox.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\..\ArnoldVinkCode\Desktop\Styles\MainStyles.xaml">
-      <Link>ArnoldVinkCode\Styles\MainStyles.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ArnoldVinkCode\Styles\MainColors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\DataTemplates\ListBoxSupportedPlayers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -369,6 +198,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj">
+      <Project>{478ed5d3-38af-47fc-ae14-b67976ab952c}</Project>
+      <Name>ArnoldVinkCode</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

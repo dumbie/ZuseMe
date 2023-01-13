@@ -99,11 +99,11 @@ namespace ZuseMe
                             AppVariables.WindowMain.progress_StatusScrobble.Value = 100;
                             if (AppVariables.ScrobbleStatusAccepted)
                             {
-                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ValidBrush"];
+                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
                             }
                             else
                             {
-                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["IgnoredBrush"];
+                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationIgnoredBrush"];
                             }
                         }
                         else
@@ -127,7 +127,7 @@ namespace ZuseMe
                             }
                             else
                             {
-                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["IgnoredBrush"];
+                                AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationIgnoredBrush"];
                             }
                         }
                     }

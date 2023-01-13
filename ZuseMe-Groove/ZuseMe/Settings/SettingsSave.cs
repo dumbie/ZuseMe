@@ -21,11 +21,11 @@ namespace ZuseMe
                         if (trackLength >= 20)
                         {
                             AVSettings.Save(null, "TrackLengthCustom", senderElement.Text);
-                            textbox_TrackLengthCustom.Foreground = (SolidColorBrush)Application.Current.Resources["ValidBrush"];
+                            textbox_TrackLengthCustom.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationValidBrush"];
                         }
                         else
                         {
-                            textbox_TrackLengthCustom.Foreground = (SolidColorBrush)Application.Current.Resources["InvalidBrush"];
+                            textbox_TrackLengthCustom.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationInvalidBrush"];
                         }
                     }
                     catch { }

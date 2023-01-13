@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ZuseMe.Api;
 using static ArnoldVinkCode.AVFirewall;
+using static ArnoldVinkCode.Styles.MainColors;
 
 namespace ZuseMe
 {
@@ -15,6 +16,9 @@ namespace ZuseMe
             try
             {
                 Debug.WriteLine("Welcome to ZuseMe.");
+
+                //Application update accent color
+                ChangeApplicationAccentColor("#BA0000");
 
                 //Application startup checks
                 AppCheck.StartupCheck("ZuseMe", ProcessPriorityClass.Normal);

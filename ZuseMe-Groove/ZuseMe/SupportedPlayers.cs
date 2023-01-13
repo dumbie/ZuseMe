@@ -14,11 +14,11 @@ namespace ZuseMe
             try
             {
                 string jsonFile = File.ReadAllText(@"SupportedPlayers.json");
-                AppVariables.MediaPlayers = JsonConvert.DeserializeObject<PlayersJson[]>(jsonFile);
-                AppVariables.WindowMain.listbox_SupportedPlayers.ItemsSource = AppVariables.MediaPlayers;
+                AppVariables.MediaPlayersSupported = JsonConvert.DeserializeObject<PlayersJson[]>(jsonFile);
+                AppVariables.WindowMain.listbox_SupportedPlayers.ItemsSource = AppVariables.MediaPlayersSupported;
 
                 //Check supported players
-                foreach (PlayersJson player in AppVariables.MediaPlayers)
+                foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
                 {
                     try
                     {
@@ -31,7 +31,7 @@ namespace ZuseMe
                 }
 
                 //Update supported players
-                foreach (PlayersJson player in AppVariables.MediaPlayers)
+                foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
                 {
                     try
                     {

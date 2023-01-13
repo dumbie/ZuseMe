@@ -13,7 +13,7 @@ namespace ZuseMe
         public static AppTray AppTray = new AppTray();
 
         //Player Variables
-        public static PlayersJson[] MediaPlayers = null;
+        public static PlayersJson[] MediaPlayersSupported = null;
 
         //Scrobble Variables
         public static bool ScrobblePause = false;
