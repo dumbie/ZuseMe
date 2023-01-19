@@ -31,10 +31,10 @@
                     <Image Width="30" Height="30" Source="/Assets/PlayPauseLight.png"/>
                 </Button>
                 <Button Name="button_ControlPrevious" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ControlPrevious_Click" Focusable="False">
-                    <Image Width="30" Height="30" Source="/Assets/PreviousLight.png"/>
+                    <Image Margin="0,3,0,3" Width="30" Height="30" Source="/Assets/PreviousLight.png"/>
                 </Button>
                 <Button Name="button_ControlNext" Style="{StaticResource ButtonImageTransparentNoBorder}" Click="button_ControlNext_Click" Focusable="False">
-                    <Image Margin="0,3,0,3" Width="30" Height="30" Source="/Assets/NextLight.png"/>
+                    <Image Width="30" Height="30" Source="/Assets/NextLight.png"/>
                 </Button>
             </StackPanel>
             <Button Grid.Column="1" Name="button_FocusPlayer" VerticalAlignment="Center" Margin="10" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_FocusPlayer_Click" Focusable="False">
