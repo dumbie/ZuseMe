@@ -1,6 +1,8 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using ZuseMe.Classes;
 
 namespace ZuseMe
@@ -12,34 +14,38 @@ namespace ZuseMe
             try
             {
                 //Load players from json
+                List<PlayersJson> MediaPlayersEnabled = null;
+                AVJsonFunctions.JsonLoadFile(ref MediaPlayersEnabled, "EnabledPlayers.json");
                 AVJsonFunctions.JsonLoadFile(ref AppVariables.MediaPlayersSupported, "SupportedPlayers.json");
-                AVJsonFunctions.JsonLoadFile(ref AppVariables.MediaPlayersEnabled, "EnabledPlayers.json");
 
                 //Set listbox source
                 AppVariables.WindowMain.listbox_SupportedPlayers.ItemsSource = AppVariables.MediaPlayersSupported;
 
                 //Check supported players
                 bool jsonUpdated = false;
-                foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
+                foreach (PlayersJson playerSupported in AppVariables.MediaPlayersSupported)
                 {
                     try
                     {
-                        if (!AVSettings.Check(null, "Player" + player.ProcessName))
+                        PlayersJson playerEnabled = MediaPlayersEnabled.Where(x => x.ProcessName == playerSupported.ProcessName).FirstOrDefault();
+                        if (playerEnabled == null)
                         {
-                            AVSettings.Save(null, "Player" + player.ProcessName, true);
+                            jsonUpdated = true;
+                            playerSupported.Enabled = true;
+                        }
+                        else
+                        {
+                            playerSupported.Enabled = playerEnabled.Enabled;
                         }
                     }
                     catch { }
                 }
 
-                //Update supported players
-                foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
+                //Save enabled players to json
+                if (jsonUpdated)
                 {
-                    try
-                    {
-                        player.Enabled = AVSettings.Load(null, "Player" + player.ProcessName, typeof(bool));
-                    }
-                    catch { }
+                    var enabledPlayers = AppVariables.MediaPlayersSupported.Select(x => new { x.Enabled, x.ProcessName });
+                    AVJsonFunctions.JsonSaveObject(enabledPlayers, "EnabledPlayers.json");
                 }
             }
             catch (Exception ex)

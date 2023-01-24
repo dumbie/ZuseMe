@@ -1,4 +1,5 @@
-﻿using System.Windows.Threading;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Threading;
 using Windows.Media.Control;
 using ZuseMe.Classes;
 using ZuseMe.Windows;
@@ -13,7 +14,7 @@ namespace ZuseMe
         public static AppTray AppTray = new AppTray();
 
         //Player Variables
-        public static PlayersJson[] MediaPlayersSupported = null;
+        public static ObservableCollection<PlayersJson> MediaPlayersSupported = null;
 
         //Scrobble Variables
         public static bool ScrobblePause = false;

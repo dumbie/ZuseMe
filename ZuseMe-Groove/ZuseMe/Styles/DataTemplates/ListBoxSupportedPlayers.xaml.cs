@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using ZuseMe;
 using ZuseMe.Classes;
 
 namespace ArnoldVinkCode.Styles
@@ -13,10 +15,10 @@ namespace ArnoldVinkCode.Styles
             try
             {
                 CheckBox senderButton = sender as CheckBox;
-                PlayersJson selectedPlayer = senderButton.DataContext as PlayersJson;
 
-                //Update player setting
-                AVSettings.Save(null, "Player" + selectedPlayer.ProcessName, senderButton.IsChecked);
+                //Save enabled players to json
+                var enabledPlayers = AppVariables.MediaPlayersSupported.Select(x => new { x.Enabled, x.ProcessName });
+                AVJsonFunctions.JsonSaveObject(enabledPlayers, "EnabledPlayers.json");
             }
             catch { }
         }

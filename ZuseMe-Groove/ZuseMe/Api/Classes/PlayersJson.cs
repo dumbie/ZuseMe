@@ -1,5 +1,8 @@
-﻿namespace ZuseMe.Classes
+﻿using System;
+
+namespace ZuseMe.Classes
 {
+    [Serializable]
     public class PlayersJson
     {
         public bool Enabled { get; set; }
