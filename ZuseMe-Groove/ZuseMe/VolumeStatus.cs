@@ -13,6 +13,7 @@ namespace ZuseMe
         {
             try
             {
+                //Check overlay setting
                 if (!AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
                 {
                     return;
@@ -31,8 +32,10 @@ namespace ZuseMe
                     {
                         try
                         {
+                            Debug.WriteLine("Volume has changed, showing overlay.");
+
                             //Show media overlay
-                            AppVariables.WindowOverlay.ShowWindowDuration(2500);
+                            AppVariables.WindowOverlay.ShowWindowDuration(3000);
                         }
                         catch { }
                     });

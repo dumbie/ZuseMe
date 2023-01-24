@@ -17,13 +17,13 @@
         ResizeMode="NoResize"
         Background="Transparent">
 
-    <Grid Name="grid_Overlay" VerticalAlignment="Bottom" MouseLeftButtonUp="grid_Overlay_MouseLeftButtonUp">
+    <Grid Name="grid_Overlay" Background="Transparent" Margin="0,0,0,120" HorizontalAlignment="Center" VerticalAlignment="Bottom" MouseLeftButtonUp="grid_Overlay_MouseLeftButtonUp" MouseEnter="grid_Overlay_MouseEnter">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Name="border_Control" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Name="border_Control" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="Collapsed">
             <Border HorizontalAlignment="Center" CornerRadius="10" Margin="0,0,0,5">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
@@ -57,7 +57,7 @@
             </Border>
         </StackPanel>
 
-        <Border Grid.Row="1" Name="border_Media" HorizontalAlignment="Center" CornerRadius="10" Margin="0,0,0,120">
+        <Border Grid.Row="1" Name="border_Media" HorizontalAlignment="Center" CornerRadius="10">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
             </Border.Background>

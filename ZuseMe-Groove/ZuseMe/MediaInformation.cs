@@ -157,8 +157,12 @@ namespace ZuseMe
                         string trayText = "ZuseMe (" + mediaArtist + " - " + mediaTitle + ")";
                         AppVariables.AppTray.sysTrayIcon.Text = AVFunctions.StringCut(trayText, 59, "...)");
 
-                        //Show media overlay
-                        AppVariables.WindowOverlay.ShowWindowDuration(3000);
+                        //Check overlay setting
+                        if (AVSettings.Load(null, "TrackShowOverlay", typeof(bool)))
+                        {
+                            //Show media overlay
+                            AppVariables.WindowOverlay.ShowWindowDuration(3000);
+                        }
                     }
                     catch (Exception ex)
                     {

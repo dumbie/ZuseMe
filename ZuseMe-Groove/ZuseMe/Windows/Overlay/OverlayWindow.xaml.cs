@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVWindowFunctions;
@@ -38,6 +39,19 @@ namespace ZuseMe.Windows
             catch { }
         }
 
+        public void HideWindow()
+        {
+            try
+            {
+                //Show or hide media controls
+                border_Control.Visibility = Visibility.Collapsed;
+
+                //Hide the overlay
+                this.Hide();
+            }
+            catch { }
+        }
+
         public void ShowWindowDuration(int showSeconds)
         {
             try
@@ -48,7 +62,7 @@ namespace ZuseMe.Windows
                     Debug.WriteLine("Overlay settings are disabled, skipping overlay.");
 
                     //Hide the overlay
-                    this.Hide();
+                    HideWindow();
                     return;
                 }
 
@@ -58,7 +72,7 @@ namespace ZuseMe.Windows
                     Debug.WriteLine("Unknown song hiding the overlay.");
 
                     //Hide the overlay
-                    this.Hide();
+                    HideWindow();
                     return;
                 }
 
@@ -73,20 +87,9 @@ namespace ZuseMe.Windows
                         Debug.WriteLine("Media player window is active, skipping overlay.");
 
                         //Hide the overlay
-                        this.Hide();
+                        HideWindow();
                         return;
                     }
-                }
-
-                //Show or hide controls
-                bool showControls = AVSettings.Load(null, "ControlOverlay", typeof(bool));
-                if (showControls)
-                {
-                    border_Control.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    border_Control.Visibility = Visibility.Collapsed;
                 }
 
                 //Show the overlay
@@ -102,7 +105,7 @@ namespace ZuseMe.Windows
                         if (!grid_Overlay.IsMouseOver)
                         {
                             //Hide the overlay
-                            this.Hide();
+                            HideWindow();
 
                             //Renew the timer
                             AVFunctions.TimerRenew(ref AppVariables.DispatcherTimerOverlay);
@@ -123,7 +126,7 @@ namespace ZuseMe.Windows
             try
             {
                 //Hide the overlay
-                this.Hide();
+                HideWindow();
             }
             catch { }
         }
@@ -184,6 +187,16 @@ namespace ZuseMe.Windows
             {
                 bool muted = AVAudioDevice.AudioMuteSwitch(false);
                 Debug.WriteLine("Muted volume: " + muted);
+            }
+            catch { }
+        }
+
+        private void grid_Overlay_MouseEnter(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                //Show or hide media controls
+                border_Control.Visibility = Visibility.Visible;
             }
             catch { }
         }
