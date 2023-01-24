@@ -1,6 +1,7 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
+using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 
@@ -12,6 +13,11 @@ namespace ZuseMe
         {
             try
             {
+                if (!AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
+                {
+                    return;
+                }
+
                 //Get current volume
                 int currentVolume = AudioVolumeGet(false);
                 bool currentMute = AudioMuteGetStatus(false);
@@ -21,19 +27,42 @@ namespace ZuseMe
                 //Compare volume variable
                 if (AppVariables.VolumeLevelPrevious != -1 && (currentVolume != AppVariables.VolumeLevelPrevious || currentMute != AppVariables.VolumeMutePrevious))
                 {
-                    if (AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
+                    ActionDispatcherInvoke(delegate
                     {
-                        ActionDispatcherInvoke(delegate
+                        try
                         {
-                            try
-                            {
-                                //Show media overlay
-                                AppVariables.WindowOverlay.ShowWindowDuration(2500);
-                            }
-                            catch { }
-                        });
-                    }
+                            //Show media overlay
+                            AppVariables.WindowOverlay.ShowWindowDuration(2500);
+                        }
+                        catch { }
+                    });
                 }
+
+                //Update overlay volume control
+                ActionDispatcherInvoke(delegate
+                {
+                    try
+                    {
+                        AppVariables.WindowOverlay.textblock_ControlVolume.Text = currentVolume.ToString();
+
+                        DateTime lastValueChange = AppVariables.WindowOverlay.slider_ControlVolume.LastValueChange;
+                        double changeDifference = (DateTime.Now - lastValueChange).TotalMilliseconds;
+                        if (changeDifference > 2500 && !AppVariables.WindowOverlay.slider_ControlVolume.SliderThumbDragging)
+                        {
+                            AppVariables.WindowOverlay.slider_ControlVolume.ValueSkipEvent(currentVolume);
+                        }
+
+                        if (currentVolume == 0 || currentMute)
+                        {
+                            AppVariables.WindowOverlay.image_ControlMute.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/VolumeMuteLight.png"));
+                        }
+                        else
+                        {
+                            AppVariables.WindowOverlay.image_ControlMute.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/VolumeUnmuteLight.png"));
+                        }
+                    }
+                    catch { }
+                });
 
                 //Update volume variable
                 AppVariables.VolumeLevelPrevious = currentVolume;

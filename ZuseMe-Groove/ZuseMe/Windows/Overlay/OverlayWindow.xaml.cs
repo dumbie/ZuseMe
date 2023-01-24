@@ -82,11 +82,11 @@ namespace ZuseMe.Windows
                 bool showControls = AVSettings.Load(null, "ControlOverlay", typeof(bool));
                 if (showControls)
                 {
-                    stackpanel_OverlayControl.Visibility = Visibility.Visible;
+                    border_Control.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    stackpanel_OverlayControl.Visibility = Visibility.Collapsed;
+                    border_Control.Visibility = Visibility.Collapsed;
                 }
 
                 //Show the overlay
@@ -99,7 +99,7 @@ namespace ZuseMe.Windows
                     try
                     {
                         //Check if mouse is over
-                        if (!border_Overlay.IsMouseOver)
+                        if (!grid_Overlay.IsMouseOver)
                         {
                             //Hide the overlay
                             this.Hide();
@@ -118,7 +118,7 @@ namespace ZuseMe.Windows
             }
         }
 
-        private void border_Overlay_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void grid_Overlay_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
             {
@@ -160,6 +160,30 @@ namespace ZuseMe.Windows
             try
             {
                 await Media.FocusMediaPlayer();
+            }
+            catch { }
+        }
+
+        private void slider_ControlVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                int targetVolume = (int)e.NewValue;
+
+                AVAudioDevice.AudioVolumeSet(targetVolume, false);
+                textblock_ControlVolume.Text = targetVolume.ToString();
+
+                Debug.WriteLine("Changed volume to: " + targetVolume);
+            }
+            catch { }
+        }
+
+        private void button_ControlMute_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bool muted = AVAudioDevice.AudioMuteSwitch(false);
+                Debug.WriteLine("Muted volume: " + muted);
             }
             catch { }
         }

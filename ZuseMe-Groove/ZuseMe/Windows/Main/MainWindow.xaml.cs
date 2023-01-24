@@ -16,7 +16,7 @@ namespace ZuseMe
             InitializeComponent();
         }
 
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override async void OnSourceInitialized(EventArgs e)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace ZuseMe
                 UpdateLastFMUsername();
 
                 //Load Save - Application settings
-                Settings_Load();
+                await Settings_Load();
                 Settings_Save();
 
                 //Set application version

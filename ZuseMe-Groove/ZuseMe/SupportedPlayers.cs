@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.IO;
 using ZuseMe.Classes;
 
 namespace ZuseMe
@@ -13,11 +11,15 @@ namespace ZuseMe
         {
             try
             {
-                string jsonFile = File.ReadAllText(@"SupportedPlayers.json");
-                AppVariables.MediaPlayersSupported = JsonConvert.DeserializeObject<PlayersJson[]>(jsonFile);
+                //Load players from json
+                AVJsonFunctions.JsonLoadFile(ref AppVariables.MediaPlayersSupported, "SupportedPlayers.json");
+                AVJsonFunctions.JsonLoadFile(ref AppVariables.MediaPlayersEnabled, "EnabledPlayers.json");
+
+                //Set listbox source
                 AppVariables.WindowMain.listbox_SupportedPlayers.ItemsSource = AppVariables.MediaPlayersSupported;
 
                 //Check supported players
+                bool jsonUpdated = false;
                 foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
                 {
                     try

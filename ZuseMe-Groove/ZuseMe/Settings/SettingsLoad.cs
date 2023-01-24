@@ -1,13 +1,15 @@
 ﻿using ArnoldVinkCode;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ZuseMe
 {
     partial class WindowMain
     {
-        void Settings_Load()
+        async Task Settings_Load()
         {
             try
             {
@@ -44,8 +46,14 @@ namespace ZuseMe
                 {
                     checkbox_WindowsStartup.IsChecked = true;
                 }
+
+                //Wait for settings to have loaded
+                await Task.Delay(1500);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to load application settings: " + ex.Message);
+            }
         }
     }
 }
