@@ -8,5 +8,5 @@
 [assembly: AssemblyCopyright("Copyright © Arnold Vink")]
 
 //Version information for assembly 
-[assembly: AssemblyVersion("3.9.0.0")]
-[assembly: AssemblyFileVersion("3.9.0.0")]
+[assembly: AssemblyVersion("3.9.1.0")]
+[assembly: AssemblyFileVersion("3.9.1.0")]

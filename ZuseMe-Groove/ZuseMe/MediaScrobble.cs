@@ -99,7 +99,7 @@ namespace ZuseMe
                         {
                             AppVariables.WindowMain.textblock_ProgressMediaTotal.Text = progressTotalString;
                         }
-                        AppVariables.WindowOverlay.slider_ProgressMediaCurrent.Maximum = AppVariables.MediaSecondsTotal;
+                        AppVariables.WindowOverlay.slider_ProgressMediaCurrent.MaximumSkipEvent(AppVariables.MediaSecondsTotal);
                         AppVariables.WindowOverlay.textblock_ProgressMediaTotal.Text = progressTotalString;
 
                         //Update current time
