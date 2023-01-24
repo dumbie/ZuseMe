@@ -78,19 +78,41 @@ namespace ZuseMe
                         AppVariables.WindowMain.textblock_ProgressScrobbleTotal.Text = AVFunctions.SecondsToHms(scrobbleTargetSeconds, false, true);
 
                         string progressTotalString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false, true);
+                        string progressCurrentString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsCurrent, false, true);
+
+                        //Hide overlay seek control
+                        if (AppVariables.MediaSecondsCurrentUnknown && AppVariables.MediaSecondsTotalUnknown)
+                        {
+                            AppVariables.WindowOverlay.border_ControlSeek.Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            AppVariables.WindowOverlay.border_ControlSeek.Visibility = Visibility.Visible;
+                        }
+
+                        //Update total time
                         if (AppVariables.MediaSecondsTotalUnknown)
                         {
-                            progressTotalString += "?";
+                            AppVariables.WindowMain.textblock_ProgressMediaTotal.Text = progressTotalString + "?";
                         }
+                        else
+                        {
+                            AppVariables.WindowMain.textblock_ProgressMediaTotal.Text = progressTotalString;
+                        }
+                        AppVariables.WindowOverlay.slider_ProgressMediaCurrent.Maximum = AppVariables.MediaSecondsTotal;
+                        AppVariables.WindowOverlay.textblock_ProgressMediaTotal.Text = progressTotalString;
 
-                        string progressCurrentString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsCurrent, false, true);
+                        //Update current time
                         if (AppVariables.MediaSecondsCurrentUnknown)
                         {
-                            progressCurrentString += "?";
+                            AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = progressCurrentString + "?";
                         }
-
-                        AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = progressCurrentString;
-                        AppVariables.WindowMain.textblock_ProgressMediaTotal.Text = progressTotalString;
+                        else
+                        {
+                            AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = progressCurrentString;
+                        }
+                        AppVariables.WindowOverlay.slider_ProgressMediaCurrent.ValueSkipEvent(AppVariables.MediaSecondsCurrent, true);
+                        AppVariables.WindowOverlay.textblock_ProgressMediaCurrent.Text = progressCurrentString;
 
                         AppVariables.WindowMain.progress_StatusSong.Value = mediaPercentage;
                         if (AppVariables.ScrobbleSubmitted)

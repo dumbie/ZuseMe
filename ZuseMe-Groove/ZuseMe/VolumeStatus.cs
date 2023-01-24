@@ -47,13 +47,7 @@ namespace ZuseMe
                     try
                     {
                         AppVariables.WindowOverlay.textblock_ControlVolume.Text = currentVolume.ToString();
-
-                        DateTime lastValueChange = AppVariables.WindowOverlay.slider_ControlVolume.LastValueChange;
-                        double changeDifference = (DateTime.Now - lastValueChange).TotalMilliseconds;
-                        if (changeDifference > 2500 && !AppVariables.WindowOverlay.slider_ControlVolume.SliderThumbDragging)
-                        {
-                            AppVariables.WindowOverlay.slider_ControlVolume.ValueSkipEvent(currentVolume);
-                        }
+                        AppVariables.WindowOverlay.slider_ControlVolume.ValueSkipEvent(currentVolume, true);
 
                         if (currentVolume == 0 || currentMute)
                         {

@@ -200,5 +200,15 @@ namespace ZuseMe.Windows
             }
             catch { }
         }
+
+        private async void slider_ProgressNow_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                long seekPosition = (long)(10000000 * e.NewValue);
+                await AppVariables.SmtcSessionMedia.TryChangePlaybackPositionAsync(seekPosition);
+            }
+            catch { }
+        }
     }
 }
