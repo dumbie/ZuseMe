@@ -201,6 +201,16 @@ namespace ZuseMe.Windows
             catch { }
         }
 
+        private void grid_Overlay_MouseMove(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                //Extend hide timer
+                AVFunctions.TimerReset(AppVariables.DispatcherTimerOverlay);
+            }
+            catch { }
+        }
+
         private async void slider_ProgressNow_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             try

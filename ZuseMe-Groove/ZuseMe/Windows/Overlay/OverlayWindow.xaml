@@ -17,7 +17,7 @@
         ResizeMode="NoResize"
         Background="Transparent">
 
-    <Grid Name="grid_Overlay" Background="Transparent" Margin="0,0,0,120" HorizontalAlignment="Center" VerticalAlignment="Bottom" MouseLeftButtonUp="grid_Overlay_MouseLeftButtonUp" MouseEnter="grid_Overlay_MouseEnter">
+    <Grid Name="grid_Overlay" Background="Transparent" Margin="0,0,0,120" HorizontalAlignment="Center" VerticalAlignment="Bottom" MouseLeftButtonUp="grid_Overlay_MouseLeftButtonUp" MouseEnter="grid_Overlay_MouseEnter" MouseMove="grid_Overlay_MouseMove">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
