@@ -1,9 +1,9 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
+using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
 {
@@ -14,7 +14,7 @@ namespace ZuseMe
             try
             {
                 //Check overlay setting
-                if (!AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
+                if (!SettingLoad(null, "VolumeShowOverlay", typeof(bool)))
                 {
                     return;
                 }

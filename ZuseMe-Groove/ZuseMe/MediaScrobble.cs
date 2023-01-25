@@ -9,6 +9,7 @@ using System.Windows.Media;
 using Windows.Media;
 using Windows.Media.Control;
 using ZuseMe.Api;
+using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
 {
@@ -51,7 +52,7 @@ namespace ZuseMe
                 Debug.WriteLine("Media " + mediaPlayInfo.PlaybackStatus + " (S" + AppVariables.ScrobbleSecondsCurrent + "/M" + AppVariables.MediaSecondsCurrent + "/T" + AppVariables.MediaSecondsTotal + " seconds)" + " (Scrobbled " + AppVariables.ScrobbleSubmitted + ")");
 
                 //Get media progress
-                int scrobbleTargetSeconds = AVSettings.Load(null, "TrackPercentageScrobble", typeof(int)) * AppVariables.MediaSecondsTotal / 100;
+                int scrobbleTargetSeconds = SettingLoad(null, "TrackPercentageScrobble", typeof(int)) * AppVariables.MediaSecondsTotal / 100;
                 int scrobblePercentage = 100 * AppVariables.ScrobbleSecondsCurrent / scrobbleTargetSeconds;
                 int mediaPercentage = 100 * AppVariables.MediaSecondsCurrent / AppVariables.MediaSecondsTotal;
                 bool mediaTypeValid = mediaPlayInfo.PlaybackType == MediaPlaybackType.Music;
@@ -131,7 +132,7 @@ namespace ZuseMe
                         else
                         {
                             //Get session token
-                            string sessionToken = AVSettings.Load(null, "LastFMSessionToken", typeof(string));
+                            string sessionToken = SettingLoad(null, "LastFMSessionToken", typeof(string));
                             bool sessionTokenSet = !string.IsNullOrWhiteSpace(sessionToken);
                             if (!sessionTokenSet)
                             {

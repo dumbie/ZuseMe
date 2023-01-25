@@ -1,9 +1,9 @@
-﻿using ArnoldVinkCode;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
 {
@@ -13,12 +13,12 @@ namespace ZuseMe
         {
             try
             {
-                textbox_TrackLengthCustom.Text = AVSettings.Load(null, "TrackLengthCustom", typeof(string));
-                checkbox_TrackShowOverlay.IsChecked = AVSettings.Load(null, "TrackShowOverlay", typeof(bool));
-                checkbox_VolumeShowOverlay.IsChecked = AVSettings.Load(null, "VolumeShowOverlay", typeof(bool));
-                checkbox_LastFMUpdateNowPlaying.IsChecked = AVSettings.Load(null, "LastFMUpdateNowPlaying", typeof(bool));
+                textbox_TrackLengthCustom.Text = SettingLoad(null, "TrackLengthCustom", typeof(string));
+                checkbox_TrackShowOverlay.IsChecked = SettingLoad(null, "TrackShowOverlay", typeof(bool));
+                checkbox_VolumeShowOverlay.IsChecked = SettingLoad(null, "VolumeShowOverlay", typeof(bool));
+                checkbox_LastFMUpdateNowPlaying.IsChecked = SettingLoad(null, "LastFMUpdateNowPlaying", typeof(bool));
 
-                string trackPercentageScrobble = AVSettings.Load(null, "TrackPercentageScrobble", typeof(string));
+                string trackPercentageScrobble = SettingLoad(null, "TrackPercentageScrobble", typeof(string));
                 if (trackPercentageScrobble == "25")
                 {
                     combobox_TrackPercentageScrobble.SelectedIndex = 0;

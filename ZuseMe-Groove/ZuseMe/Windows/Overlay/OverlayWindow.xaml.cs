@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
 using static ArnoldVinkCode.ProcessClasses;
 using static ArnoldVinkCode.ProcessFunctions;
@@ -57,7 +58,7 @@ namespace ZuseMe.Windows
             try
             {
                 //Check overlay settings
-                if (!AVSettings.Load(null, "TrackShowOverlay", typeof(bool)) && !AVSettings.Load(null, "VolumeShowOverlay", typeof(bool)))
+                if (!SettingLoad(null, "TrackShowOverlay", typeof(bool)) && !SettingLoad(null, "VolumeShowOverlay", typeof(bool)))
                 {
                     Debug.WriteLine("Overlay settings are disabled, skipping overlay.");
 

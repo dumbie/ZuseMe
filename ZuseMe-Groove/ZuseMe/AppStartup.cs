@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ZuseMe.Api;
 using static ArnoldVinkCode.AVFirewall;
+using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 
 namespace ZuseMe
@@ -49,7 +50,7 @@ namespace ZuseMe
                 AVActions.TaskStartLoop(AppTasks.vTaskLoop_MonitorVolume, AppTasks.vTask_MonitorVolume);
 
                 //Check api login and show window
-                if (string.IsNullOrWhiteSpace(AVSettings.Load(null, "LastFMSessionToken", typeof(string))))
+                if (string.IsNullOrWhiteSpace(SettingLoad(null, "LastFMSessionToken", typeof(string))))
                 {
                     AppVariables.WindowMain.Show();
                 }

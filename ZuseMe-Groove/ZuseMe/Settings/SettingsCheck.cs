@@ -1,4 +1,4 @@
-﻿using ArnoldVinkCode;
+﻿using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
 {
@@ -9,14 +9,14 @@ namespace ZuseMe
         {
             try
             {
-                if (!AVSettings.Check(null, "LastFMUsername")) { AVSettings.Save(null, "LastFMUsername", string.Empty); }
-                if (!AVSettings.Check(null, "LastFMAuthToken")) { AVSettings.Save(null, "LastFMAuthToken", string.Empty); }
-                if (!AVSettings.Check(null, "LastFMSessionToken")) { AVSettings.Save(null, "LastFMSessionToken", string.Empty); }
-                if (!AVSettings.Check(null, "TrackLengthCustom")) { AVSettings.Save(null, "TrackLengthCustom", "60"); }
-                if (!AVSettings.Check(null, "TrackPercentageScrobble")) { AVSettings.Save(null, "TrackPercentageScrobble", "50"); }
-                if (!AVSettings.Check(null, "TrackShowOverlay")) { AVSettings.Save(null, "TrackShowOverlay", "True"); }
-                if (!AVSettings.Check(null, "VolumeShowOverlay")) { AVSettings.Save(null, "VolumeShowOverlay", "True"); }
-                if (!AVSettings.Check(null, "LastFMUpdateNowPlaying")) { AVSettings.Save(null, "LastFMUpdateNowPlaying", "True"); }
+                if (!SettingCheck(null, "LastFMUsername")) { SettingSave(null, "LastFMUsername", string.Empty); }
+                if (!SettingCheck(null, "LastFMAuthToken")) { SettingSave(null, "LastFMAuthToken", string.Empty); }
+                if (!SettingCheck(null, "LastFMSessionToken")) { SettingSave(null, "LastFMSessionToken", string.Empty); }
+                if (!SettingCheck(null, "TrackLengthCustom")) { SettingSave(null, "TrackLengthCustom", "60"); }
+                if (!SettingCheck(null, "TrackPercentageScrobble")) { SettingSave(null, "TrackPercentageScrobble", "50"); }
+                if (!SettingCheck(null, "TrackShowOverlay")) { SettingSave(null, "TrackShowOverlay", "True"); }
+                if (!SettingCheck(null, "VolumeShowOverlay")) { SettingSave(null, "VolumeShowOverlay", "True"); }
+                if (!SettingCheck(null, "LastFMUpdateNowPlaying")) { SettingSave(null, "LastFMUpdateNowPlaying", "True"); }
             }
             catch { }
         }

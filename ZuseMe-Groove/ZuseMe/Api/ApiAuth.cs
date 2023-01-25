@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ZuseMe.Classes;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe.Api
 {
@@ -29,7 +30,7 @@ namespace ZuseMe.Api
                 else
                 {
                     //Update settings
-                    AVSettings.Save(null, "LastFMAuthToken", loginToken.token);
+                    SettingSave(null, "LastFMAuthToken", loginToken.token);
                 }
 
                 //Update interface
@@ -74,9 +75,9 @@ namespace ZuseMe.Api
             try
             {
                 //Update settings
-                AVSettings.Save(null, "LastFMUsername", string.Empty);
-                AVSettings.Save(null, "LastFMAuthToken", string.Empty);
-                AVSettings.Save(null, "LastFMSessionToken", string.Empty);
+                SettingSave(null, "LastFMUsername", string.Empty);
+                SettingSave(null, "LastFMAuthToken", string.Empty);
+                SettingSave(null, "LastFMSessionToken", string.Empty);
 
                 //Update interface
                 AVActions.ActionDispatcherInvoke(delegate
@@ -104,8 +105,8 @@ namespace ZuseMe.Api
                         else
                         {
                             //Update settings
-                            AVSettings.Save(null, "LastFMUsername", sessionToken.name);
-                            AVSettings.Save(null, "LastFMSessionToken", sessionToken.key);
+                            SettingSave(null, "LastFMUsername", sessionToken.name);
+                            SettingSave(null, "LastFMSessionToken", sessionToken.key);
 
                             //Update interface
                             AVActions.ActionDispatcherInvoke(delegate
@@ -168,7 +169,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get auth token
-                string authToken = AVSettings.Load(null, "LastFMAuthToken", typeof(string));
+                string authToken = SettingLoad(null, "LastFMAuthToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(authToken))
                 {
                     return null;
