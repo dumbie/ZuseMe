@@ -28,7 +28,7 @@ namespace ZuseMe
                 //Compare volume variable
                 if (AppVariables.VolumeLevelPrevious != -1 && (currentVolume != AppVariables.VolumeLevelPrevious || currentMute != AppVariables.VolumeMutePrevious))
                 {
-                    ActionDispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         try
                         {
@@ -42,7 +42,7 @@ namespace ZuseMe
                 }
 
                 //Update overlay volume control
-                ActionDispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {

@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Media.Control;
 using static ArnoldVinkCode.AVActions;
-using static ArnoldVinkCode.AVInteropDll;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
-using static ArnoldVinkCode.ProcessUwpFunctions;
+using static ArnoldVinkCode.AVProcess;
 
 namespace ZuseMe
 {
@@ -23,8 +19,16 @@ namespace ZuseMe
                 Debug.WriteLine("Requesting SMTC access.");
 
                 //Might cause Windows Explorer issue when looping.
-                var smtcSessionManagerTask = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().AsTask();
-                AppVariables.SmtcSessionManager = await TaskStartReturnTimeout(smtcSessionManagerTask, 3000);
+                async Task<GlobalSystemMediaTransportControlsSessionManager> TaskAction()
+                {
+                    try
+                    {
+                        return await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
+                    }
+                    catch { }
+                    return null;
+                }
+                AppVariables.SmtcSessionManager = await TaskStartTimeout(TaskAction, 2000);
                 if (AppVariables.SmtcSessionManager == null)
                 {
                     await UpdateMediaPlayer(null);
@@ -173,7 +177,7 @@ namespace ZuseMe
         {
             try
             {
-                ActionDispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {
@@ -191,23 +195,22 @@ namespace ZuseMe
             try
             {
                 Debug.WriteLine("Focusing on player window: " + AppVariables.SmtcSessionMediaProcess);
+                string smtcSessionMediaProcessLower = AppVariables.SmtcSessionMediaProcess.ToLower();
 
                 //Check application type
                 ProcessMulti processMultiPlayer = null;
-                if (AppVariables.SmtcSessionMediaProcess.ToLower().EndsWith(".exe"))
+                if (smtcSessionMediaProcessLower.EndsWith(".exe"))
                 {
-                    string processName = Path.GetFileNameWithoutExtension(AppVariables.SmtcSessionMediaProcess);
-                    Process processPlayer = GetProcessByNameOrTitle(processName, false, true);
-                    processMultiPlayer = ConvertProcessToProcessMulti(processPlayer, null, null);
+                    processMultiPlayer = Get_ProcessesMultiByName(smtcSessionMediaProcessLower, true).FirstOrDefault();
                 }
                 else
                 {
-                    processMultiPlayer = GetUwpProcessMultiByAppUserModelId(AppVariables.SmtcSessionMediaProcess);
+                    processMultiPlayer = Get_ProcessesMultiByAppUserModelId(smtcSessionMediaProcessLower).FirstOrDefault();
                 }
 
                 if (processMultiPlayer != null)
                 {
-                    await FocusProcessWindow(processMultiPlayer.Name, processMultiPlayer.Identifier, processMultiPlayer.WindowHandle, WindowShowCommand.None, false, false);
+                    await Show_ProcessByWindowHandle(processMultiPlayer.WindowHandleMain);
                 }
                 else
                 {

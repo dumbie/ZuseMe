@@ -154,7 +154,7 @@
                 <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
                 <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
 
-                <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" Height="5" IsIndeterminate="True" Foreground="{StaticResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationDimGrayBrush}" BorderThickness="0" Visibility="Collapsed"/>
+                <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" Height="5" IsIndeterminate="True" Foreground="{DynamicResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationDimGrayBrush}" BorderThickness="0" Visibility="Collapsed"/>
                 <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete in browser..." Visibility="Collapsed"/>
 
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" TextWrapping="Wrap" Text="* Media overlay will not be shown when a media player window is currently active, you can control the media by hovering over the media overlay with your mouse cursor."/>

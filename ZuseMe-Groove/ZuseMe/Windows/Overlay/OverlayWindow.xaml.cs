@@ -6,10 +6,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVWindowFunctions;
-using static ArnoldVinkCode.ProcessClasses;
-using static ArnoldVinkCode.ProcessFunctions;
 
 namespace ZuseMe.Windows
 {
@@ -34,8 +33,11 @@ namespace ZuseMe.Windows
                 HwndTarget hwndTarget = hwndSource.CompositionTarget;
                 hwndTarget.RenderMode = RenderMode.SoftwareOnly;
 
-                //Update the window style
-                WindowUpdateStyleVisible(vInteropWindowHandle, true, true, false);
+                //Update window visibility
+                WindowUpdateVisibility(vInteropWindowHandle, true);
+
+                //Update window style
+                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
             }
             catch { }
         }
@@ -78,12 +80,12 @@ namespace ZuseMe.Windows
                 }
 
                 //Check if media player window is active
-                ProcessMulti foregroundProcess = GetProcessMultiFromWindowHandle(GetForegroundWindow());
+                ProcessMulti foregroundProcess = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
                 if (foregroundProcess != null)
                 {
-                    bool skipOverlayPath = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.Path.ToLower().StartsWith(x.ProcessName.ToLower()));
-                    bool skipOverlayExecutable = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.ExecutableName.ToLower().StartsWith(x.ProcessName.ToLower()));
-                    if (skipOverlayPath || skipOverlayExecutable)
+                    bool skipOverlayAppUserModelId = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.AppUserModelId.ToLower().StartsWith(x.ProcessName.ToLower()));
+                    bool skipOverlayExecutable = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.ExeName.ToLower().StartsWith(x.ProcessName.ToLower()));
+                    if (skipOverlayAppUserModelId || skipOverlayExecutable)
                     {
                         Debug.WriteLine("Media player window is active, skipping overlay.");
 

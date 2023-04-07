@@ -56,7 +56,7 @@ namespace ZuseMe.Api
                 AuthUnlinkLogin();
 
                 //Update interface
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
                     AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
@@ -80,7 +80,7 @@ namespace ZuseMe.Api
                 SettingSave(null, "LastFMSessionToken", string.Empty);
 
                 //Update interface
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     AppVariables.WindowMain.UpdateLastFMUsername();
                 });
@@ -100,7 +100,7 @@ namespace ZuseMe.Api
                         SessionToken sessionToken = await AuthGetSessionToken();
                         if (sessionToken == null)
                         {
-                            Debug.WriteLine("Failed to get Last.fm session token.");
+                            Debug.WriteLine("Failed to validate Last.fm session token.");
                         }
                         else
                         {
@@ -109,7 +109,7 @@ namespace ZuseMe.Api
                             SettingSave(null, "LastFMSessionToken", sessionToken.key);
 
                             //Update interface
-                            AVActions.ActionDispatcherInvoke(delegate
+                            AVActions.DispatcherInvoke(delegate
                             {
                                 AppVariables.WindowMain.UpdateLastFMUsername();
                                 AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
@@ -126,7 +126,7 @@ namespace ZuseMe.Api
                     finally
                     {
                         //Delay the loop task
-                        await TaskDelayLoop(2000, AppTasks.vTask_LoginCheck);
+                        await TaskDelay(2000, AppTasks.vTask_LoginCheck);
                     }
                 }
             }
@@ -152,7 +152,7 @@ namespace ZuseMe.Api
 
                 //Download token
                 Uri apiUrl = new Uri(ApiVariables.UrlApi + urlParameter);
-                string apiResult = await AVDownloader.DownloadStringAsync(2500, "ZuseMe", null, apiUrl);
+                string apiResult = await AVDownloader.DownloadStringAsync(5000, "ZuseMe", null, apiUrl);
 
                 //Extract token
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
@@ -191,7 +191,7 @@ namespace ZuseMe.Api
 
                 //Download token
                 Uri apiUrl = new Uri(ApiVariables.UrlApi + urlParameter);
-                string apiResult = await AVDownloader.DownloadStringAsync(2500, "ZuseMe", null, apiUrl);
+                string apiResult = await AVDownloader.DownloadStringAsync(10000, "ZuseMe", null, apiUrl);
 
                 //Extract token
                 JsonSerializerSettings jsonSettings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };

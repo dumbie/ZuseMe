@@ -24,7 +24,7 @@ namespace ZuseMe
                 {
                     if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                     {
-                        ActionDispatcherInvoke(delegate
+                        DispatcherInvoke(delegate
                         {
                             try
                             {
@@ -54,7 +54,7 @@ namespace ZuseMe
                             }
 
                             //Update scrobble window
-                            ActionDispatcherInvoke(delegate
+                            DispatcherInvoke(delegate
                             {
                                 try
                                 {
@@ -73,7 +73,7 @@ namespace ZuseMe
                         else
                         {
                             //Update scrobble window
-                            ActionDispatcherInvoke(delegate
+                            DispatcherInvoke(delegate
                             {
                                 try
                                 {
@@ -91,7 +91,7 @@ namespace ZuseMe
                         await ApiScrobble.RemoveNowPlaying();
 
                         //Update scrobble window
-                        ActionDispatcherInvoke(delegate
+                        DispatcherInvoke(delegate
                         {
                             try
                             {
@@ -106,7 +106,7 @@ namespace ZuseMe
                 else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
                 {
                     //Update scrobble window
-                    ActionDispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         try
                         {
@@ -124,7 +124,7 @@ namespace ZuseMe
                 else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                 {
                     //Update scrobble window
-                    ActionDispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         try
                         {
@@ -142,7 +142,7 @@ namespace ZuseMe
                 else
                 {
                     //Update scrobble window
-                    ActionDispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         try
                         {

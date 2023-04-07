@@ -104,7 +104,7 @@ namespace ZuseMe
                 BitmapFrame mediaImageBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
 
                 //Update scrobble and notification window
-                ActionDispatcherInvoke(delegate
+                DispatcherInvoke(delegate
                 {
                     try
                     {

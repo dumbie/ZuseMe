@@ -54,7 +54,7 @@ namespace ZuseMe
                 //Update scrobble window
                 if (resetInterface)
                 {
-                    ActionDispatcherInvoke(delegate
+                    DispatcherInvoke(delegate
                     {
                         try
                         {

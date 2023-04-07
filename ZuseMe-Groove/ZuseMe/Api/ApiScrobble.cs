@@ -51,7 +51,7 @@ namespace ZuseMe.Api
 
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
-                string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
+                string apiResult = await AVDownloader.SendPostRequestAsync(5000, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine("Scrobble result: " + apiResult);
 
                 //Check the result
@@ -119,7 +119,7 @@ namespace ZuseMe.Api
 
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
-                string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
+                string apiResult = await AVDownloader.SendPostRequestAsync(5000, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine("Now playing result:" + apiResult);
 
                 //Check the result
@@ -166,7 +166,7 @@ namespace ZuseMe.Api
 
                 //Post parameters
                 Uri apiUrl = new Uri(ApiVariables.UrlApi);
-                string apiResult = await AVDownloader.SendPostRequestAsync(2500, "ZuseMe", null, apiUrl, postContent);
+                string apiResult = await AVDownloader.SendPostRequestAsync(5000, "ZuseMe", null, apiUrl, postContent);
                 Debug.WriteLine("Remove playing result: " + apiResult);
 
                 return true;

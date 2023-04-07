@@ -71,7 +71,7 @@ namespace ZuseMe
                 }
 
                 //Update scrobble window
-                AVActions.ActionDispatcherInvoke(delegate
+                AVActions.DispatcherInvoke(delegate
                 {
                     try
                     {

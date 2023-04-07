@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -144,7 +144,6 @@
     <EmbeddedResource Include="Assets\ZuseMe.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <Resource Include="Assets\VolumeUnmuteLight.png" />
     <Resource Include="Assets\VolumeMuteLight.png" />
     <Content Include="EnabledPlayers.json">
@@ -153,6 +152,7 @@
     <Content Include="SupportedPlayers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="packages.config" />
     <None Include="Properties\App.config" />
     <None Include="Properties\App.manifest" />
     <Resource Include="Assets\PlayersLight.png" />
