@@ -61,7 +61,7 @@ namespace ZuseMe
                 {
                     try
                     {
-                        AVSettings.ManageStartupShortcut("Launcher.exe");
+                        AVSettings.StartupShortcutManage("Launcher.exe", false);
                     }
                     catch { }
                 };

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -43,32 +44,36 @@ namespace ZuseMe
                         bool updateNowPlayingSetting = SettingLoad(null, "LastFMUpdateNowPlaying", typeof(bool));
                         if (updateNowPlayingSetting)
                         {
-                            bool updatedNowPlaying = false;
-                            if (AppVariables.MediaSecondsTotalUnknown)
+                            async Task TaskAction()
                             {
-                                updatedNowPlaying = await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, string.Empty, AppVariables.MediaTracknumber.ToString());
-                            }
-                            else
-                            {
-                                updatedNowPlaying = await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString(), AppVariables.MediaTracknumber.ToString());
-                            }
-
-                            //Update scrobble window
-                            DispatcherInvoke(delegate
-                            {
-                                try
+                                bool updatedNowPlaying = false;
+                                if (AppVariables.MediaSecondsTotalUnknown)
                                 {
-                                    if (updatedNowPlaying)
-                                    {
-                                        AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayGreen.png"));
-                                    }
-                                    else
-                                    {
-                                        AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayOrange.png"));
-                                    }
+                                    updatedNowPlaying = await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, string.Empty, AppVariables.MediaTracknumber.ToString());
                                 }
-                                catch { }
-                            });
+                                else
+                                {
+                                    updatedNowPlaying = await ApiScrobble.UpdateNowPlaying(AppVariables.MediaArtist, AppVariables.MediaTitle, AppVariables.MediaAlbum, AppVariables.MediaSecondsTotal.ToString(), AppVariables.MediaTracknumber.ToString());
+                                }
+
+                                //Update scrobble window
+                                DispatcherInvoke(delegate
+                                {
+                                    try
+                                    {
+                                        if (updatedNowPlaying)
+                                        {
+                                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayGreen.png"));
+                                        }
+                                        else
+                                        {
+                                            AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/PlayOrange.png"));
+                                        }
+                                    }
+                                    catch { }
+                                });
+                            }
+                            AVActions.TaskStartBackground(TaskAction);
                         }
                         else
                         {
