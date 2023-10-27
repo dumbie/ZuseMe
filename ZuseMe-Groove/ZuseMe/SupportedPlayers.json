@@ -70,6 +70,12 @@
     "Link": "https://www.aimp.ru/?do=catalog&rec_id=1097"
   },
   {
+    "Identifier": "Audacious",
+    "ProcessName": "audacious.exe",
+    "Note": "Requires audacious-win-smtc plugin.",
+    "Link": "https://github.com/AlienCowEatCake/audacious-win-smtc/releases"
+  },
+  {
     "Identifier": "DeaDBeeF",
     "ProcessName": "deadbeef.exe",
     "Note": "Requires ddb_smtc plugin.",

@@ -132,7 +132,7 @@
                 <CheckBox Name="checkbox_VolumeShowOverlay" Margin="0,10,0,0" Style="{StaticResource CheckBoxBlack}" Content="Show media overlay when volume has changed *"/>
 
                 <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-                    <TextBlock Text="Songs will be scrobbled when played for" Foreground="{StaticResource ApplicationDimGrayBrush}"/>
+                    <TextBlock Text="Songs will be scrobbled when played for" Style="{StaticResource TextBlockBlack}"/>
                     <ComboBox Name="combobox_TrackPercentageScrobble" Margin="5,0,0,0" Width="70" Style="{StaticResource ComboBoxBlack}">
                         <ComboBoxItem>25%</ComboBoxItem>
                         <ComboBoxItem>50%</ComboBoxItem>
