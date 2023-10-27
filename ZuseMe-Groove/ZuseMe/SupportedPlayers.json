@@ -25,10 +25,25 @@
     "Note": "No extra requirements."
   },
   {
+    "Identifier": "MusicPlayer2",
+    "ProcessName": "MusicPlayer2.exe",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "Dopamine",
+    "ProcessName": "Dopamine.exe",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "theBeat",
+    "ProcessName": "thebeat.exe",
+    "Note": "No extra requirements."
+  },
+  {
     "Identifier": "Foobar2000",
     "ProcessName": "foobar2000.exe",
     "Note": "Requires foo_mediacontrol plugin.",
-    "Link": "https://github.com/Hual/foo_mediacontrol/releases"
+    "Link": "https://github.com/dumbie/foo_mediacontrol/releases"
   },
   {
     "Identifier": "MusicBee",
@@ -53,5 +68,11 @@
     "ProcessName": "AIMP.exe",
     "Note": "Requires aimp_win10_mediacontrol plugin.",
     "Link": "https://www.aimp.ru/?do=catalog&rec_id=1097"
+  },
+  {
+    "Identifier": "DeaDBeeF",
+    "ProcessName": "deadbeef.exe",
+    "Note": "Requires ddb_smtc plugin.",
+    "Link": "https://github.com/DeaDBeeF-for-Windows/ddb_smtc/releases"
   }
 ]
