@@ -107,13 +107,14 @@ namespace ZuseMe
                         if (AppVariables.MediaSecondsCurrentUnknown)
                         {
                             AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = progressCurrentString + "?";
+                            AppVariables.WindowOverlay.textblock_ProgressMediaCurrent.Text = progressCurrentString + "?";
                         }
                         else
                         {
                             AppVariables.WindowMain.textblock_ProgressMediaCurrent.Text = progressCurrentString;
+                            AppVariables.WindowOverlay.textblock_ProgressMediaCurrent.Text = progressCurrentString;
                         }
                         AppVariables.WindowOverlay.slider_ProgressMediaCurrent.ValueSkipEvent(AppVariables.MediaSecondsCurrent, true);
-                        AppVariables.WindowOverlay.textblock_ProgressMediaCurrent.Text = progressCurrentString;
 
                         AppVariables.WindowMain.progress_StatusSong.Value = mediaPercentage;
                         if (AppVariables.ScrobbleSubmitted)

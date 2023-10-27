@@ -10,7 +10,7 @@
         Foreground="{StaticResource ApplicationBlackBrush}"
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
-        Height="550"
+        Height="570"
         Width="550"
         ResizeMode="NoResize">
 
@@ -73,10 +73,11 @@
                         <TextBlock Name="textblock_TrackTitle" Text="Title" Foreground="{StaticResource ApplicationBlackBrush}"/>
                     </StackPanel>
                     <TextBlock Name="textblock_TrackAlbum" Text="Album" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
+                    <TextBlock Name="textblock_TrackGenre" Text="Genre" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-                    <Button Name="button_ScrobbleStatus" Content="Pause scrobbling" Margin="0,0,0,5" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentBlack}" Click="button_ScrobbleStatus_Click"/>
+                    <Button Name="button_ScrobbleStatus" Content="Pause scrobbling" Margin="0,0,0,6" HorizontalAlignment="Center" Style="{StaticResource ButtonAccentBlack}" Click="button_ScrobbleStatus_Click"/>
                     <TextBlock Name="textblock_ScrobbleStatus" Text="Waiting for song to scrobble." Margin="0,0,0,10" HorizontalAlignment="Center" Foreground="{StaticResource ApplicationDarkGrayBrush}"/>
                 </StackPanel>
 
@@ -88,12 +89,12 @@
 
                     <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0">
                         <Grid>
-                            <ProgressBar Name="progress_StatusScrobble" Height="25" Foreground="{DynamicResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationDimGrayBrush}" BorderThickness="0"/>
-                            <TextBlock Name="textblock_ProgressScrobbleCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
-                            <TextBlock Name="textblock_ProgressScrobbleTotal" Text="0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                            <ProgressBar Name="progress_StatusScrobble" Height="25" Foreground="{DynamicResource ApplicationAccentLightBrush}"/>
+                            <TextBlock Name="textblock_ProgressScrobbleCurrent" Text="0:00" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockBlack}"/>
+                            <TextBlock Name="textblock_ProgressScrobbleTotal" Text="0:00" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockBlack}"/>
                         </Grid>
-                        <Grid>
-                            <ProgressBar Name="progress_StatusSong" Height="25" Background="{StaticResource ApplicationDimGrayBrush}" BorderThickness="0">
+                        <Grid Margin="0,5,0,0">
+                            <ProgressBar Name="progress_StatusSong" Height="25">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                         <LinearGradientBrush.RelativeTransform>
@@ -104,8 +105,8 @@
                                     </LinearGradientBrush>
                                 </ProgressBar.Foreground>
                             </ProgressBar>
-                            <TextBlock Name="textblock_ProgressMediaCurrent" Text="0:00" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
-                            <TextBlock Name="textblock_ProgressMediaTotal" Text="0:00" Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}"/>
+                            <TextBlock Name="textblock_ProgressMediaCurrent" Text="0:00" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockBlack}"/>
+                            <TextBlock Name="textblock_ProgressMediaTotal" Text="0:00" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource TextBlockBlack}"/>
                         </Grid>
                     </StackPanel>
                     <Image Grid.Column="1" VerticalAlignment="Center" Name="image_PlayStatus" Width="50" Height="50" Source="/Assets/UnknownAccent.png"/>
@@ -151,11 +152,13 @@
                     <TextBlock Name="textblock_LoginUserName" Text="Username" Style="{StaticResource TextBlockAccent}"/>
                 </StackPanel>
 
+                <StackPanel Name="stackpanel_LoginStatus" Margin="0,10,0,0" Visibility="Collapsed">
+                    <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete in browser..." Style="{StaticResource TextBlockAccent}"/>
+                    <ProgressBar Name="progress_LoginStatus" Margin="0,5,0,0" Height="10" IsIndeterminate="True" Foreground="{DynamicResource ApplicationAccentLightBrush}"/>
+                </StackPanel>
+
                 <Button Margin="0,10,0,0" Name="button_LinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Link my Last.fm profile" Click="button_LinkLastFM_Click"/>
                 <Button Margin="0,10,0,0" Name="button_UnlinkLastFM" Style="{StaticResource ButtonAccentBlack}" Content="Unlink Last.fm profile" Click="button_UnlinkLastFM_Click"/>
-
-                <ProgressBar Name="progress_LoginStatus" Margin="0,10,0,0" Height="5" IsIndeterminate="True" Foreground="{DynamicResource ApplicationAccentLightBrush}" Background="{StaticResource ApplicationDimGrayBrush}" BorderThickness="0" Visibility="Collapsed"/>
-                <TextBlock Name="textblock_LoginStatus" Text="Waiting for Last.fm login to complete in browser..." Visibility="Collapsed"/>
 
                 <TextBlock Margin="0,10,0,0" Style="{StaticResource TextBlockGray}" TextWrapping="Wrap" Text="* Media overlay will not be shown when a media player window is currently active, you can control the media by hovering over the media overlay with your mouse cursor."/>
 

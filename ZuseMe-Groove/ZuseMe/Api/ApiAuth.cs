@@ -36,8 +36,7 @@ namespace ZuseMe.Api
                 //Update interface
                 AppVariables.WindowMain.button_LinkLastFM.Content = "Cancel Last.fm link";
                 AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = false;
-                AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Visible;
-                AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Visible;
+                AppVariables.WindowMain.stackpanel_LoginStatus.Visibility = Visibility.Visible;
 
                 //Continue in browser
                 Process.Start(ApiVariables.UrlLogin + "?api_key=" + ApiVariables.KeyPublic + "&token=" + loginToken.token);
@@ -60,8 +59,7 @@ namespace ZuseMe.Api
                 {
                     AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
                     AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
-                    AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Collapsed;
-                    AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Collapsed;
+                    AppVariables.WindowMain.stackpanel_LoginStatus.Visibility = Visibility.Collapsed;
                 });
 
                 //Stop the task loop
@@ -114,8 +112,7 @@ namespace ZuseMe.Api
                                 AppVariables.WindowMain.UpdateLastFMUsername();
                                 AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
                                 AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
-                                AppVariables.WindowMain.progress_LoginStatus.Visibility = Visibility.Collapsed;
-                                AppVariables.WindowMain.textblock_LoginStatus.Visibility = Visibility.Collapsed;
+                                AppVariables.WindowMain.stackpanel_LoginStatus.Visibility = Visibility.Collapsed;
                             });
 
                             //Stop the task loop

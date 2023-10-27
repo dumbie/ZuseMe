@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Windows.Media.Control;
@@ -52,11 +53,22 @@ namespace ZuseMe
                 //Load media album
                 AppVariables.MediaAlbum = mediaProperties.AlbumTitle;
 
+                //Load media genre
+                if (mediaProperties.Genres.Any())
+                {
+                    AppVariables.MediaGenre = string.Join(", ", mediaProperties.Genres);
+                }
+                else
+                {
+                    AppVariables.MediaGenre = string.Empty;
+                }
+
                 //Load media tracknumber
                 AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
 
                 //Load media position
                 int mediaPosition = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
+                AppVariables.MediaSecondsCurrent = mediaPosition;
                 if (mediaPosition <= 0)
                 {
                     AppVariables.MediaSecondsCurrentUnknown = true;
@@ -64,7 +76,6 @@ namespace ZuseMe
                 }
                 else
                 {
-                    AppVariables.MediaSecondsCurrent = mediaPosition;
                     AppVariables.MediaSecondsCurrentUnknown = false;
                 }
 
@@ -108,7 +119,7 @@ namespace ZuseMe
                 {
                     try
                     {
-                        string mediaArtist = "Unknown";
+                        string mediaArtist = "Unknown artist";
                         if (!string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
                         {
                             mediaArtist = AppVariables.MediaArtist;
@@ -116,7 +127,7 @@ namespace ZuseMe
                         AppVariables.WindowMain.textblock_TrackArtist.Text = mediaArtist;
                         AppVariables.WindowOverlay.textblock_TrackArtist.Text = mediaArtist;
 
-                        string mediaTitle = "Unknown";
+                        string mediaTitle = "Unknown title";
                         if (!string.IsNullOrWhiteSpace(AppVariables.MediaTitle))
                         {
                             mediaTitle = AppVariables.MediaTitle;
@@ -124,13 +135,20 @@ namespace ZuseMe
                         AppVariables.WindowMain.textblock_TrackTitle.Text = mediaTitle;
                         AppVariables.WindowOverlay.textblock_TrackTitle.Text = mediaTitle;
 
-                        string mediaAlbum = "Unknown";
+                        string mediaAlbum = "Unknown album";
                         if (!string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
                         {
                             mediaAlbum = AppVariables.MediaAlbum;
                         }
                         AppVariables.WindowMain.textblock_TrackAlbum.Text = mediaAlbum;
                         AppVariables.WindowOverlay.textblock_TrackAlbum.Text = mediaAlbum;
+
+                        string mediaGenre = string.Empty;
+                        if (!string.IsNullOrWhiteSpace(AppVariables.MediaGenre))
+                        {
+                            mediaGenre = AppVariables.MediaGenre;
+                        }
+                        AppVariables.WindowMain.textblock_TrackGenre.Text = mediaGenre;
 
                         if (AppVariables.MediaTracknumber > 0)
                         {

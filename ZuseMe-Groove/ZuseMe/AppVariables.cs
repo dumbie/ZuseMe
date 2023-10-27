@@ -41,6 +41,7 @@ namespace ZuseMe
         public static string MediaArtist = string.Empty;
         public static string MediaAlbum = string.Empty;
         public static string MediaTitle = string.Empty;
+        public static string MediaGenre = string.Empty;
         public static string MediaPrevious = string.Empty;
 
         //Dispatcher Timers

@@ -24,16 +24,16 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Name="border_Control" HorizontalAlignment="Center" Visibility="Collapsed">
-            <Border Name="border_ControlSeek" HorizontalAlignment="Center" CornerRadius="10" Margin="0,0,0,5">
+            <Border Name="border_ControlSeek" Width="320" HorizontalAlignment="Center" CornerRadius="10" Margin="0,0,0,5">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ApplicationBlackColor}" Opacity="0.98"/>
                 </Border.Background>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="5">
-                    <TextBlock Name="textblock_ProgressMediaCurrent" Text="00:00" Width="50" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Margin="5,0,0,0"/>
+                    <TextBlock Name="textblock_ProgressMediaCurrent" Text="00:00" MinWidth="50" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Margin="0,0,5,0"/>
                     <Button Style="{StaticResource ButtonImageTransparentNoBorder}" Focusable="False">
                         <AVStyles:SliderDelay Name="slider_ProgressMediaCurrent" Delay="100" DelayIgnoreDrag="True" Minimum="0" Maximum="30" Width="195" Style="{StaticResource SliderRoundProgressBlack}" Focusable="False" ValueChanged="slider_ProgressNow_ValueChanged"/>
                     </Button>
-                    <TextBlock Name="textblock_ProgressMediaTotal" Text="00:00" Width="50" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Margin="5,0,0,0"/>
+                    <TextBlock Name="textblock_ProgressMediaTotal" Text="00:00" MinWidth="50" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Margin="5,0,0,0"/>
                 </StackPanel>
             </Border>
 
@@ -64,7 +64,7 @@
                             <Image Name="image_ControlMute" Width="30" Height="30" Source="/Assets/VolumeUnmuteLight.png"/>
                         </Button>
                         <Button Style="{StaticResource ButtonImageTransparentNoBorder}" Focusable="False">
-                            <AVStyles:SliderDelay Name="slider_ControlVolume" Delay="100" Minimum="0" Maximum="100" Width="120" Style="{StaticResource SliderRoundBlack}" Focusable="False" ValueChanged="slider_ControlVolume_ValueChanged"/>
+                            <AVStyles:SliderDelay Name="slider_ControlVolume" Delay="100" Minimum="0" Maximum="100" Width="124" Style="{StaticResource SliderRoundBlack}" Focusable="False" ValueChanged="slider_ControlVolume_ValueChanged"/>
                         </Button>
                         <TextBlock Name="textblock_ControlVolume" Text="100" Width="30" TextAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBlockWhite}" Margin="5,0,0,0"/>
                     </StackPanel>

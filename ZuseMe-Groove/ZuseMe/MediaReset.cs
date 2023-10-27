@@ -35,6 +35,7 @@ namespace ZuseMe
                     AppVariables.MediaTracknumber = 0;
                     AppVariables.MediaArtist = string.Empty;
                     AppVariables.MediaAlbum = string.Empty;
+                    AppVariables.MediaGenre = string.Empty;
                     AppVariables.MediaTitle = string.Empty;
                     AppVariables.MediaPrevious = string.Empty;
                 }
@@ -74,6 +75,7 @@ namespace ZuseMe
                             AppVariables.WindowMain.textblock_ScrobbleStatus.Text = "Waiting for song to scrobble.";
                             AppVariables.WindowMain.textblock_TrackArtist.Text = "Artist";
                             AppVariables.WindowMain.textblock_TrackAlbum.Text = "Album";
+                            AppVariables.WindowMain.textblock_TrackGenre.Text = "Genre";
                             AppVariables.WindowMain.textblock_TrackTitle.Text = "Title";
                             AppVariables.WindowMain.textblock_TrackNumber.Text = "(0) ";
                             AppVariables.WindowMain.image_PlayStatus.Source = new BitmapImage(new Uri("pack://application:,,,/ZuseMe;component/Assets/UnknownAccent.png"));

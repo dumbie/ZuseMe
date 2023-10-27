@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/CheckBox.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ComboBox.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ListBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/ProgressBar.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Scrollbar.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Thumb.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkCode;component/Styles/ControlTemplates/Slider.xaml"/>
