@@ -60,7 +60,7 @@ namespace ZuseMe
                         try
                         {
                             //Reset tray
-                            AppVariables.AppTray.sysTrayIcon.Text = "ZuseMe (Last.fm client)";
+                            AppVariables.AppTray.NotifyIcon.Text = "ZuseMe (Last.fm client)";
 
                             //Reset main
                             AppVariables.WindowMain.textblock_PlayerDebug.Text = "No media player opened.";

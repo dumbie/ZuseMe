@@ -27,7 +27,7 @@ namespace ZuseMe
                     AppVariables.WindowMain.image_ScrobblePause.Visibility = Visibility.Collapsed;
                     AppVariables.WindowOverlay.image_ScrobblePause.Visibility = Visibility.Collapsed;
                     AppVariables.WindowMain.button_ScrobbleStatus.Content = "Pause scrobbling";
-                    AppVariables.AppTray.sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
+                    AppVariables.AppTray.NotifyIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
                     AppVariables.MediaForceStatusCheck = true;
                 }
                 else
@@ -38,7 +38,7 @@ namespace ZuseMe
                     AppVariables.WindowMain.image_ScrobblePause.Visibility = Visibility.Visible;
                     AppVariables.WindowOverlay.image_ScrobblePause.Visibility = Visibility.Visible;
                     AppVariables.WindowMain.button_ScrobbleStatus.Content = "Resume scrobbling";
-                    AppVariables.AppTray.sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMeDark.ico"));
+                    AppVariables.AppTray.NotifyIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMeDark.ico"));
                     await ApiScrobble.RemoveNowPlaying();
                 }
             }

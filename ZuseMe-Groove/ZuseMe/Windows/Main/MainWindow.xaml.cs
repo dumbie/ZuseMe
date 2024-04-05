@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using ZuseMe.Api;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
@@ -80,7 +80,7 @@ namespace ZuseMe
                 }
                 else
                 {
-                    Process.Start(ApiVariables.UrlProfile + lastFMUsername);
+                    OpenWebsiteBrowser(ApiVariables.UrlProfile + lastFMUsername);
                 }
             }
             catch { }

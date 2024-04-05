@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ZuseMe.Classes;
 using static ArnoldVinkCode.AVActions;
+using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe.Api
@@ -39,7 +40,7 @@ namespace ZuseMe.Api
                 AppVariables.WindowMain.stackpanel_LoginStatus.Visibility = Visibility.Visible;
 
                 //Continue in browser
-                Process.Start(ApiVariables.UrlLogin + "?api_key=" + ApiVariables.KeyPublic + "&token=" + loginToken.token);
+                OpenWebsiteBrowser(ApiVariables.UrlLogin + "?api_key=" + ApiVariables.KeyPublic + "&token=" + loginToken.token);
 
                 //Start task to check login
                 TaskStartLoop(AuthLoginCheckLoop, AppTasks.vTask_LoginCheck);

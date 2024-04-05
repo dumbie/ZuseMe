@@ -9,9 +9,4 @@
 		<add key="TrackShowOverlay" value="True" />
 		<add key="VolumeShowOverlay" value="True" />
 	</appSettings>
-	<runtime>
-		<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-			<probing privatePath="Resources" />
-		</assemblyBinding>
-	</runtime>
 </configuration>

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ZuseMe;
 using ZuseMe.Classes;
+using static ArnoldVinkCode.AVFunctions;
 
 namespace ArnoldVinkCode.Styles
 {
@@ -29,7 +29,7 @@ namespace ArnoldVinkCode.Styles
             {
                 Button senderButton = sender as Button;
                 PlayersJson selectedPlayer = senderButton.DataContext as PlayersJson;
-                Process.Start(selectedPlayer.Link);
+                OpenWebsiteBrowser(selectedPlayer.Link);
             }
             catch { }
         }

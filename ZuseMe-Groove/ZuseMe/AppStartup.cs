@@ -68,7 +68,7 @@ namespace ZuseMe
                 await ApiScrobble.RemoveNowPlaying();
 
                 //Hide tray icon
-                AppVariables.AppTray.sysTrayIcon.Visible = false;
+                AppVariables.AppTray.NotifyIcon.Visible = false;
 
                 //Exit application
                 Environment.Exit(1);

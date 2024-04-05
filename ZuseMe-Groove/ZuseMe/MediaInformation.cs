@@ -174,7 +174,7 @@ namespace ZuseMe
 
                         //Set application tray text
                         string trayText = "ZuseMe (" + mediaArtist + " - " + mediaTitle + ")";
-                        AppVariables.AppTray.sysTrayIcon.Text = AVFunctions.StringCut(trayText, 59, "...)");
+                        AppVariables.AppTray.NotifyIcon.Text = AVFunctions.StringCut(trayText, 59, "...)");
 
                         //Check overlay setting
                         if (SettingLoad(null, "TrackShowOverlay", typeof(bool)))

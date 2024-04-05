@@ -1,41 +1,39 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using static ArnoldVinkCode.AVFunctions;
 
 namespace ZuseMe
 {
     public partial class AppTray
     {
-        public NotifyIcon sysTrayIcon;
-        public ContextMenu sysTrayMenu;
+        public NotifyIcon NotifyIcon = new NotifyIcon();
+        public ContextMenuStrip ContextMenu = new ContextMenuStrip();
 
         public AppTray()
         {
             try
             {
                 //Create context menu
-                sysTrayMenu = new ContextMenu();
-                sysTrayMenu.MenuItems.Add("Show window", OnShow);
-                sysTrayMenu.MenuItems.Add("Pause/Resume", OnPause);
-                sysTrayMenu.MenuItems.Add("Website", OnWebsite);
-                sysTrayMenu.MenuItems.Add("Exit", OnExit);
+                ContextMenu.Items.Add("Show window", null, OnShow);
+                ContextMenu.Items.Add("Pause/Resume", null, OnPause);
+                ContextMenu.Items.Add("Website", null, OnWebsite);
+                ContextMenu.Items.Add("Exit", null, OnExit);
 
                 //Create tray icon
-                sysTrayIcon = new NotifyIcon();
-                sysTrayIcon.Text = "ZuseMe (Last.fm client)";
-                sysTrayIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
+                NotifyIcon.Text = "ZuseMe (Last.fm client)";
+                NotifyIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
 
                 //Add menu to tray icon
-                sysTrayIcon.ContextMenu = sysTrayMenu;
+                NotifyIcon.ContextMenuStrip = ContextMenu;
 
                 //Show tray icon
-                sysTrayIcon.Visible = true;
+                NotifyIcon.Visible = true;
 
                 //Register events
-                sysTrayIcon.MouseClick += TrayIcon_MouseClick;
-                sysTrayIcon.DoubleClick += OnShow;
+                NotifyIcon.MouseClick += TrayIcon_MouseClick;
+                NotifyIcon.DoubleClick += OnShow;
             }
             catch { }
         }
@@ -80,7 +78,7 @@ namespace ZuseMe
         {
             try
             {
-                Process.Start("https://projects.arnoldvink.com");
+                OpenWebsiteBrowser("https://projects.arnoldvink.com");
             }
             catch { }
         }

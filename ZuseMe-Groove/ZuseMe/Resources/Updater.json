@@ -4,7 +4,7 @@
   "FileName": "ZuseMe-Groove.zip",
   "ExtractName": "ZuseMe",
   "ProcessLaunch": [
-    "Launcher"
+    "Launcher.exe"
   ],
   "ProcessClose": [
     "ZuseMe",
