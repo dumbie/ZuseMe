@@ -1,4 +1,5 @@
 ﻿using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -9,14 +10,14 @@ namespace ZuseMe
         {
             try
             {
-                if (!SettingCheck(null, "LastFMUsername")) { SettingSave(null, "LastFMUsername", string.Empty); }
-                if (!SettingCheck(null, "LastFMAuthToken")) { SettingSave(null, "LastFMAuthToken", string.Empty); }
-                if (!SettingCheck(null, "LastFMSessionToken")) { SettingSave(null, "LastFMSessionToken", string.Empty); }
-                if (!SettingCheck(null, "TrackLengthCustom")) { SettingSave(null, "TrackLengthCustom", "60"); }
-                if (!SettingCheck(null, "TrackPercentageScrobble")) { SettingSave(null, "TrackPercentageScrobble", "50"); }
-                if (!SettingCheck(null, "TrackShowOverlay")) { SettingSave(null, "TrackShowOverlay", "True"); }
-                if (!SettingCheck(null, "VolumeShowOverlay")) { SettingSave(null, "VolumeShowOverlay", "True"); }
-                if (!SettingCheck(null, "LastFMUpdateNowPlaying")) { SettingSave(null, "LastFMUpdateNowPlaying", "True"); }
+                if (!SettingCheck(vConfiguration, "LastFMUsername")) { SettingSave(vConfiguration, "LastFMUsername", string.Empty); }
+                if (!SettingCheck(vConfiguration, "LastFMAuthToken")) { SettingSave(vConfiguration, "LastFMAuthToken", string.Empty); }
+                if (!SettingCheck(vConfiguration, "LastFMSessionToken")) { SettingSave(vConfiguration, "LastFMSessionToken", string.Empty); }
+                if (!SettingCheck(vConfiguration, "TrackLengthCustom")) { SettingSave(vConfiguration, "TrackLengthCustom", "60"); }
+                if (!SettingCheck(vConfiguration, "TrackPercentageScrobble")) { SettingSave(vConfiguration, "TrackPercentageScrobble", "50"); }
+                if (!SettingCheck(vConfiguration, "TrackShowOverlay")) { SettingSave(vConfiguration, "TrackShowOverlay", "True"); }
+                if (!SettingCheck(vConfiguration, "VolumeShowOverlay")) { SettingSave(vConfiguration, "VolumeShowOverlay", "True"); }
+                if (!SettingCheck(vConfiguration, "LastFMUpdateNowPlaying")) { SettingSave(vConfiguration, "LastFMUpdateNowPlaying", "True"); }
             }
             catch { }
         }

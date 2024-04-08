@@ -9,6 +9,7 @@ using ZuseMe.Classes;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe.Api
 {
@@ -31,7 +32,7 @@ namespace ZuseMe.Api
                 else
                 {
                     //Update settings
-                    SettingSave(null, "LastFMAuthToken", loginToken.token);
+                    SettingSave(vConfiguration, "LastFMAuthToken", loginToken.token);
                 }
 
                 //Update interface
@@ -74,9 +75,9 @@ namespace ZuseMe.Api
             try
             {
                 //Update settings
-                SettingSave(null, "LastFMUsername", string.Empty);
-                SettingSave(null, "LastFMAuthToken", string.Empty);
-                SettingSave(null, "LastFMSessionToken", string.Empty);
+                SettingSave(vConfiguration, "LastFMUsername", string.Empty);
+                SettingSave(vConfiguration, "LastFMAuthToken", string.Empty);
+                SettingSave(vConfiguration, "LastFMSessionToken", string.Empty);
 
                 //Update interface
                 AVActions.DispatcherInvoke(delegate
@@ -104,8 +105,8 @@ namespace ZuseMe.Api
                         else
                         {
                             //Update settings
-                            SettingSave(null, "LastFMUsername", sessionToken.name);
-                            SettingSave(null, "LastFMSessionToken", sessionToken.key);
+                            SettingSave(vConfiguration, "LastFMUsername", sessionToken.name);
+                            SettingSave(vConfiguration, "LastFMSessionToken", sessionToken.key);
 
                             //Update interface
                             AVActions.DispatcherInvoke(delegate
@@ -167,7 +168,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get auth token
-                string authToken = SettingLoad(null, "LastFMAuthToken", typeof(string));
+                string authToken = SettingLoad(vConfiguration, "LastFMAuthToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(authToken))
                 {
                     return null;

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe.Api
 {
@@ -15,7 +16,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = SettingLoad(null, "LastFMSessionToken", typeof(string));
+                string sessionToken = SettingLoad(vConfiguration, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return false;
@@ -90,7 +91,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = SettingLoad(null, "LastFMSessionToken", typeof(string));
+                string sessionToken = SettingLoad(vConfiguration, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return false;
@@ -143,7 +144,7 @@ namespace ZuseMe.Api
             try
             {
                 //Get session token
-                string sessionToken = SettingLoad(null, "LastFMSessionToken", typeof(string));
+                string sessionToken = SettingLoad(vConfiguration, "LastFMSessionToken", typeof(string));
                 if (string.IsNullOrWhiteSpace(sessionToken))
                 {
                     return false;

@@ -17,5 +17,8 @@
   ],
   "FilesDelete": [
     "Players.json"
+  ],
+  "FilesMove": [
+    [ "ZuseMe.exe.Config", "ZuseMe.exe.csettings" ]
   ]
 }

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using ZuseMe.Api;
 using static ArnoldVinkCode.AVFunctions;
 using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -52,7 +53,7 @@ namespace ZuseMe
         {
             try
             {
-                string lastFMUsername = SettingLoad(null, "LastFMUsername", typeof(string));
+                string lastFMUsername = SettingLoad(vConfiguration, "LastFMUsername", typeof(string));
                 if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
                     menuButtonProfile.ToolTip = new ToolTip() { Content = "Link Last.fm profile" };
@@ -73,7 +74,7 @@ namespace ZuseMe
         {
             try
             {
-                string lastFMUsername = SettingLoad(null, "LastFMUsername", typeof(string));
+                string lastFMUsername = SettingLoad(vConfiguration, "LastFMUsername", typeof(string));
                 if (string.IsNullOrWhiteSpace(lastFMUsername))
                 {
                     ShowGridPage(stackpanel_Settings);

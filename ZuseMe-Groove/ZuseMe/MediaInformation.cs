@@ -9,6 +9,7 @@ using Windows.Media.Control;
 using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -83,7 +84,7 @@ namespace ZuseMe
                 int mediaDuration = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
                 if (mediaDuration <= 0)
                 {
-                    AppVariables.MediaSecondsTotal = SettingLoad(null, "TrackLengthCustom", typeof(int));
+                    AppVariables.MediaSecondsTotal = SettingLoad(vConfiguration, "TrackLengthCustom", typeof(int));
                     AppVariables.MediaSecondsTotalUnknown = true;
                     //Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotal + " seconds.");
                 }
@@ -177,7 +178,7 @@ namespace ZuseMe
                         AppVariables.AppTray.NotifyIcon.Text = AVFunctions.StringCut(trayText, 59, "...)");
 
                         //Check overlay setting
-                        if (SettingLoad(null, "TrackShowOverlay", typeof(bool)))
+                        if (SettingLoad(vConfiguration, "TrackShowOverlay", typeof(bool)))
                         {
                             //Show media overlay
                             AppVariables.WindowOverlay.ShowWindowDuration(3000);

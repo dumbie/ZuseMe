@@ -1,12 +1,11 @@
 ﻿using ArnoldVinkCode;
 using System;
 using System.Diagnostics;
-using System.Reflection;
 using System.Threading.Tasks;
 using ZuseMe.Api;
-using static ArnoldVinkCode.AVFirewall;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -27,10 +26,6 @@ namespace ZuseMe
                 //Application update checks
                 await AppUpdate.UpdateCheck();
 
-                //Allow application in firewall
-                string appFilePath = Assembly.GetEntryAssembly().Location;
-                Firewall_ExecutableAllow("ZuseMe", appFilePath, true);
-
                 //Check - Application Settings
                 Settings.Settings_Check();
 
@@ -50,7 +45,7 @@ namespace ZuseMe
                 AVActions.TaskStartLoop(AppTasks.vTaskLoop_MonitorVolume, AppTasks.vTask_MonitorVolume);
 
                 //Check api login and show window
-                if (string.IsNullOrWhiteSpace(SettingLoad(null, "LastFMSessionToken", typeof(string))))
+                if (string.IsNullOrWhiteSpace(SettingLoad(vConfiguration, "LastFMSessionToken", typeof(string))))
                 {
                     AppVariables.WindowMain.Show();
                 }

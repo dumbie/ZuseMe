@@ -1,13 +1,18 @@
 ﻿using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Windows.Threading;
 using Windows.Media.Control;
 using ZuseMe.Classes;
 using ZuseMe.Windows;
+using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
 {
     public static class AppVariables
     {
+        //Application Variables
+        public static Configuration vConfiguration = SettingLoadConfig("ZuseMe.exe.csettings");
+
         //Application Windows
         public static WindowMain WindowMain = new WindowMain();
         public static WindowOverlay WindowOverlay = new WindowOverlay();

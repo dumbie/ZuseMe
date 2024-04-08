@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using static ArnoldVinkCode.AVAssembly;
 
 namespace ZuseMe
 {
@@ -8,6 +10,10 @@ namespace ZuseMe
         {
             try
             {
+                //Resolve missing assembly dll files
+                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveFile;
+
+                //Run application startup code
                 await AppStartup.Startup();
             }
             catch { }

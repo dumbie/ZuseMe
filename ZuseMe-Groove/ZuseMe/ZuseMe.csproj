@@ -85,6 +85,6 @@
 	</ItemGroup>
 	<PropertyGroup />
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(Configuration) == Release ($(SolutionDir)SignToolExe.exe)" />
+		<Exec Command="if $(Configuration) == Release (&#xD;&#xA;$(SolutionDir)SignToolExe.exe&#xD;&#xA;move /y $(TargetDir)\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\runtimes\win\lib\net6.0\*.dll $(TargetDir)\Resources\&#xD;&#xA;move /y $(TargetDir)\Resources\ZuseMe.dll $(TargetDir)&#xD;&#xA;move /y $(TargetDir)\Resources\ArnoldVinkCode.dll $(TargetDir)&#xD;&#xA;rd /s /q $(TargetDir)\runtimes&#xD;&#xA;del /q $(TargetDir)\*.deps.json&#xD;&#xA;)" />
 	</Target>
 </Project>

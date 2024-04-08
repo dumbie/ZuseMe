@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -13,12 +14,12 @@ namespace ZuseMe
         {
             try
             {
-                textbox_TrackLengthCustom.Text = SettingLoad(null, "TrackLengthCustom", typeof(string));
-                checkbox_TrackShowOverlay.IsChecked = SettingLoad(null, "TrackShowOverlay", typeof(bool));
-                checkbox_VolumeShowOverlay.IsChecked = SettingLoad(null, "VolumeShowOverlay", typeof(bool));
-                checkbox_LastFMUpdateNowPlaying.IsChecked = SettingLoad(null, "LastFMUpdateNowPlaying", typeof(bool));
+                textbox_TrackLengthCustom.Text = SettingLoad(vConfiguration, "TrackLengthCustom", typeof(string));
+                checkbox_TrackShowOverlay.IsChecked = SettingLoad(vConfiguration, "TrackShowOverlay", typeof(bool));
+                checkbox_VolumeShowOverlay.IsChecked = SettingLoad(vConfiguration, "VolumeShowOverlay", typeof(bool));
+                checkbox_LastFMUpdateNowPlaying.IsChecked = SettingLoad(vConfiguration, "LastFMUpdateNowPlaying", typeof(bool));
 
-                string trackPercentageScrobble = SettingLoad(null, "TrackPercentageScrobble", typeof(string));
+                string trackPercentageScrobble = SettingLoad(vConfiguration, "TrackPercentageScrobble", typeof(string));
                 if (trackPercentageScrobble == "25")
                 {
                     combobox_TrackPercentageScrobble.SelectedIndex = 0;

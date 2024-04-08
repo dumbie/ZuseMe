@@ -8,6 +8,7 @@ using Windows.Media.Control;
 using ZuseMe.Api;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
+using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -41,7 +42,7 @@ namespace ZuseMe
                     if (!AppVariables.ScrobblePause && mediaTypeValid && (forceUpdate || mediaStatusChanged))
                     {
                         //Update Last.fm now playing
-                        bool updateNowPlayingSetting = SettingLoad(null, "LastFMUpdateNowPlaying", typeof(bool));
+                        bool updateNowPlayingSetting = SettingLoad(vConfiguration, "LastFMUpdateNowPlaying", typeof(bool));
                         if (updateNowPlayingSetting)
                         {
                             async Task TaskAction()
