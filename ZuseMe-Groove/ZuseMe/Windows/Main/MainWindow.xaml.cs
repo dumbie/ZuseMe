@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
@@ -33,7 +34,7 @@ namespace ZuseMe
                 Settings_Save();
 
                 //Set application version
-                string currentVersion = "v" + Assembly.GetEntryAssembly().FullName.Split('=')[1].Split(',')[0];
+                string currentVersion = "v" + AVFunctions.ApplicationVersion();
                 textblock_Version.Text = currentVersion + " by Arnold Vink";
             }
             catch { }

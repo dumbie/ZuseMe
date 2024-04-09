@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 using static ArnoldVinkCode.AVFunctions;
 
@@ -23,7 +23,7 @@ namespace ZuseMe
 
                 //Create tray icon
                 NotifyIcon.Text = "ZuseMe (Last.fm client)";
-                NotifyIcon.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ZuseMe.Assets.ZuseMe.ico"));
+                NotifyIcon.Icon = new Icon(AVEmbedded.EmbeddedResourceToStream(null, "ZuseMe.Assets.ZuseMe.ico"));
 
                 //Add menu to tray icon
                 NotifyIcon.ContextMenuStrip = ContextMenu;
