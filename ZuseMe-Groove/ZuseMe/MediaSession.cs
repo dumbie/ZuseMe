@@ -28,18 +28,19 @@ namespace ZuseMe
                     catch { }
                     return null;
                 }
-                AppVariables.SmtcSessionManager = await TaskStartTimeout(TaskAction, 2000);
+                AppVariables.SmtcSessionManager = await TaskStartReturn(TaskAction).WaitAsync(TimeSpan.FromMilliseconds(2000));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to request SMTC access: " + ex.Message);
+            }
+            finally
+            {
                 if (AppVariables.SmtcSessionManager == null)
                 {
                     await UpdateMediaPlayer(null);
-                    Debug.WriteLine("Failed to get SMTC access.");
-                }
-                else
-                {
-                    Debug.WriteLine("Received SMTC access.");
                 }
             }
-            catch { }
         }
 
         //Reset media player access
