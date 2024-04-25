@@ -11,14 +11,11 @@
     "Launcher"
   ],
   "FilesIgnore": [
-    ".exe.config",
+    ".exe.Config",
     ".csettings",
     "EnabledPlayers.json"
   ],
-  "FilesDelete": [
-    "Players.json"
-  ],
-  "FilesMove": [
-    [ "ZuseMe.exe.Config", "ZuseMe.exe.csettings" ]
+  "FoldersDelete": [
+    "Resources"
   ]
 }

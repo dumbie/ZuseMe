@@ -1,34 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<NoWarn>CA1416</NoWarn>
 		<OutputType>WinExe</OutputType>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Assets\ZuseMe.ico</ApplicationIcon>
+		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
+		<StartupObject>ZuseMe.App</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup>
+		<UseWPF>True</UseWPF>
+		<UseWindowsForms>True</UseWindowsForms>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<Optimize>True</Optimize>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<DebugType>none</DebugType>
 		<Optimize>True</Optimize>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
-	<PropertyGroup>
-		<ApplicationIcon>Assets\ZuseMe.ico</ApplicationIcon>
-	</PropertyGroup>
-	<PropertyGroup>
-		<ApplicationManifest>Properties\App.manifest</ApplicationManifest>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Remove="ZuseMe.exe.csettings" />
-	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Assets\ProfileLight.png" />
-	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Assets\ZuseMe.ico" />
+		<EmbeddedResource Include="Assets\ZuseMeDark.ico" />
 	</ItemGroup>
 	<ItemGroup>
 		<Resource Include="Assets\VolumeUnmuteLight.png" />
@@ -39,9 +37,10 @@
 		<Content Include="SupportedPlayers.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="ZuseMe.exe.csettings">
+		<Content Include="ZuseMe.exe.Config">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Resource Include="Assets\ProfileLight.png" />
 		<Resource Include="Assets\PlayersLight.png" />
 		<Resource Include="Assets\PauseLight.png" />
 		<Resource Include="Assets\PlayLight.png" />
@@ -52,33 +51,18 @@
 		<Resource Include="Assets\PlayPauseLight.png" />
 		<Resource Include="Assets\PreviousLight.png" />
 		<Resource Include="Assets\NextLight.png" />
-		<Content Include="Resources\Updater.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-	<ItemGroup>
 		<Resource Include="Assets\SettingsLight.png" />
-	</ItemGroup>
-	<ItemGroup>
 		<Resource Include="Assets\ThumbnailDark.png" />
-	</ItemGroup>
-	<ItemGroup>
 		<Resource Include="Assets\PauseAccent.png" />
 		<Resource Include="Assets\PlayAccent.png" />
 		<Resource Include="Assets\StopAccent.png" />
-	</ItemGroup>
-	<ItemGroup>
 		<Resource Include="Assets\UnknownAccent.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Assets\ZuseMeDark.ico" />
-	</ItemGroup>
-	<ItemGroup>
 		<Resource Include="Assets\PauseDark.png" />
 		<Resource Include="Assets\PlayDark.png" />
-	</ItemGroup>
-	<ItemGroup>
 		<Resource Include="Assets\ThumbnailLight.png" />
+		<Content Include="Resources\Updater.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\ArnoldVinkCode\Desktop\ArnoldVinkCode.csproj" />

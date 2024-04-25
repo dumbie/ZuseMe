@@ -11,7 +11,7 @@ namespace ZuseMe
     public static class AppVariables
     {
         //Application Variables
-        public static Configuration vConfiguration = SettingLoadConfig("ZuseMe.exe.csettings");
+        public static Configuration vConfiguration = SettingLoadConfig("ZuseMe.exe.Config");
 
         //Application Windows
         public static WindowMain WindowMain = new WindowMain();
