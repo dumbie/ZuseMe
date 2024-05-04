@@ -81,7 +81,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Name="button_FocusPlayer" VerticalAlignment="Center" Margin="10" Style="{StaticResource ButtonImageTransparentWhiteBorder}" Click="button_FocusPlayer_Click" Focusable="False">
+                <Button Grid.Column="0" Name="button_FocusPlayer" VerticalAlignment="Center" Margin="10" Style="{StaticResource ButtonImageTransparentWhiteBorder}" PreviewMouseDown="button_FocusPlayer_PreviewMouseDown" Focusable="False">
                     <Grid>
                         <Image Name="image_TrackCover" Width="100" Height="100" Source="/Assets/ThumbnailLight.png"/>
                         <Image Name="image_ScrobblePause" Width="50" Height="50" Source="/Assets/PauseAccent.png" Visibility="Collapsed"/>

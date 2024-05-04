@@ -162,11 +162,18 @@ namespace ZuseMe.Windows
             catch { }
         }
 
-        private async void button_FocusPlayer_Click(object sender, RoutedEventArgs e)
+        private async void button_FocusPlayer_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                await Media.FocusMediaPlayer();
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    await Media.FocusMediaPlayer();
+                }
+                else if (e.RightButton == MouseButtonState.Pressed)
+                {
+                    AppVariables.WindowMain.Show();
+                }
             }
             catch { }
         }
