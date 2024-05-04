@@ -60,7 +60,7 @@
 		<Resource Include="Assets\PauseDark.png" />
 		<Resource Include="Assets\PlayDark.png" />
 		<Resource Include="Assets\ThumbnailLight.png" />
-		<Content Include="Resources\Updater.json">
+		<Content Include="Updater\Updater.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
