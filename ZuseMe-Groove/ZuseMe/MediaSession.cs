@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Media.Control;
+using ZuseMe.Classes;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVProcess;
 
@@ -94,7 +95,21 @@ namespace ZuseMe
                 //}
 
                 //Load enabled players
-                IEnumerable<string> enabledPlayers = AppVariables.MediaPlayersSupported.Where(x => x.Enabled).Select(x => x.ProcessName);
+                List<string> enabledPlayers = new List<string>();
+                foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
+                {
+                    if (player.Enabled)
+                    {
+                        if (player.SmtcSessionName != null)
+                        {
+                            enabledPlayers.Add(player.SmtcSessionName);
+                        }
+                        else
+                        {
+                            enabledPlayers.Add(player.ProcessName);
+                        }
+                    }
+                }
 
                 //Check enabled players
                 GlobalSystemMediaTransportControlsSession currentPlayer = smtcSessions.OrderBy(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
@@ -113,13 +128,13 @@ namespace ZuseMe
             try
             {
                 string currentPlayerString = currentPlayer == null ? string.Empty : currentPlayer.SourceAppUserModelId;
-                if (currentPlayerString != AppVariables.SmtcSessionMediaProcess)
+                if (currentPlayerString != AppVariables.SmtcSessionName)
                 {
                     if (string.IsNullOrWhiteSpace(currentPlayerString))
                     {
                         //Update smtc player variables
                         AppVariables.SmtcSessionMedia = null;
-                        AppVariables.SmtcSessionMediaProcess = string.Empty;
+                        AppVariables.SmtcSessionName = string.Empty;
 
                         await MediaResetVariables(true, true, true, true, true);
                         Debug.WriteLine("No matching media player session profile found.");
@@ -128,7 +143,7 @@ namespace ZuseMe
                     {
                         //Update smtc player variables
                         AppVariables.SmtcSessionMedia = currentPlayer;
-                        AppVariables.SmtcSessionMediaProcess = currentPlayerString;
+                        AppVariables.SmtcSessionName = currentPlayerString;
 
                         //AppVariables.SmtcSessionMedia.TimelinePropertiesChanged += SmtcSessionMedia_TimelinePropertiesChanged;
                         //AppVariables.SmtcSessionMedia.PlaybackInfoChanged += SmtcSessionMedia_PlaybackInfoChanged;
@@ -195,18 +210,20 @@ namespace ZuseMe
         {
             try
             {
-                Debug.WriteLine("Focusing on player window: " + AppVariables.SmtcSessionMediaProcess);
-                string smtcSessionMediaProcessLower = AppVariables.SmtcSessionMediaProcess.ToLower();
+                Debug.WriteLine("Focusing on player window: " + AppVariables.SmtcSessionName);
+
+                //Get supported player
+                PlayersJson playerJson = AppVariables.MediaPlayersSupported.Where(x => x.SmtcSessionName == AppVariables.SmtcSessionName || x.ProcessName == AppVariables.SmtcSessionName).FirstOrDefault();
 
                 //Check application type
                 ProcessMulti processMultiPlayer = null;
-                if (smtcSessionMediaProcessLower.EndsWith(".exe"))
+                if (playerJson.ProcessName.EndsWith(".exe"))
                 {
-                    processMultiPlayer = Get_ProcessesMultiByName(smtcSessionMediaProcessLower, true).FirstOrDefault();
+                    processMultiPlayer = Get_ProcessesMultiByName(playerJson.ProcessName, true).FirstOrDefault();
                 }
                 else
                 {
-                    processMultiPlayer = Get_ProcessesMultiByAppUserModelId(smtcSessionMediaProcessLower).FirstOrDefault();
+                    processMultiPlayer = Get_ProcessesMultiByAppUserModelId(playerJson.ProcessName).FirstOrDefault();
                 }
 
                 if (processMultiPlayer != null)

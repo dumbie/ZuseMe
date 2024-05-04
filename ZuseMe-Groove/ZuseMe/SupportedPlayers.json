@@ -5,13 +5,19 @@
     "Note": "No extra requirements."
   },
   {
-    "Identifier": "Spotify (Windows Store)",
-    "ProcessName": "SpotifyAB.SpotifyMusic_zpdnekdrzrea0",
+    "Identifier": "Spotify (Desktop)",
+    "ProcessName": "Spotify.exe",
     "Note": "No extra requirements."
   },
   {
-    "Identifier": "Spotify (Desktop)",
+    "Identifier": "Spotify (Chromium)",
     "ProcessName": "Spotify.exe",
+    "SmtcSessionName": "Chromium.LL2THV7T3SXR7ZAAHIVVSNX274",
+    "Note": "No extra requirements."
+  },
+  {
+    "Identifier": "Spotify (Windows Store)",
+    "ProcessName": "SpotifyAB.SpotifyMusic_zpdnekdrzrea0",
     "Note": "No extra requirements."
   },
   {

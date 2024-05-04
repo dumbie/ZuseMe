@@ -55,6 +55,6 @@ namespace ZuseMe
         //Player Variables
         public static GlobalSystemMediaTransportControlsSessionManager SmtcSessionManager = null;
         public static GlobalSystemMediaTransportControlsSession SmtcSessionMedia = null;
-        public static string SmtcSessionMediaProcess = string.Empty;
+        public static string SmtcSessionName = string.Empty;
     }
 }
