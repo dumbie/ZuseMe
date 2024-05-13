@@ -87,7 +87,7 @@ namespace ZuseMe
         {
             try
             {
-                await AppStartup.Exit();
+                await AppExit.Exit();
             }
             catch { }
         }

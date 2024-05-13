@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using ZuseMe.Api;
 using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
@@ -10,13 +9,13 @@ using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
-    class AppStartup
+    public class AppStartup
     {
         public static async Task Startup()
         {
             try
             {
-                Debug.WriteLine("Welcome to ZuseMe.");
+                Debug.WriteLine("Welcome to application.");
 
                 //Setup application defaults
                 AVStartup.SetupDefaults(ProcessPriority.Normal, true);
@@ -50,24 +49,6 @@ namespace ZuseMe
                 {
                     AppVariables.WindowMain.Show();
                 }
-            }
-            catch { }
-        }
-
-        public static async Task Exit()
-        {
-            try
-            {
-                Debug.WriteLine("Exiting ZuseMe.");
-
-                //Remove now playing
-                await ApiScrobble.RemoveNowPlaying();
-
-                //Hide tray icon
-                AppVariables.AppTray.NotifyIcon.Visible = false;
-
-                //Exit application
-                Environment.Exit(1);
             }
             catch { }
         }

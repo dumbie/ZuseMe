@@ -45,7 +45,7 @@ namespace ZuseMe
                     else if (SelStackPanel.Name == "menuButtonPlayers") { ShowGridPage(stackpanel_Players); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(stackpanel_Settings); }
                     else if (SelStackPanel.Name == "menuButtonClose") { this.Close(); }
-                    else if (SelStackPanel.Name == "menuButtonExit") { await AppStartup.Exit(); }
+                    else if (SelStackPanel.Name == "menuButtonExit") { await AppExit.Exit(); }
                 }
             }
             catch { }
