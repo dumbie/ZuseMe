@@ -19,7 +19,7 @@ namespace ZuseMe
                 Debug.WriteLine("Welcome to ZuseMe.");
 
                 //Setup application defaults
-                AVStartup.SetupDefaults(ProcessPriority.Normal);
+                AVStartup.SetupDefaults(ProcessPriority.Normal, true);
 
                 //Application update accent color
                 ChangeApplicationAccentColor("#BA0000");

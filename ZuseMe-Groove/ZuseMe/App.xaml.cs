@@ -8,7 +8,6 @@ namespace ZuseMe
         {
             try
             {
-                //Run application startup code
                 await AppStartup.Startup();
             }
             catch { }
