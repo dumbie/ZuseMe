@@ -31,10 +31,10 @@
 	<ItemGroup>
 		<Resource Include="Assets\VolumeUnmuteLight.png" />
 		<Resource Include="Assets\VolumeMuteLight.png" />
-		<Content Include="EnabledPlayers.json">
+		<Content Include="Profiles\EnabledPlayers.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="SupportedPlayers.json">
+		<Content Include="Profiles\SupportedPlayers.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="ZuseMe.exe.Config">

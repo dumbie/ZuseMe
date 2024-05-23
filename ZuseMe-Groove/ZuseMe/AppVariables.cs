@@ -1,9 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows.Threading;
 using Windows.Media.Control;
 using ZuseMe.Classes;
 using ZuseMe.Windows;
+using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
@@ -19,7 +21,8 @@ namespace ZuseMe
         public static AppTray AppTray = new AppTray();
 
         //Player Variables
-        public static ObservableCollection<PlayersJson> MediaPlayersSupported = null;
+        public static List<PlayersJson> MediaPlayersEnabled = JsonLoadFile<List<PlayersJson>>(@"Profiles\EnabledPlayers.json");
+        public static ObservableCollection<PlayersJson> MediaPlayersSupported = JsonLoadFile<ObservableCollection<PlayersJson>>(@"Profiles\SupportedPlayers.json");
 
         //Scrobble Variables
         public static bool ScrobblePause = false;

@@ -18,7 +18,7 @@ namespace ArnoldVinkCode.Styles
 
                 //Save enabled players to json
                 var enabledPlayers = AppVariables.MediaPlayersSupported.Select(x => new { x.Enabled, x.ProcessName });
-                AVJsonFunctions.JsonSaveObject(enabledPlayers, "EnabledPlayers.json");
+                AVJsonFunctions.JsonSaveObject(enabledPlayers, @"Profiles\EnabledPlayers.json");
             }
             catch { }
         }

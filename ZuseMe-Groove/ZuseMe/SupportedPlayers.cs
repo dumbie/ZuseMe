@@ -1,6 +1,5 @@
 ﻿using ArnoldVinkCode;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using ZuseMe.Classes;
@@ -13,11 +12,6 @@ namespace ZuseMe
         {
             try
             {
-                //Load players from json
-                List<PlayersJson> MediaPlayersEnabled = null;
-                AVJsonFunctions.JsonLoadFile(ref MediaPlayersEnabled, "EnabledPlayers.json");
-                AVJsonFunctions.JsonLoadFile(ref AppVariables.MediaPlayersSupported, "SupportedPlayers.json");
-
                 //Set listbox source
                 AppVariables.WindowMain.listbox_SupportedPlayers.ItemsSource = AppVariables.MediaPlayersSupported;
 
@@ -27,7 +21,7 @@ namespace ZuseMe
                 {
                     try
                     {
-                        PlayersJson playerEnabled = MediaPlayersEnabled.Where(x => x.ProcessName == playerSupported.ProcessName).FirstOrDefault();
+                        PlayersJson playerEnabled = AppVariables.MediaPlayersEnabled.Where(x => x.ProcessName == playerSupported.ProcessName).FirstOrDefault();
                         if (playerEnabled == null)
                         {
                             jsonUpdated = true;
@@ -45,7 +39,7 @@ namespace ZuseMe
                 if (jsonUpdated)
                 {
                     var enabledPlayers = AppVariables.MediaPlayersSupported.Select(x => new { x.Enabled, x.ProcessName });
-                    AVJsonFunctions.JsonSaveObject(enabledPlayers, "EnabledPlayers.json");
+                    AVJsonFunctions.JsonSaveObject(enabledPlayers, @"Profiles\EnabledPlayers.json");
                 }
             }
             catch (Exception ex)
