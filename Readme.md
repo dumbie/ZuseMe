@@ -1,9 +1,6 @@
 ![ZuseMe](Screenshots/ZuseMe-Screenshot1.png)
 ![Overlay](Screenshots/ZuseMe-Screenshot2.png)
 
-## Media Player (Windows 11)
-Media Player (Windows 11) currently has an issue that prevents ZuseMe from detecting the currently playing song when using the next button, if you have the Windows feedback app installed you can help me make Microsoft aware of this issue so they can fix it by voting on the issue here: https://aka.ms/AAhb3hc
-
 ## Application description
 ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music and Media Player (Windows 11)
 
@@ -34,7 +31,7 @@ ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music an
 
 ## Requirements
 - Microsoft .NET Core Runtime installed.
-- Microsoft Windows 11 64-bit or higher is required.
+- Microsoft Windows 11 24H2 64-bit or higher is required.
 
 ## Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.
