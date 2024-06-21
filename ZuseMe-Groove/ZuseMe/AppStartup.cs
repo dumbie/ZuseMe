@@ -1,8 +1,6 @@
 ﻿using ArnoldVinkCode;
-using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using static ArnoldVinkCode.AVInteropDll;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.Styles.MainColors;
 using static ZuseMe.AppVariables;
@@ -16,9 +14,6 @@ namespace ZuseMe
             try
             {
                 Debug.WriteLine("Welcome to application.");
-
-                //Setup application defaults
-                AVStartup.SetupDefaults(ProcessPriority.Normal, true);
 
                 //Application update accent color
                 ChangeApplicationAccentColor("#BA0000");

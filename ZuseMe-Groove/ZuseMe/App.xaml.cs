@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVStartup;
 
 namespace ZuseMe
 {
@@ -8,6 +10,10 @@ namespace ZuseMe
         {
             try
             {
+                //Setup application defaults
+                SetupDefaults(ProcessPriority.Normal, true);
+
+                //Run application startup code
                 await AppStartup.Startup();
             }
             catch { }
