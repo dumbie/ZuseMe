@@ -24,15 +24,12 @@ namespace ZuseMe.Windows
 
                     if (msg.StartsWith("ZUNE"))
                     {
-                        string[] Split = msg.Split(new string[] { "\\0" }, StringSplitOptions.None);
-                        if (Split.Length >= 7)
+                        string[] msgSplit = msg.Split(new string[] { "\\0" }, StringSplitOptions.None);
+                        if (msgSplit.Length >= 7)
                         {
-                            string ZuneTitle = Split[4];
-                            string ZuneArtist = Split[5];
-                            string ZuneAlbum = Split[6];
-                            AppVariables.ZuneArtist = ZuneArtist;
-                            AppVariables.ZuneAlbum = ZuneAlbum;
-                            AppVariables.ZuneTitle = ZuneTitle;
+                            AppVariables.ZuneArtist = msgSplit[5];
+                            AppVariables.ZuneAlbum = msgSplit[6];
+                            AppVariables.ZuneTitle = msgSplit[4];
                         }
                     }
                 }
@@ -42,7 +39,7 @@ namespace ZuseMe.Windows
             return IntPtr.Zero;
         }
 
-        //Window create
+        //Window show
         public void Show()
         {
             AVActions.TaskStartBackground(delegate
@@ -72,13 +69,13 @@ namespace ZuseMe.Windows
                 WindowStylesEx windowStylesEx = WindowStylesEx.WS_EX_TOOLWINDOW;
                 windowHandle = CreateWindowEx(windowStylesEx, windowClassEx.lpszClassName, windowClassEx.lpszMenuName, windowStyles, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 
-                // Our process would run in Background
+                //Update window
                 UpdateWindow(windowHandle);
 
                 Debug.WriteLine("Zune receive window opened: " + windowHandle);
 
-                windowOpen = true;
-                while (windowOpen)
+                //Get message loop
+                while (windowHandle != IntPtr.Zero)
                 {
                     GetMessage(out _, IntPtr.Zero, 0, 0);
                 }

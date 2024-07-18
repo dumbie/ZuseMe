@@ -22,7 +22,6 @@ namespace ZuseMe
                     AppVariables.ScrobbleStatusAccepted = false;
                     AppVariables.ScrobbleStatusMessage = string.Empty;
                     AppVariables.ScrobbleSecondsCurrent = 0;
-                    AppVariables.MediaSecondsCurrent = 0;
                 }
 
                 //Reset media
@@ -35,15 +34,18 @@ namespace ZuseMe
                     AppVariables.MediaTracknumber = 0;
                     AppVariables.MediaArtist = string.Empty;
                     AppVariables.MediaAlbum = string.Empty;
-                    AppVariables.MediaGenre = string.Empty;
                     AppVariables.MediaTitle = string.Empty;
+                    AppVariables.MediaGenre = string.Empty;
                     AppVariables.MediaPrevious = string.Empty;
+                    AppVariables.MediaPlayStatusCurrent = null;
+                    AppVariables.MediaPlayType = null;
+                    AppVariables.MediaThumbnail = null;
                 }
 
                 //Reset playstatus
                 if (resetPlayStatus)
                 {
-                    AppVariables.MediaPlaybackStatusPrevious = null;
+                    AppVariables.MediaPlayStatusPrevious = null;
                 }
 
                 //Remove now playing

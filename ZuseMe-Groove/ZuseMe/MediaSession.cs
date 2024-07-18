@@ -39,23 +39,9 @@ namespace ZuseMe
             {
                 if (AppVariables.SmtcSessionManager == null)
                 {
-                    await UpdateMediaPlayer(null);
+                    await UpdateMediaPlayerSmtc(null);
                 }
             }
-        }
-
-        //Reset media player access
-        public static async Task ResetMediaPlayerAccess()
-        {
-            try
-            {
-                AppVariables.SmtcSessionManager = null;
-                AppVariables.SmtcSessionMedia = null;
-                await UpdateMediaPlayer(null);
-
-                Debug.WriteLine("Reset SMTC access.");
-            }
-            catch { }
         }
 
         //Update media player session
@@ -63,6 +49,12 @@ namespace ZuseMe
         {
             try
             {
+                //Update media player Zune software
+                if (UpdateMediaPlayerZune())
+                {
+                    return;
+                }
+
                 //Debug.WriteLine("Getting SMTC sessions.");
 
                 //Get active media player sessions
@@ -70,16 +62,6 @@ namespace ZuseMe
                 try
                 {
                     smtcSessions = AppVariables.SmtcSessionManager.GetSessions();
-                    if (smtcSessions == null || smtcSessions.Count == 0)
-                    {
-                        Debug.WriteLine("No SMTC sessions.");
-                        await UpdateMediaPlayer(null);
-                        return;
-                    }
-                    else
-                    {
-                        //Debug.WriteLine("Received SMTC sessions.");
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -114,8 +96,17 @@ namespace ZuseMe
                 //Check enabled players
                 GlobalSystemMediaTransportControlsSession currentPlayer = smtcSessions.OrderBy(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).Where(x => enabledPlayers.Any(x.SourceAppUserModelId.Contains)).FirstOrDefault();
 
-                //Check if player has changed
-                await UpdateMediaPlayer(currentPlayer);
+                //Update media player smtc
+                if (currentPlayer == null)
+                {
+                    Debug.WriteLine("No SMTC sessions.");
+                    await UpdateMediaPlayerSmtc(null);
+                }
+                else
+                {
+                    Debug.WriteLine("Found SMTC sessions.");
+                    await UpdateMediaPlayerSmtc(currentPlayer);
+                }
             }
             catch (Exception ex)
             {
@@ -123,7 +114,45 @@ namespace ZuseMe
             }
         }
 
-        private static async Task UpdateMediaPlayer(GlobalSystemMediaTransportControlsSession currentPlayer)
+        private static bool UpdateMediaPlayerZune()
+        {
+            try
+            {
+                //Check if Zune software is running
+                if (Check_RunningProcessByName("Zune.exe", true))
+                {
+                    //Get supported player
+                    PlayersJson playerJson = AppVariables.MediaPlayersSupported.Where(x => x.ProcessName == "Zune.exe").FirstOrDefault();
+                    if (playerJson.Enabled)
+                    {
+                        if (AppVariables.SmtcSessionName != "Zune.exe")
+                        {
+                            //Update smtc player variables
+                            AppVariables.SmtcSessionMedia = null;
+                            AppVariables.SmtcSessionName = "Zune.exe";
+
+                            UpdateMediaPlayerInterface();
+                            Debug.WriteLine("Changed media player session to: Zune.exe");
+                            return true;
+                        }
+                        else if (playerJson.Enabled && AppVariables.SmtcSessionName == "Zune.exe")
+                        {
+                            Debug.WriteLine("Media player session already set to: Zune.exe");
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("UpdateMediaPlayerZune failed: " + ex.Message);
+                return false;
+            }
+        }
+
+        private static async Task UpdateMediaPlayerSmtc(GlobalSystemMediaTransportControlsSession currentPlayer)
         {
             try
             {
@@ -145,47 +174,15 @@ namespace ZuseMe
                         AppVariables.SmtcSessionMedia = currentPlayer;
                         AppVariables.SmtcSessionName = currentPlayerString;
 
-                        //AppVariables.SmtcSessionMedia.TimelinePropertiesChanged += SmtcSessionMedia_TimelinePropertiesChanged;
-                        //AppVariables.SmtcSessionMedia.PlaybackInfoChanged += SmtcSessionMedia_PlaybackInfoChanged;
-                        //AppVariables.SmtcSessionMedia.MediaPropertiesChanged += SmtcSessionMedia_MediaPropertiesChanged;
-
                         UpdateMediaPlayerInterface();
                         Debug.WriteLine("Changed media player session to: " + currentPlayerString);
                     }
                 }
             }
-            catch { }
-        }
-
-        private static void SmtcSessionMedia_TimelinePropertiesChanged(GlobalSystemMediaTransportControlsSession sender, TimelinePropertiesChangedEventArgs args)
-        {
-            try
+            catch (Exception ex)
             {
-                Debug.WriteLine("Timeline properties changed.");
-                //AppVariables.ScrobbleReset = true;
+                Debug.WriteLine("UpdateMediaPlayerSmtc failed: " + ex.Message);
             }
-            catch { }
-        }
-
-        private static void SmtcSessionMedia_PlaybackInfoChanged(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
-        {
-            try
-            {
-                Debug.WriteLine("Playback info changed.");
-                //AppVariables.ScrobbleReset = true;
-            }
-            catch { }
-        }
-
-        //Reset on media properties change
-        private static void SmtcSessionMedia_MediaPropertiesChanged(GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs args)
-        {
-            try
-            {
-                Debug.WriteLine("Media properties changed.");
-                //AppVariables.ScrobbleReset = true;
-            }
-            catch { }
         }
 
         //Update media player interface
@@ -197,7 +194,7 @@ namespace ZuseMe
                 {
                     try
                     {
-                        AppVariables.WindowMain.textblock_PlayerDebug.Text = AppVariables.SmtcSessionMedia.SourceAppUserModelId;
+                        AppVariables.WindowMain.textblock_PlayerDebug.Text = AppVariables.SmtcSessionName;
                     }
                     catch { }
                 });

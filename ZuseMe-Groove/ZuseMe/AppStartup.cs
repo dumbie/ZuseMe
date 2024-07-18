@@ -44,6 +44,9 @@ namespace ZuseMe
                 {
                     AppVariables.WindowMain.Show();
                 }
+
+                //Show Zune software receive window
+                WindowZune.Show();
             }
             catch { }
         }

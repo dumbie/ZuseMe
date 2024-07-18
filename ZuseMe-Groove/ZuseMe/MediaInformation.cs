@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Windows.Media;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using static ArnoldVinkCode.AVActions;
@@ -19,101 +20,155 @@ namespace ZuseMe
         {
             try
             {
-                //Get media properties
-                if (AppVariables.SmtcSessionMedia == null) { return; }
-                GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties;
-                GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline;
-                GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo;
-                try
+                if (AppVariables.SmtcSessionName == "Zune.exe")
                 {
-                    mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
-                    mediaTimeline = AppVariables.SmtcSessionMedia.GetTimelineProperties();
-                    mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
+                    //Load media artist
+                    AppVariables.MediaArtist = AppVariables.ZuneArtist;
+
+                    //Load media title
+                    AppVariables.MediaTitle = AppVariables.ZuneTitle;
+
+                    //Load media album
+                    AppVariables.MediaAlbum = AppVariables.ZuneAlbum;
+
+                    //Load media genre
+                    AppVariables.MediaGenre = string.Empty;
+
+                    //Load media tracknumber
+                    AppVariables.MediaTracknumber = 0;
+
+                    //Load media position
+                    AppVariables.MediaSecondsCurrent = 0;
+                    AppVariables.MediaSecondsCurrentUnknown = true;
+
+                    //Load media duration
+                    AppVariables.MediaSecondsTotal = SettingLoad(vConfiguration, "TrackLengthCustom", typeof(int));
+                    AppVariables.MediaSecondsTotalUnknown = true;
+
+                    //Load media thumbnail
+                    AppVariables.MediaThumbnail = null;
+
+                    //Load media playback status
+                    AppVariables.MediaPlayStatusCurrent = GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing;
+
+                    //Load media playback type
+                    AppVariables.MediaPlayType = MediaPlaybackType.Music;
                 }
-                catch (Exception ex)
+                else
                 {
-                    Debug.WriteLine("Failed to get media properties: " + ex.Message);
-                    await ResetMediaPlayerAccess();
+                    //Check media session
+                    if (AppVariables.SmtcSessionMedia == null) { return; }
+
+                    //Get media properties
+                    GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = null;
+                    GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = null;
+                    GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = null;
+                    try
+                    {
+                        mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
+                        mediaTimeline = AppVariables.SmtcSessionMedia.GetTimelineProperties();
+                        mediaPlayInfo = AppVariables.SmtcSessionMedia.GetPlaybackInfo();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Failed to get media properties: " + ex.Message);
+                        await UpdateMediaPlayerSmtc(null);
+                        return;
+                    }
+
+                    //Load media artist
+                    AppVariables.MediaArtist = mediaProperties.Artist;
+                    if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
+                    {
+                        AppVariables.MediaArtist = mediaProperties.AlbumArtist;
+                    }
+
+                    //Load media title
+                    AppVariables.MediaTitle = mediaProperties.Title;
+                    if (string.IsNullOrWhiteSpace(AppVariables.MediaTitle))
+                    {
+                        AppVariables.MediaTitle = mediaProperties.Subtitle;
+                    }
+
+                    //Load media album
+                    AppVariables.MediaAlbum = mediaProperties.AlbumTitle;
+
+                    //Load media genre
+                    if (mediaProperties.Genres.Any())
+                    {
+                        AppVariables.MediaGenre = string.Join(", ", mediaProperties.Genres);
+                    }
+                    else
+                    {
+                        AppVariables.MediaGenre = string.Empty;
+                    }
+
+                    //Load media tracknumber
+                    AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
+
+                    //Load media position
+                    int mediaPosition = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
+                    AppVariables.MediaSecondsCurrent = mediaPosition;
+                    if (mediaPosition <= 0)
+                    {
+                        AppVariables.MediaSecondsCurrentUnknown = true;
+                        //Debug.WriteLine("Unknown position using custom: " + AppVariables.MediaSecondsCurrent + " seconds.");
+                    }
+                    else
+                    {
+                        AppVariables.MediaSecondsCurrentUnknown = false;
+                    }
+
+                    //Load media duration
+                    int mediaDuration = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
+                    if (mediaDuration <= 0)
+                    {
+                        AppVariables.MediaSecondsTotal = SettingLoad(vConfiguration, "TrackLengthCustom", typeof(int));
+                        AppVariables.MediaSecondsTotalUnknown = true;
+                        //Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotal + " seconds.");
+                    }
+                    else
+                    {
+                        AppVariables.MediaSecondsTotal = mediaDuration;
+                        AppVariables.MediaSecondsTotalUnknown = false;
+                    }
+
+                    //Load media thumbnail
+                    AppVariables.MediaThumbnail = mediaProperties.Thumbnail;
+
+                    //Load media playback status
+                    AppVariables.MediaPlayStatusCurrent = mediaPlayInfo.PlaybackStatus;
+
+                    //Load media playback type
+                    AppVariables.MediaPlayType = mediaPlayInfo.PlaybackType;
+                }
+
+                //Validate playing media
+                if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist) || string.IsNullOrWhiteSpace(AppVariables.MediaTitle) || string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
+                {
                     return;
                 }
 
-                //Load media artist
-                AppVariables.MediaArtist = mediaProperties.Artist;
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist))
-                {
-                    AppVariables.MediaArtist = mediaProperties.AlbumArtist;
-                }
-
-                //Load media title
-                AppVariables.MediaTitle = mediaProperties.Title;
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaTitle))
-                {
-                    AppVariables.MediaTitle = mediaProperties.Subtitle;
-                }
-
-                //Load media album
-                AppVariables.MediaAlbum = mediaProperties.AlbumTitle;
-
-                //Load media genre
-                if (mediaProperties.Genres.Any())
-                {
-                    AppVariables.MediaGenre = string.Join(", ", mediaProperties.Genres);
-                }
-                else
-                {
-                    AppVariables.MediaGenre = string.Empty;
-                }
-
-                //Load media tracknumber
-                AppVariables.MediaTracknumber = mediaProperties.TrackNumber;
-
-                //Load media position
-                int mediaPosition = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
-                AppVariables.MediaSecondsCurrent = mediaPosition;
-                if (mediaPosition <= 0)
-                {
-                    AppVariables.MediaSecondsCurrentUnknown = true;
-                    //Debug.WriteLine("Unknown position using custom: " + AppVariables.MediaSecondsCurrent + " seconds.");
-                }
-                else
-                {
-                    AppVariables.MediaSecondsCurrentUnknown = false;
-                }
-
-                //Load media duration
-                int mediaDuration = Convert.ToInt32(mediaTimeline.EndTime.TotalSeconds);
-                if (mediaDuration <= 0)
-                {
-                    AppVariables.MediaSecondsTotal = SettingLoad(vConfiguration, "TrackLengthCustom", typeof(int));
-                    AppVariables.MediaSecondsTotalUnknown = true;
-                    //Debug.WriteLine("Unknown duration using custom: " + AppVariables.MediaSecondsTotal + " seconds.");
-                }
-                else
-                {
-                    AppVariables.MediaSecondsTotal = mediaDuration;
-                    AppVariables.MediaSecondsTotalUnknown = false;
-                }
-
                 //Check if media changed
-                string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + AppVariables.MediaTracknumber.ToString() + AppVariables.MediaSecondsTotal.ToString() + AppVariables.SmtcSessionMedia.SourceAppUserModelId;
+                string mediaCombined = AppVariables.MediaArtist + AppVariables.MediaTitle + AppVariables.MediaAlbum + AppVariables.MediaTracknumber.ToString() + AppVariables.MediaSecondsTotal.ToString() + AppVariables.SmtcSessionName;
                 if (mediaCombined == AppVariables.MediaPrevious)
                 {
                     Debug.WriteLine("Media not changed: " + mediaCombined);
                     await MediaResetVariables(false, false, false, false, AppVariables.ScrobbleReset);
-                    await MediaStatusCheck(mediaPlayInfo, AppVariables.MediaForceStatusCheck);
-                    await MediaScrobbleCheck(mediaPlayInfo);
+                    await MediaStatusCheck(AppVariables.MediaForceStatusCheck);
+                    await MediaScrobbleCheck();
                     return;
                 }
                 else
                 {
                     Debug.WriteLine("Media has changed: " + mediaCombined);
                     await MediaResetVariables(false, false, false, false, true);
-                    await MediaStatusCheck(mediaPlayInfo, true);
+                    await MediaStatusCheck(true);
                     AppVariables.MediaPrevious = mediaCombined;
                 }
 
                 //Load media image bitmap
-                BitmapFrame mediaImageBitmap = await GetMediaThumbnail(mediaProperties.Thumbnail);
+                BitmapFrame mediaImageBitmap = await GetMediaThumbnail(AppVariables.MediaThumbnail);
 
                 //Update scrobble and notification window
                 DispatcherInvoke(delegate

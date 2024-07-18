@@ -12,6 +12,7 @@ namespace ZuseMe
             {
                 while (TaskCheckLoop(vTask_MonitorPlayer))
                 {
+                    //Update media player session
                     await UpdateMediaPlayerSession();
 
                     //Delay the loop task

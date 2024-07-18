@@ -45,17 +45,17 @@ namespace ZuseMe
             catch { }
         }
 
-        public static async Task MediaScrobbleCheck(GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo)
+        public static async Task MediaScrobbleCheck()
         {
             try
             {
-                Debug.WriteLine("Media " + mediaPlayInfo.PlaybackStatus + " (S" + AppVariables.ScrobbleSecondsCurrent + "/M" + AppVariables.MediaSecondsCurrent + "/T" + AppVariables.MediaSecondsTotal + " seconds)" + " (Scrobbled " + AppVariables.ScrobbleSubmitted + ")");
+                Debug.WriteLine("Media " + AppVariables.MediaPlayStatusCurrent + " (S" + AppVariables.ScrobbleSecondsCurrent + "/M" + AppVariables.MediaSecondsCurrent + "/T" + AppVariables.MediaSecondsTotal + " seconds)" + " (Scrobbled " + AppVariables.ScrobbleSubmitted + ")");
 
                 //Get media progress
                 int scrobbleTargetSeconds = SettingLoad(vConfiguration, "TrackPercentageScrobble", typeof(int)) * AppVariables.MediaSecondsTotal / 100;
                 int scrobblePercentage = 100 * AppVariables.ScrobbleSecondsCurrent / scrobbleTargetSeconds;
                 int mediaPercentage = 100 * AppVariables.MediaSecondsCurrent / AppVariables.MediaSecondsTotal;
-                bool mediaTypeValid = mediaPlayInfo.PlaybackType == MediaPlaybackType.Music;
+                bool mediaTypeValid = AppVariables.MediaPlayType == MediaPlaybackType.Music;
 
                 //Scrobble media to Last.fm
                 if (!AppVariables.ScrobblePause && !AppVariables.ScrobbleSubmitted && mediaTypeValid && AppVariables.ScrobbleSecondsCurrent >= scrobbleTargetSeconds)
@@ -80,6 +80,16 @@ namespace ZuseMe
 
                         string progressTotalString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsTotal, false, true);
                         string progressCurrentString = AVFunctions.SecondsToHms(AppVariables.MediaSecondsCurrent, false, true);
+
+                        //Hide overlay player control
+                        if (AppVariables.SmtcSessionName == "Zune.exe")
+                        {
+                            AppVariables.WindowOverlay.border_ControlPlayer.Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            AppVariables.WindowOverlay.border_ControlPlayer.Visibility = Visibility.Visible;
+                        }
 
                         //Hide overlay seek control
                         if (AppVariables.MediaSecondsCurrentUnknown && AppVariables.MediaSecondsTotalUnknown)
@@ -145,7 +155,7 @@ namespace ZuseMe
                             }
 
                             AppVariables.WindowMain.progress_StatusScrobble.Value = scrobblePercentage;
-                            if (sessionTokenSet && mediaPlayInfo.PlaybackType == MediaPlaybackType.Music)
+                            if (sessionTokenSet && AppVariables.MediaPlayType == MediaPlaybackType.Music)
                             {
                                 AppVariables.WindowMain.progress_StatusScrobble.Foreground = (SolidColorBrush)Application.Current.Resources["ApplicationAccentLightBrush"];
                             }
@@ -159,7 +169,7 @@ namespace ZuseMe
                 });
 
                 //Update current seconds
-                if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                 {
                     if (!AppVariables.ScrobblePause)
                     {

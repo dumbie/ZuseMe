@@ -14,17 +14,17 @@ namespace ZuseMe
 {
     public partial class Media
     {
-        private static async Task MediaStatusCheck(GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo, bool forceUpdate)
+        private static async Task MediaStatusCheck(bool forceUpdate)
         {
             try
             {
-                bool mediaTypeValid = mediaPlayInfo.PlaybackType == MediaPlaybackType.Music;
-                bool mediaStatusChanged = AppVariables.MediaPlaybackStatusPrevious != mediaPlayInfo.PlaybackStatus;
+                bool mediaTypeValid = AppVariables.MediaPlayType == MediaPlaybackType.Music;
+                bool mediaStatusChanged = AppVariables.MediaPlayStatusPrevious != AppVariables.MediaPlayStatusCurrent;
 
                 //Show media overlay
                 if (mediaStatusChanged)
                 {
-                    if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
+                    if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                     {
                         DispatcherInvoke(delegate
                         {
@@ -37,7 +37,7 @@ namespace ZuseMe
                     }
                 }
 
-                if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                 {
                     if (!AppVariables.ScrobblePause && mediaTypeValid && (forceUpdate || mediaStatusChanged))
                     {
@@ -109,7 +109,7 @@ namespace ZuseMe
                         Debug.WriteLine("Invalid media type playing.");
                     }
                 }
-                else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
+                else if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
                 {
                     //Update scrobble window
                     DispatcherInvoke(delegate
@@ -127,7 +127,7 @@ namespace ZuseMe
                         Debug.WriteLine("Media is currently stopped.");
                     }
                 }
-                else if (mediaPlayInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
+                else if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                 {
                     //Update scrobble window
                     DispatcherInvoke(delegate
@@ -160,7 +160,7 @@ namespace ZuseMe
                     if (mediaTypeValid && mediaStatusChanged)
                     {
                         await ApiScrobble.RemoveNowPlaying();
-                        Debug.WriteLine("Media is currently: " + mediaPlayInfo.PlaybackStatus);
+                        Debug.WriteLine("Media is currently: " + AppVariables.MediaPlayStatusCurrent);
                     }
                 }
             }
@@ -171,7 +171,7 @@ namespace ZuseMe
             finally
             {
                 AppVariables.MediaForceStatusCheck = false;
-                AppVariables.MediaPlaybackStatusPrevious = mediaPlayInfo.PlaybackStatus;
+                AppVariables.MediaPlayStatusPrevious = AppVariables.MediaPlayStatusCurrent;
             }
         }
     }
