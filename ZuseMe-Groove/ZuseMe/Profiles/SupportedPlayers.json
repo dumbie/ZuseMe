@@ -46,6 +46,11 @@
     "Note": "No extra requirements."
   },
   {
+    "Identifier": "Zune software",
+    "ProcessName": "Zune.exe",
+    "Note": "Required to run Zune as administrator."
+  },
+  {
     "Identifier": "Foobar2000",
     "ProcessName": "foobar2000.exe",
     "Note": "Requires foo_mediacontrol plugin.",
