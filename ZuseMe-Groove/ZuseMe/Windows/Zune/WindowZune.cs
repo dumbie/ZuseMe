@@ -10,7 +10,6 @@ namespace ZuseMe.Windows
     {
         //Window variables
         private IntPtr windowHandle;
-        private bool windowOpen = false;
 
         //Window process message
         public IntPtr WindowProcessMessage(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam)
