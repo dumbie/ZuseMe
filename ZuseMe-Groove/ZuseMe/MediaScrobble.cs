@@ -173,7 +173,10 @@ namespace ZuseMe
                 {
                     if (!AppVariables.ScrobblePause)
                     {
-                        AppVariables.ScrobbleSecondsCurrent++;
+                        if (AppVariables.ScrobbleSecondsCurrent < scrobbleTargetSeconds)
+                        {
+                            AppVariables.ScrobbleSecondsCurrent++;
+                        }
                     }
                     if (AppVariables.MediaSecondsCurrentUnknown)
                     {

@@ -22,6 +22,7 @@ namespace ZuseMe
                     AppVariables.ScrobbleStatusAccepted = false;
                     AppVariables.ScrobbleStatusMessage = string.Empty;
                     AppVariables.ScrobbleSecondsCurrent = 0;
+                    AppVariables.MediaSecondsCurrent = 0;
                 }
 
                 //Reset media

@@ -38,7 +38,6 @@ namespace ZuseMe
                     AppVariables.MediaTracknumber = 0;
 
                     //Load media position
-                    AppVariables.MediaSecondsCurrent = 0;
                     AppVariables.MediaSecondsCurrentUnknown = true;
 
                     //Load media duration
@@ -108,7 +107,6 @@ namespace ZuseMe
 
                     //Load media position
                     int mediaPosition = Convert.ToInt32(mediaTimeline.Position.TotalSeconds);
-                    AppVariables.MediaSecondsCurrent = mediaPosition;
                     if (mediaPosition <= 0)
                     {
                         AppVariables.MediaSecondsCurrentUnknown = true;
@@ -116,6 +114,7 @@ namespace ZuseMe
                     }
                     else
                     {
+                        AppVariables.MediaSecondsCurrent = mediaPosition;
                         AppVariables.MediaSecondsCurrentUnknown = false;
                     }
 
@@ -144,8 +143,9 @@ namespace ZuseMe
                 }
 
                 //Validate playing media
-                if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist) || string.IsNullOrWhiteSpace(AppVariables.MediaTitle) || string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
+                if (string.IsNullOrWhiteSpace(AppVariables.MediaArtist) && string.IsNullOrWhiteSpace(AppVariables.MediaTitle) && string.IsNullOrWhiteSpace(AppVariables.MediaAlbum))
                 {
+                    Debug.WriteLine("Media not valid.");
                     return;
                 }
 
