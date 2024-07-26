@@ -16,6 +16,7 @@ ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music an
 ## Supported players
 - Media Player (Windows 11)
 - Groove Music (Windows 10)
+- Zune software
 - iTunes
 - Deezer
 - Spotify
@@ -26,12 +27,13 @@ ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music an
 - AIMP
 
 ## Known issues
+- Default Windows Media Player only properly works with Windows 11 24H2 or newer.
 - When a player is hidden in the system tray it may not show when clicking the album cover.
 - Some players do not support scrobbling when listening to the same track multiple times.
 
 ## Requirements
 - Microsoft .NET Core Runtime installed.
-- Microsoft Windows 11 24H2 64-bit or higher is required.
+- Microsoft Windows 10 64-bit or higher is required.
 
 ## Support and bug reporting
 When you are walking into any problems or a bug you can go to my help page at https://help.arnoldvink.com so I can try to help you out and get everything working.
@@ -40,6 +42,9 @@ When you are walking into any problems or a bug you can go to my help page at ht
 If you appreciate this project and want to support me with my projects you can make a donation through https://donation.arnoldvink.com
 
 ## Changelog
+v3.30.0.0 (26-July-2024)
+- Added support for Zune software client.
+
 v3.20.0.0 (4-May-2024)
 - Added support for chromium based Spotify client.
 - Ported application to .NET8 framework.
