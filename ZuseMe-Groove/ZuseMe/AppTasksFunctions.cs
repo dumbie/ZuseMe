@@ -10,13 +10,10 @@ namespace ZuseMe
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorPlayer))
+                while (await TaskCheckLoop(vTask_MonitorPlayer, 2000))
                 {
                     //Update media player session
                     await UpdateMediaPlayerSession();
-
-                    //Delay the loop task
-                    await TaskDelay(2000, vTask_MonitorPlayer);
                 }
             }
             catch { }
@@ -26,12 +23,10 @@ namespace ZuseMe
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorMedia))
+                while (await TaskCheckLoop(vTask_MonitorMedia, 1000))
                 {
+                    //Update media information
                     await UpdateMediaInformation();
-
-                    //Delay the loop task
-                    await TaskDelay(1000, vTask_MonitorMedia);
                 }
             }
             catch { }
@@ -41,12 +36,10 @@ namespace ZuseMe
         {
             try
             {
-                while (TaskCheckLoop(vTask_MonitorVolume))
+                while (await TaskCheckLoop(vTask_MonitorVolume, 1000))
                 {
+                    //Check volume status
                     VolumeStatusCheck();
-
-                    //Delay the loop task
-                    await TaskDelay(1000, vTask_MonitorVolume);
                 }
             }
             catch { }

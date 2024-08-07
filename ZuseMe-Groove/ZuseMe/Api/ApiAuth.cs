@@ -92,7 +92,7 @@ namespace ZuseMe.Api
         {
             try
             {
-                while (TaskCheckLoop(AppTasks.vTask_LoginCheck))
+                while (await TaskCheckLoop(AppTasks.vTask_LoginCheck, 2000))
                 {
                     try
                     {
@@ -122,11 +122,6 @@ namespace ZuseMe.Api
                         }
                     }
                     catch { }
-                    finally
-                    {
-                        //Delay the loop task
-                        await TaskDelay(2000, AppTasks.vTask_LoginCheck);
-                    }
                 }
             }
             catch { }
