@@ -38,7 +38,7 @@ namespace ZuseMe.Windows
                 WindowUpdateVisibility(vInteropWindowHandle, true);
 
                 //Update window style
-                WindowUpdateStyle(vInteropWindowHandle, true, true, false);
+                WindowUpdateStyle(vInteropWindowHandle, true, true, true, false);
             }
             catch { }
         }
