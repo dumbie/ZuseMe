@@ -70,7 +70,7 @@ namespace ZuseMe
             catch { }
         }
 
-        private void OpenLastFMProfile()
+        public void OpenLastFMProfile()
         {
             try
             {

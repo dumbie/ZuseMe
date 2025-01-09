@@ -16,8 +16,11 @@ namespace ZuseMe
             try
             {
                 //Create context menu
-                ContextMenu.Items.Add("Show window", null, OnShow);
-                ContextMenu.Items.Add("Pause/Resume", null, OnPause);
+                ContextMenu.Items.Add("Pause or resume", null, OnPauseResume);
+                ContextMenu.Items.Add("-");
+                ContextMenu.Items.Add("Show window", null, OnShowWindow);
+                ContextMenu.Items.Add("Open profile", null, OnOpenProfile);
+                ContextMenu.Items.Add("-");
                 ContextMenu.Items.Add("Website", null, OnWebsite);
                 ContextMenu.Items.Add("Exit", null, OnExit);
 
@@ -33,7 +36,7 @@ namespace ZuseMe
 
                 //Register events
                 NotifyIcon.MouseClick += TrayIcon_MouseClick;
-                NotifyIcon.DoubleClick += OnShow;
+                NotifyIcon.DoubleClick += OnShowWindow;
             }
             catch { }
         }
@@ -56,7 +59,7 @@ namespace ZuseMe
             catch { }
         }
 
-        private void OnShow(object sender, EventArgs e)
+        private void OnShowWindow(object sender, EventArgs e)
         {
             try
             {
@@ -65,11 +68,20 @@ namespace ZuseMe
             catch { }
         }
 
-        private async void OnPause(object sender, EventArgs e)
+        private async void OnPauseResume(object sender, EventArgs e)
         {
             try
             {
                 await Media.MediaScrobblePauseToggle();
+            }
+            catch { }
+        }
+
+        private void OnOpenProfile(object sender, EventArgs e)
+        {
+            try
+            {
+                AppVariables.WindowMain.OpenLastFMProfile();
             }
             catch { }
         }
