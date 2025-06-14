@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVSettings;
+using static ArnoldVinkCode.AVUpdate;
 using static ArnoldVinkCode.Styles.MainColors;
 using static ZuseMe.AppVariables;
 
@@ -18,8 +19,11 @@ namespace ZuseMe
                 //Application update accent color
                 ChangeApplicationAccentColor("#BA0000");
 
-                //Application update checks
-                await AppUpdate.UpdateCheck();
+                //Clean application update files
+                await UpdateCleanup();
+
+                //Check for available application update
+                await UpdateCheck("dumbie", "ZuseMe", true);
 
                 //Check - Application Settings
                 Settings.Settings_Check();
