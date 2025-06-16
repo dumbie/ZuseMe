@@ -2,7 +2,7 @@
   "UserName": "Dumbie",
   "RepoName": "ZuseMe",
   "FileName": "ZuseMe-Groove.zip",
-  "ExtractName": "ZuseMe",
+  "ExtractPathPrepend": "..",
   "ProcessLaunch": [
     "Launcher.exe"
   ],

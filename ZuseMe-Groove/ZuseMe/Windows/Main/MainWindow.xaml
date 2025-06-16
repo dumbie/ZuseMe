@@ -11,8 +11,9 @@
         Background="{StaticResource ApplicationWhiteBrush}"
         Title="ZuseMe (Last.fm client)"
         Height="570"
+        MinHeight="570"
         Width="550"
-        ResizeMode="NoResize">
+        MinWidth="550">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,6 +39,10 @@
                 <StackPanel Name="menuButtonSettings" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Manage scrobble settings">
                     <Image Source="/Assets/SettingsLight.png" Width="55" HorizontalAlignment="Center"/>
                     <TextBlock Text="Settings" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Name="menuButtonUpdate" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Check for application update">
+                    <Image Source="/Assets/Update.png" Width="55" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Update" Style="{StaticResource TextBlockWhite}" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Name="menuButtonClose" Style="{StaticResource ListBoxMenuStackPanel}" ToolTipService.ToolTip="Close the window">
                     <Image Source="/Assets/CloseLight.png" Width="55" HorizontalAlignment="Center"/>

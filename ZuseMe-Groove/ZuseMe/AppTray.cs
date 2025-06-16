@@ -99,7 +99,7 @@ namespace ZuseMe
         {
             try
             {
-                await AppExit.Exit();
+                await AppExit.Exit_Prompt();
             }
             catch { }
         }

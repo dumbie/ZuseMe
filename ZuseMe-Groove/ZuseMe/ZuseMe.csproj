@@ -29,6 +29,7 @@
 		<EmbeddedResource Include="Assets\ZuseMeDark.ico" />
 	</ItemGroup>
 	<ItemGroup>
+		<Resource Include="Assets\Update.png" />
 		<Resource Include="Assets\VolumeUnmuteLight.png" />
 		<Resource Include="Assets\VolumeMuteLight.png" />
 		<Content Include="Profiles\EnabledPlayers.json">

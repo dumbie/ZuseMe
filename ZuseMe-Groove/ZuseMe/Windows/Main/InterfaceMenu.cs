@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static ArnoldVinkCode.AVUpdate;
 
 namespace ZuseMe
 {
@@ -44,8 +45,13 @@ namespace ZuseMe
                     else if (SelStackPanel.Name == "menuButtonProfile") { OpenLastFMProfile(); }
                     else if (SelStackPanel.Name == "menuButtonPlayers") { ShowGridPage(stackpanel_Players); }
                     else if (SelStackPanel.Name == "menuButtonSettings") { ShowGridPage(stackpanel_Settings); }
+                    else if (SelStackPanel.Name == "menuButtonUpdate")
+                    {
+                        //Check for available application update
+                        await UpdateCheck("dumbie", "ZuseMe", false);
+                    }
                     else if (SelStackPanel.Name == "menuButtonClose") { this.Close(); }
-                    else if (SelStackPanel.Name == "menuButtonExit") { await AppExit.Exit(); }
+                    else if (SelStackPanel.Name == "menuButtonExit") { await AppExit.Exit_Prompt(); }
                 }
             }
             catch { }
