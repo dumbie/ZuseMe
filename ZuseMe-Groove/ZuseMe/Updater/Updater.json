@@ -2,7 +2,8 @@
   "UserName": "Dumbie",
   "RepoName": "ZuseMe",
   "FileName": "ZuseMe-Groove.zip",
-  "ExtractPathPrepend": "..",
+  "ExtractName": "ZuseMe",
+  "ExtractPathRemove": [ "ZuseMe" ],
   "ProcessLaunch": [
     "Launcher.exe"
   ],
@@ -12,7 +13,6 @@
   ],
   "FilesIgnore": [
     ".exe.Config",
-    ".csettings",
     "EnabledPlayers.json"
   ],
   "FoldersDelete": [
