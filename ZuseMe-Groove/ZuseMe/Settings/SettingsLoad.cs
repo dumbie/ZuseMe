@@ -38,14 +38,7 @@ namespace ZuseMe
                 }
 
                 //Set the application name to string to check shortcuts
-                string targetName = AVFunctions.ApplicationName();
-
-                //Check if application is set to launch on Windows startup
-                string targetFileStartup = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), targetName + ".url");
-                if (File.Exists(targetFileStartup))
-                {
-                    checkbox_WindowsStartup.IsChecked = true;
-                }
+                checkbox_WindowsStartup.IsChecked = AVSettings.StartupShortcutCheck();
 
                 //Wait for settings to have loaded
                 await Task.Delay(1500);
