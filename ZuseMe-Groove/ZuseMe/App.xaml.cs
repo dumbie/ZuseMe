@@ -11,7 +11,7 @@ namespace ZuseMe
             try
             {
                 //Setup application defaults
-                SetupDefaults(ProcessPriority.Normal, true);
+                SetupDefaults(ProcessPriorityClasses.NORMAL_PRIORITY_CLASS, true);
 
                 //Run application startup code
                 await AppStartup.Startup();

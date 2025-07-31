@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +9,6 @@ using System.Windows.Media.Imaging;
 using Windows.Media;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
 using static ZuseMe.AppVariables;
 
@@ -171,7 +171,7 @@ namespace ZuseMe
                 BitmapFrame mediaImageBitmap = await GetMediaThumbnail(AppVariables.MediaThumbnail);
 
                 //Update scrobble and notification window
-                DispatcherInvoke(delegate
+                AVDispatcherInvoke.DispatcherInvoke(delegate
                 {
                     try
                     {

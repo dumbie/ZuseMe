@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -71,7 +72,7 @@ namespace ZuseMe
                 }
 
                 //Update scrobble window
-                AVActions.DispatcherInvoke(delegate
+                AVDispatcherInvoke.DispatcherInvoke(delegate
                 {
                     try
                     {

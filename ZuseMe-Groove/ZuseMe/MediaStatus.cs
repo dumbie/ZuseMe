@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -6,7 +7,6 @@ using System.Windows.Media.Imaging;
 using Windows.Media;
 using Windows.Media.Control;
 using ZuseMe.Api;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVSettings;
 using static ZuseMe.AppVariables;
 
@@ -26,7 +26,7 @@ namespace ZuseMe
                 {
                     if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                     {
-                        DispatcherInvoke(delegate
+                        AVDispatcherInvoke.DispatcherInvoke(delegate
                         {
                             try
                             {
@@ -58,7 +58,7 @@ namespace ZuseMe
                                 }
 
                                 //Update scrobble window
-                                DispatcherInvoke(delegate
+                                AVDispatcherInvoke.DispatcherInvoke(delegate
                                 {
                                     try
                                     {
@@ -79,7 +79,7 @@ namespace ZuseMe
                         else
                         {
                             //Update scrobble window
-                            DispatcherInvoke(delegate
+                            AVDispatcherInvoke.DispatcherInvoke(delegate
                             {
                                 try
                                 {
@@ -97,7 +97,7 @@ namespace ZuseMe
                         await ApiScrobble.RemoveNowPlaying();
 
                         //Update scrobble window
-                        DispatcherInvoke(delegate
+                        AVDispatcherInvoke.DispatcherInvoke(delegate
                         {
                             try
                             {
@@ -112,7 +112,7 @@ namespace ZuseMe
                 else if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Stopped)
                 {
                     //Update scrobble window
-                    DispatcherInvoke(delegate
+                    AVDispatcherInvoke.DispatcherInvoke(delegate
                     {
                         try
                         {
@@ -130,7 +130,7 @@ namespace ZuseMe
                 else if (AppVariables.MediaPlayStatusCurrent == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                 {
                     //Update scrobble window
-                    DispatcherInvoke(delegate
+                    AVDispatcherInvoke.DispatcherInvoke(delegate
                     {
                         try
                         {
@@ -148,7 +148,7 @@ namespace ZuseMe
                 else
                 {
                     //Update scrobble window
-                    DispatcherInvoke(delegate
+                    AVDispatcherInvoke.DispatcherInvoke(delegate
                     {
                         try
                         {

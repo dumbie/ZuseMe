@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -190,7 +191,7 @@ namespace ZuseMe
         {
             try
             {
-                DispatcherInvoke(delegate
+                AVDispatcherInvoke.DispatcherInvoke(delegate
                 {
                     try
                     {

@@ -12,7 +12,7 @@ namespace ZuseMe.Windows
         private IntPtr windowHandle;
 
         //Window process message
-        public IntPtr WindowProcessMessage(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam)
+        public IntPtr WindowProcessMessage(IntPtr hWnd, IntPtr uMsg, IntPtr wParam, IntPtr lParam)
         {
             try
             {
@@ -44,17 +44,10 @@ namespace ZuseMe.Windows
             AVActions.TaskStartBackground(delegate
             {
                 //Create window class
-                WNDCLASSEX windowClassEx = new WNDCLASSEX
+                WindowClassEx windowClassEx = new WindowClassEx
                 {
-                    cbSize = WNDCLASSEX.classSize,
-                    style = 0,
+                    cbSize = (uint)Marshal.SizeOf(typeof(WindowClassEx)),
                     lpfnWndProc = WindowProcessMessage,
-                    cbClsExtra = 0,
-                    cbWndExtra = 0,
-                    hInstance = IntPtr.Zero,
-                    hIcon = IntPtr.Zero,
-                    hCursor = IntPtr.Zero,
-                    hbrBackground = IntPtr.Zero,
                     lpszMenuName = string.Empty,
                     lpszClassName = "MsnMsgrUIManager",
                     hIconSm = IntPtr.Zero

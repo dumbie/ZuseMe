@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
-using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVAudioDevice;
 using static ArnoldVinkCode.AVSettings;
 using static ZuseMe.AppVariables;
@@ -29,7 +29,7 @@ namespace ZuseMe
                 //Compare volume variable
                 if (AppVariables.VolumeLevelPrevious != -1 && (currentVolume != AppVariables.VolumeLevelPrevious || currentMute != AppVariables.VolumeMutePrevious))
                 {
-                    DispatcherInvoke(delegate
+                    AVDispatcherInvoke.DispatcherInvoke(delegate
                     {
                         try
                         {
@@ -43,7 +43,7 @@ namespace ZuseMe
                 }
 
                 //Update overlay volume control
-                DispatcherInvoke(delegate
+                AVDispatcherInvoke.DispatcherInvoke(delegate
                 {
                     try
                     {

@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace ZuseMe.Windows
             catch { }
         }
 
-        public void ShowWindowDuration(int showSeconds)
+        public void ShowWindowDuration(uint showMilliSeconds)
         {
             try
             {
@@ -100,24 +101,27 @@ namespace ZuseMe.Windows
                 this.Show();
 
                 //Start overlay hide timer
-                AppVariables.DispatcherTimerOverlay.Interval = TimeSpan.FromMilliseconds(showSeconds);
-                AppVariables.DispatcherTimerOverlay.Tick += delegate
+                AppVariables.TimerOverlay.Interval = showMilliSeconds;
+                AppVariables.TimerOverlay.Tick = delegate
                 {
                     try
                     {
-                        //Check if mouse is over
-                        if (!grid_Overlay.IsMouseOver)
+                        AVDispatcherInvoke.DispatcherInvoke(delegate
                         {
-                            //Hide the overlay
-                            HideWindow();
+                            //Check if mouse is over
+                            if (!grid_Overlay.IsMouseOver)
+                            {
+                                //Stop the timer
+                                AppVariables.TimerOverlay.Stop();
 
-                            //Renew the timer
-                            AVFunctions.TimerRenew(ref AppVariables.DispatcherTimerOverlay);
-                        }
+                                //Hide the overlay
+                                HideWindow();
+                            }
+                        });
                     }
                     catch { }
                 };
-                AVFunctions.TimerReset(AppVariables.DispatcherTimerOverlay);
+                AppVariables.TimerOverlay.Start();
             }
             catch (Exception ex)
             {
@@ -216,8 +220,8 @@ namespace ZuseMe.Windows
         {
             try
             {
-                //Extend hide timer
-                AVFunctions.TimerReset(AppVariables.DispatcherTimerOverlay);
+                //Extend overlay timer
+                AppVariables.TimerOverlay.Start();
             }
             catch { }
         }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ArnoldVinkStyles;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ZuseMe.Api;
-using static ArnoldVinkCode.AVActions;
 
 namespace ZuseMe
 {
@@ -58,7 +58,7 @@ namespace ZuseMe
                 //Update scrobble window
                 if (resetInterface)
                 {
-                    DispatcherInvoke(delegate
+                    AVDispatcherInvoke.DispatcherInvoke(delegate
                     {
                         try
                         {

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static ArnoldVinkCode.AVSettings;
 using static ArnoldVinkCode.AVUpdate;
-using static ArnoldVinkCode.Styles.MainColors;
+using static ArnoldVinkStyles.MainColors;
 using static ZuseMe.AppVariables;
 
 namespace ZuseMe

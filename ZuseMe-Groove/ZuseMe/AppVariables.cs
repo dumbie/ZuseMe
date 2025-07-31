@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using System.Windows.Threading;
 using Windows.Media;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using ZuseMe.Classes;
 using ZuseMe.Windows;
+using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVJsonFunctions;
 using static ArnoldVinkCode.AVSettings;
 
@@ -62,7 +62,7 @@ namespace ZuseMe
         public static GlobalSystemMediaTransportControlsSessionPlaybackStatus? MediaPlayStatusPrevious = null;
 
         //Dispatcher Timers
-        public static DispatcherTimer DispatcherTimerOverlay = new DispatcherTimer();
+        public static AVHighResTimer TimerOverlay = new AVHighResTimer();
 
         //Player Variables
         public static GlobalSystemMediaTransportControlsSessionManager SmtcSessionManager = null;

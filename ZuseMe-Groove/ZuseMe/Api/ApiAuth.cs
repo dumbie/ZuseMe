@@ -1,4 +1,5 @@
 ﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -57,7 +58,7 @@ namespace ZuseMe.Api
                 AuthUnlinkLogin();
 
                 //Update interface
-                AVActions.DispatcherInvoke(delegate
+                AVDispatcherInvoke.DispatcherInvoke(delegate
                 {
                     AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
                     AppVariables.WindowMain.button_UnlinkLastFM.IsEnabled = true;
@@ -80,7 +81,7 @@ namespace ZuseMe.Api
                 SettingSave(vConfiguration, "LastFMSessionToken", string.Empty);
 
                 //Update interface
-                AVActions.DispatcherInvoke(delegate
+                AVDispatcherInvoke.DispatcherInvoke(delegate
                 {
                     AppVariables.WindowMain.UpdateLastFMUsername();
                 });
@@ -109,7 +110,7 @@ namespace ZuseMe.Api
                             SettingSave(vConfiguration, "LastFMSessionToken", sessionToken.key);
 
                             //Update interface
-                            AVActions.DispatcherInvoke(delegate
+                            AVDispatcherInvoke.DispatcherInvoke(delegate
                             {
                                 AppVariables.WindowMain.UpdateLastFMUsername();
                                 AppVariables.WindowMain.button_LinkLastFM.Content = "Link my Last.fm profile";
