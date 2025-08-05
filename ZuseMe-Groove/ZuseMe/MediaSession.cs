@@ -211,7 +211,25 @@ namespace ZuseMe
                 Debug.WriteLine("Focusing on player window: " + AppVariables.SmtcSessionName);
 
                 //Get supported player
-                PlayersJson playerJson = AppVariables.MediaPlayersSupported.Where(x => x.SmtcSessionName == AppVariables.SmtcSessionName || x.ProcessName == AppVariables.SmtcSessionName).FirstOrDefault();
+                PlayersJson playerJson = null;
+                foreach (PlayersJson player in AppVariables.MediaPlayersSupported)
+                {
+                    try
+                    {
+                        if (!string.IsNullOrWhiteSpace(player.SmtcSessionName) && AppVariables.SmtcSessionName.Contains(player.SmtcSessionName))
+                        {
+                            playerJson = player;
+                            break;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(player.ProcessName) && AppVariables.SmtcSessionName.Contains(player.ProcessName))
+                        {
+                            playerJson = player;
+                            break;
+                        }
+                    }
+                    catch { }
+                }
+                Debug.WriteLine("Focusing on player process: " + playerJson.ProcessName);
 
                 //Check application type
                 ProcessMulti processMultiPlayer = null;
