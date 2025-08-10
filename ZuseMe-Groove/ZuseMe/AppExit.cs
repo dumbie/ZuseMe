@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using ZuseMe.Api;
 
 namespace ZuseMe
@@ -17,7 +18,8 @@ namespace ZuseMe
                 messageAnswers.Add("Exit application");
                 messageAnswers.Add("Cancel");
 
-                string messageResult = AVMessageBox.Popup(AppVariables.WindowMain, "Do you really want to exit ZuseMe?", "This will stop scrobbling songs to Last.fm.", messageAnswers);
+                string messageColor = Application.Current.Resources["ApplicationAccentLightBrush"].ToString();
+                string messageResult = AVMessageBox.Popup(AppVariables.WindowMain, "Do you really want to exit ZuseMe?", "This will stop scrobbling songs to Last.fm.", messageAnswers, messageColor);
                 if (messageResult == "Exit application")
                 {
                     await Exit();

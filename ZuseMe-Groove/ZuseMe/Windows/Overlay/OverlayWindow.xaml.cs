@@ -101,8 +101,8 @@ namespace ZuseMe.Windows
                 this.Show();
 
                 //Start overlay hide timer
-                AppVariables.TimerOverlay.Interval = showMilliSeconds;
-                AppVariables.TimerOverlay.Tick = delegate
+                TimerOverlay.Interval = showMilliSeconds;
+                TimerOverlay.TickSet = delegate
                 {
                     try
                     {
@@ -112,7 +112,7 @@ namespace ZuseMe.Windows
                             if (!grid_Overlay.IsMouseOver)
                             {
                                 //Stop the timer
-                                AppVariables.TimerOverlay.Stop();
+                                TimerOverlay.Stop();
 
                                 //Hide the overlay
                                 HideWindow();
@@ -121,7 +121,7 @@ namespace ZuseMe.Windows
                     }
                     catch { }
                 };
-                AppVariables.TimerOverlay.Start();
+                TimerOverlay.Start();
             }
             catch (Exception ex)
             {
