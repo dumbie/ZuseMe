@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary
-    x:Class="ArnoldVinkCode.Styles.ListBoxSupportedPlayers"
+    x:Class="ArnoldVinkStyles.ListBoxSupportedPlayers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 

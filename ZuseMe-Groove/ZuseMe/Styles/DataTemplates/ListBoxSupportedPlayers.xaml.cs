@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,7 +7,7 @@ using ZuseMe;
 using ZuseMe.Classes;
 using static ArnoldVinkCode.AVFunctions;
 
-namespace ArnoldVinkCode.Styles
+namespace ArnoldVinkStyles
 {
     public partial class ListBoxSupportedPlayers : ResourceDictionary
     {
