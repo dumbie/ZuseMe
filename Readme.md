@@ -2,7 +2,7 @@
 ![Overlay](Screenshots/ZuseMe-Screenshot2.png)
 
 ## Application description
-ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music and Media Player (Windows 11)
+ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music, Media Player (Windows 11) and more.
 
 ## Installation Instructions
 1) Extract the ZuseMe folder to any directory you want on your device.
