@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ArnoldVinkCode;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using Windows.Media;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
@@ -8,14 +8,13 @@ using ZuseMe.Classes;
 using ZuseMe.Windows;
 using static ArnoldVinkCode.AVActions;
 using static ArnoldVinkCode.AVJsonFunctions;
-using static ArnoldVinkCode.AVSettings;
 
 namespace ZuseMe
 {
     public static class AppVariables
     {
         //Application Variables
-        public static Configuration vConfiguration = SettingLoadConfig("ZuseMe.exe.Config");
+        public static AVSettingsConfig vSettings = new AVSettingsConfig("ZuseMe.exe.Config");
 
         //Application Windows
         public static WindowMain WindowMain = new WindowMain();

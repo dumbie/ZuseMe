@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainColors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainFocus.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/MainFonts.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/Button.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ArnoldVinkStyles;component/Styles/ControlTemplates/CheckBox.xaml"/>

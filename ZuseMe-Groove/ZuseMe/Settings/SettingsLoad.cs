@@ -13,12 +13,12 @@ namespace ZuseMe
         {
             try
             {
-                textbox_TrackLengthCustom.Text = SettingLoad(vConfiguration, "TrackLengthCustom", typeof(string));
-                checkbox_TrackShowOverlay.IsChecked = SettingLoad(vConfiguration, "TrackShowOverlay", typeof(bool));
-                checkbox_VolumeShowOverlay.IsChecked = SettingLoad(vConfiguration, "VolumeShowOverlay", typeof(bool));
-                checkbox_LastFMUpdateNowPlaying.IsChecked = SettingLoad(vConfiguration, "LastFMUpdateNowPlaying", typeof(bool));
+                textbox_TrackLengthCustom.Text = vSettings.Load("TrackLengthCustom", typeof(string));
+                checkbox_TrackShowOverlay.IsChecked = vSettings.Load("TrackShowOverlay", typeof(bool));
+                checkbox_VolumeShowOverlay.IsChecked = vSettings.Load("VolumeShowOverlay", typeof(bool));
+                checkbox_LastFMUpdateNowPlaying.IsChecked = vSettings.Load("LastFMUpdateNowPlaying", typeof(bool));
 
-                string trackPercentageScrobble = SettingLoad(vConfiguration, "TrackPercentageScrobble", typeof(string));
+                string trackPercentageScrobble = vSettings.Load("TrackPercentageScrobble", typeof(string));
                 if (trackPercentageScrobble == "25")
                 {
                     combobox_TrackPercentageScrobble.SelectedIndex = 0;
@@ -37,7 +37,7 @@ namespace ZuseMe
                 }
 
                 //Set the application name to string to check shortcuts
-                checkbox_WindowsStartup.IsChecked = AVSettings.StartupShortcutCheck();
+                checkbox_WindowsStartup.IsChecked = AVSettings.StartupShortcutCheck(StartupShortcutType.Startup);
 
                 //Wait for settings to have loaded
                 await Task.Delay(1500);

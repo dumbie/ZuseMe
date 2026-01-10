@@ -1,5 +1,4 @@
-﻿using static ArnoldVinkCode.AVSettings;
-using static ZuseMe.AppVariables;
+﻿using static ZuseMe.AppVariables;
 
 namespace ZuseMe
 {
@@ -10,14 +9,14 @@ namespace ZuseMe
         {
             try
             {
-                if (!SettingCheck(vConfiguration, "LastFMUsername")) { SettingSave(vConfiguration, "LastFMUsername", string.Empty); }
-                if (!SettingCheck(vConfiguration, "LastFMAuthToken")) { SettingSave(vConfiguration, "LastFMAuthToken", string.Empty); }
-                if (!SettingCheck(vConfiguration, "LastFMSessionToken")) { SettingSave(vConfiguration, "LastFMSessionToken", string.Empty); }
-                if (!SettingCheck(vConfiguration, "TrackLengthCustom")) { SettingSave(vConfiguration, "TrackLengthCustom", "60"); }
-                if (!SettingCheck(vConfiguration, "TrackPercentageScrobble")) { SettingSave(vConfiguration, "TrackPercentageScrobble", "50"); }
-                if (!SettingCheck(vConfiguration, "TrackShowOverlay")) { SettingSave(vConfiguration, "TrackShowOverlay", "True"); }
-                if (!SettingCheck(vConfiguration, "VolumeShowOverlay")) { SettingSave(vConfiguration, "VolumeShowOverlay", "True"); }
-                if (!SettingCheck(vConfiguration, "LastFMUpdateNowPlaying")) { SettingSave(vConfiguration, "LastFMUpdateNowPlaying", "True"); }
+                if (!vSettings.Check("LastFMUsername")) { vSettings.Set("LastFMUsername", string.Empty); }
+                if (!vSettings.Check("LastFMAuthToken")) { vSettings.Set("LastFMAuthToken", string.Empty); }
+                if (!vSettings.Check("LastFMSessionToken")) { vSettings.Set("LastFMSessionToken", string.Empty); }
+                if (!vSettings.Check("TrackLengthCustom")) { vSettings.Set("TrackLengthCustom", "60"); }
+                if (!vSettings.Check("TrackPercentageScrobble")) { vSettings.Set("TrackPercentageScrobble", "50"); }
+                if (!vSettings.Check("TrackShowOverlay")) { vSettings.Set("TrackShowOverlay", "True"); }
+                if (!vSettings.Check("VolumeShowOverlay")) { vSettings.Set("VolumeShowOverlay", "True"); }
+                if (!vSettings.Check("LastFMUpdateNowPlaying")) { vSettings.Set("LastFMUpdateNowPlaying", "True"); }
             }
             catch { }
         }
