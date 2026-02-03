@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArnoldVinkCode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -76,7 +77,7 @@ namespace ZuseMe.Api
                 }
 
                 //Add secret api key
-                stringBuilderParameters.Append(ApiVariables.KeySecret);
+                stringBuilderParameters.Append(ApiTokens.LastFMSecret);
 
                 //Compute MD5 Hash
                 using (MD5 md5 = MD5.Create())

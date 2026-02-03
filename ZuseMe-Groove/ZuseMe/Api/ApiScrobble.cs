@@ -24,7 +24,7 @@ namespace ZuseMe.Api
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
                 requestParameters.Add("method", "track.scrobble");
-                requestParameters.Add("api_key", ApiVariables.KeyPublic);
+                requestParameters.Add("api_key", ApiTokens.LastFMPublic);
                 requestParameters.Add("sk", sessionToken);
 
                 int durationInt = 0;
@@ -99,7 +99,7 @@ namespace ZuseMe.Api
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
                 requestParameters.Add("method", "track.updateNowPlaying");
-                requestParameters.Add("api_key", ApiVariables.KeyPublic);
+                requestParameters.Add("api_key", ApiTokens.LastFMPublic);
                 requestParameters.Add("sk", sessionToken);
 
                 if (!string.IsNullOrWhiteSpace(artist)) { requestParameters.Add("artist", artist); }
@@ -152,7 +152,7 @@ namespace ZuseMe.Api
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
                 requestParameters.Add("method", "track.removeNowPlaying");
-                requestParameters.Add("api_key", ApiVariables.KeyPublic);
+                requestParameters.Add("api_key", ApiTokens.LastFMPublic);
                 requestParameters.Add("sk", sessionToken);
 
                 //Generate api signature

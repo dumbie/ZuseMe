@@ -41,7 +41,7 @@ namespace ZuseMe.Api
                 AppVariables.WindowMain.stackpanel_LoginStatus.Visibility = Visibility.Visible;
 
                 //Continue in browser
-                OpenWebsiteBrowser(ApiVariables.UrlLogin + "?api_key=" + ApiVariables.KeyPublic + "&token=" + loginToken.token);
+                OpenWebsiteBrowser(ApiVariables.UrlLogin + "?api_key=" + ApiTokens.LastFMPublic + "&token=" + loginToken.token);
 
                 //Start task to check login
                 TaskStartLoop(AuthLoginCheckLoop, AppTasks.vTask_LoginCheck);
@@ -134,7 +134,7 @@ namespace ZuseMe.Api
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
                 requestParameters.Add("method", "auth.getToken");
-                requestParameters.Add("api_key", ApiVariables.KeyPublic);
+                requestParameters.Add("api_key", ApiTokens.LastFMPublic);
 
                 //Generate api signature
                 string apiSignature = ApiFunctions.GenerateApiSignature(requestParameters);
@@ -172,7 +172,7 @@ namespace ZuseMe.Api
                 //Request parameters
                 Dictionary<string, string> requestParameters = new Dictionary<string, string>();
                 requestParameters.Add("method", "auth.getSession");
-                requestParameters.Add("api_key", ApiVariables.KeyPublic);
+                requestParameters.Add("api_key", ApiTokens.LastFMPublic);
                 requestParameters.Add("token", authToken);
 
                 //Generate api signature

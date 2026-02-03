@@ -244,7 +244,7 @@ namespace ZuseMe
 
                 if (processMultiPlayer != null)
                 {
-                    await Show_ProcessByWindowHandle(processMultiPlayer.WindowHandleMain);
+                    await Show_ProcessByWindowHandle(processMultiPlayer.WindowHandleMain());
                 }
                 else
                 {
