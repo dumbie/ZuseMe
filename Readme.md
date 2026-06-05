@@ -27,7 +27,7 @@ ZuseMe allows you to scrobble songs to Last.fm from players like Groove Music, M
 - AIMP
 
 ## Requirements
-- Microsoft .NET Runtime installed.
+- Microsoft .NET Desktop Runtime installed.
 - Microsoft Windows 10 64-bit or higher is required.
 
 ## Known Issues
