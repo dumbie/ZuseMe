@@ -81,7 +81,7 @@ namespace ZuseMe.Windows
                 }
 
                 //Check if media player window is active
-                ProcessMulti foregroundProcess = Get_ProcessMultiByWindowHandle(GetForegroundWindow());
+                AVProcess foregroundProcess = Get_ProcessByWindowHandle(GetForegroundWindow());
                 if (foregroundProcess != null)
                 {
                     bool skipOverlayAppUserModelId = AppVariables.MediaPlayersSupported.Any(x => foregroundProcess.AppUserModelId.ToLower().StartsWith(x.ProcessName.ToLower()));

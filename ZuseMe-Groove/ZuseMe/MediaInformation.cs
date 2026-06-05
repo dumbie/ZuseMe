@@ -17,6 +17,9 @@ namespace ZuseMe
     {
         public static async Task UpdateMediaInformation()
         {
+            GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = null;
+            GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = null;
+            GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = null;
             try
             {
                 if (AppVariables.SmtcSessionName == "Zune.exe")
@@ -58,9 +61,6 @@ namespace ZuseMe
                     if (AppVariables.SmtcSessionMedia == null) { return; }
 
                     //Get media properties
-                    GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties = null;
-                    GlobalSystemMediaTransportControlsSessionTimelineProperties mediaTimeline = null;
-                    GlobalSystemMediaTransportControlsSessionPlaybackInfo mediaPlayInfo = null;
                     try
                     {
                         mediaProperties = await AppVariables.SmtcSessionMedia.TryGetMediaPropertiesAsync();
@@ -247,6 +247,14 @@ namespace ZuseMe
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to update media information: " + ex.Message);
+            }
+            finally
+            {
+                //Manually trigger garbage collection
+                mediaProperties = null;
+                mediaTimeline = null;
+                mediaPlayInfo = null;
+                GC.Collect();
             }
         }
 

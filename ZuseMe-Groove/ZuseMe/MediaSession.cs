@@ -1,4 +1,5 @@
-﻿using ArnoldVinkStyles;
+﻿using ArnoldVinkCode;
+using ArnoldVinkStyles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -232,14 +233,14 @@ namespace ZuseMe
                 Debug.WriteLine("Focusing on player process: " + playerJson.ProcessName);
 
                 //Check application type
-                ProcessMulti processMultiPlayer = null;
+                AVProcess processMultiPlayer = null;
                 if (playerJson.ProcessName.EndsWith(".exe"))
                 {
-                    processMultiPlayer = Get_ProcessesMultiByName(playerJson.ProcessName, true).FirstOrDefault();
+                    processMultiPlayer = Get_ProcessByName(playerJson.ProcessName, true).FirstOrDefault();
                 }
                 else
                 {
-                    processMultiPlayer = Get_ProcessesMultiByAppUserModelId(playerJson.ProcessName).FirstOrDefault();
+                    processMultiPlayer = Get_ProcessByAppUserModelId(playerJson.ProcessName).FirstOrDefault();
                 }
 
                 if (processMultiPlayer != null)

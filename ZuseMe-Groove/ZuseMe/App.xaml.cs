@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using static ArnoldVinkCode.AVInteropDll;
+using static ArnoldVinkCode.AVProcess;
 using static ArnoldVinkCode.AVStartup;
 
 namespace ZuseMe
@@ -11,7 +11,7 @@ namespace ZuseMe
             try
             {
                 //Setup application defaults
-                SetupDefaults(ProcessPriorityClasses.NORMAL_PRIORITY_CLASS, true);
+                SetupDefaults(ProcessPriorityClasses.Normal, true, false);
 
                 //Run application startup code
                 await AppStartup.Startup();

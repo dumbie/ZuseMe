@@ -21,9 +21,6 @@ namespace ZuseMe
                 //Clean application update files
                 await UpdateCleanup();
 
-                //Check for available application update
-                await UpdateCheck("dumbie", "ZuseMe", true);
-
                 //Check - Application Settings
                 Settings.Settings_Check();
 

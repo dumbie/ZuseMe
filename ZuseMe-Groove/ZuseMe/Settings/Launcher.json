@@ -1,0 +1,8 @@
+{
+  "TaskName": "ZuseMe",
+  "ApplicationTitle": "ZuseMe",
+  "LaunchExecutables": [ "ZuseMe.exe" ],
+  "InstallCertificate": true,
+  "FirewallAllow": false,
+  "UIAccess": true
+}

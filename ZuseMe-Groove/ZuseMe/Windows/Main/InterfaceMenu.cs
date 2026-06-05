@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static ArnoldVinkCode.AVUpdate;
+using static ZuseMe.AppUpdate;
 
 namespace ZuseMe
 {
@@ -51,7 +51,7 @@ namespace ZuseMe
                     else if (SelStackPanel.Name == "menuButtonUpdate")
                     {
                         //Check for available application update
-                        await UpdateCheck("dumbie", "ZuseMe", false);
+                        await UpdateCheckInterface();
                     }
                     else if (SelStackPanel.Name == "menuButtonClose") { this.Close(); }
                     else if (SelStackPanel.Name == "menuButtonExit") { await AppExit.Exit_Prompt(); }

@@ -21,7 +21,7 @@
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-		<Optimize>True</Optimize>
+		<Optimize>False</Optimize>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
 		<Optimize>True</Optimize>
@@ -39,6 +39,9 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Profiles\SupportedPlayers.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Settings\Launcher.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="ZuseMe.exe.Config">
@@ -64,7 +67,7 @@
 		<Resource Include="Assets\PauseDark.png" />
 		<Resource Include="Assets\PlayDark.png" />
 		<Resource Include="Assets\ThumbnailLight.png" />
-		<Content Include="Updater\Updater.json">
+		<Content Include="Settings\Updater.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
